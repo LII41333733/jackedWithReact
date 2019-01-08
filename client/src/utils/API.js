@@ -6,7 +6,7 @@ export default {
     return axios.get(`/api/fitness/${id}/${date}`);
   },
   // Deletes the book with the given id
-  deleteData: function(id) {
+  deleteData: function(id, date) {
     return axios.delete(`/api/fitness/${id}/${date}`);
   },
   // Saves a book to the database

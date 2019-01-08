@@ -35,6 +35,36 @@ const fitnessSeed = [
       consumed: 4,
       target: 8
     }
+  },
+  {
+    username: "mfisher36",
+    date: "January 9, 2019",
+    // moment().format('LL');  
+    workoutData: {
+      workoutName: "Back and Bicep Day",
+      exercises: [{
+        exercise: "Bent-over Row",
+        sets: 3,
+        reps: 12,
+        section: "back",
+        notes: "We went SO HEAVY today. Will go even heavier next workout!",
+        weights: [100, 170, 175]
+      }]
+    },
+    nutritionData: {
+      target: 3000,
+      items: [{
+        item: "Bacon and Eggs",
+        kcal: 400
+      }, {
+        item: "Steak and Bacon",
+        kcal: 600
+      }]
+    },
+    waterData: {
+      consumed: 8,
+      target: 16
+    }
   }
 ];
 
