@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import DeleteBtn from "../components/DeleteBtn";
 import Nav from "../components/Nav";
 import DateBar from "../components/DateBar";
+import WorkoutCard from "../components/WorkoutCard";
 // import Jumbotron from "../components/Jumbotron";
 import API from "../utils/API";
 import { Link } from "react-router-dom";
@@ -69,7 +70,8 @@ class Fitness extends Component {
           <Row>
             <Col size="md-6 sm-12">
               <div className="div1 section mx-auto">
-                {(this.state.fitnessData.length !== 0) ? (<h1>{this.state.fitnessData[0].date}</h1>) : (<h1>This</h1>)}
+                {/* {(this.state.fitnessData.length !== 0) ? (<h1>{this.state.fitnessData[0].date}</h1>) : (<h1>This</h1>)} */}
+              <WorkoutCard />
               </div>
             </Col>
             {/* {<h1>{(this.state.fitnessData[0].date)?(`Hello ${this.state.fitnessData[0].date}`):("Not loaded yet")}</h1>} */}
