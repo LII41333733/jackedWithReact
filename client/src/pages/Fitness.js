@@ -22,10 +22,11 @@ class Fitness extends Component {
   }
 
   loadBooks = () => {
-    API.getData("5c36bff1c998491c1ad4d6cf", "January%208%2C%202019")
+    API.getData("5c3751200607fc3f2009e43a", "January%208%2C%202019")
       .then(res =>
         this.setState({ fitnessData: res.data }, () => {
           console.log(this.state)
+          console.log(this.state.fitnessData[0].workoutData.workoutName)
         })
       )
       .catch(err => console.log(err));
@@ -61,13 +62,18 @@ class Fitness extends Component {
     return (
       <div>
         <Nav />
+        <hr />
         <DateBar />
 
         <Container fluid>
           <Row>
             <Col size="md-6 sm-12">
-            <div className="div1 section mx-auto"></div>
+              <div className="div1 section mx-auto">
+                {(this.state.fitnessData.length !== 0) ? (<h1>{this.state.fitnessData[0].date}</h1>) : (<h1>This</h1>)}
+              </div>
             </Col>
+            {/* {<h1>{(this.state.fitnessData[0].date)?(`Hello ${this.state.fitnessData[0].date}`):("Not loaded yet")}</h1>} */}
+            {/* {<h1>{this.state.fitnessData[0].workoutData.workoutName}</h1>} */}
             {/* <Jumbotron>
               <h1>What Books Should I Read?</h1>
             </Jumbotron> */}
@@ -119,8 +125,8 @@ class Fitness extends Component {
               <h3>No Results to Display</h3>
             )} */}
             <Col size="md-6 sm-12">
-            <div className="div2 section mx-auto"></div>
-            <div className="div3 section mx-auto"></div>
+              <div className="div2 section mx-auto"></div>
+              <div className="div3 section mx-auto"></div>
             </Col>
           </Row>
         </Container>

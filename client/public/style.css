@@ -1,3 +1,7 @@
+html, body, #app, #app>div {
+  height: 100%
+}
+
 .no-gutter > [class*='col-'] {
  padding-right:0;
  padding-left:0;
@@ -6,24 +10,41 @@
 .section {
  height: auto;
  min-height: 300px;
- border: 1px solid red;
- width: 99%;
- background: green;
- margin-top: 1%;
- border-radius: 5px;
+ /* border: 1px solid red; */
+ width: 95%;
+ background: #FFFFFF;
+  /* background: #89D3DE; */
+  border: 2px solid #303740;
+ margin-top: 2%;
+ border-radius: 4px;
+ box-shadow: 4px 4px #c30000;
+ padding: 10px;
 }
 
-.col-md-6 {
- background: blue;
+body {
+ /* background: #89D3DE; */
+ background: #303740;
+ /* background: #010914; */
  /* padding: 0 2%; */
 }
 
-.div1 {
- /* margin-left: 10px;
- margin-right: 10px; */
-}
-.div2 {
- /* margin-left: 10px;
- margin-right: 10px; */
+
+
+.navbar {
+  /* background: #386A98; */
+  background: #010914;
 }
 
+a {
+  color: white;
+}
+
+.date-bar {
+  /* background: #010914 */
+  background: #ff0505
+}
+
+hr {
+  margin: .4rem 0;
+  bordeR: none;
+}

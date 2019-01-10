@@ -13,7 +13,8 @@ function App() {
         <Switch>
           {/* <Route exact path="/" component={NewUser} /> */}
           <Route exact path="/fitness/:id/:date" component={Fitness} />
-          {/* localhost:3000/fitness/5c36bff1c998491c1ad4d6cf/January%208%2C%202019 */}
+          
+          {/* localhost:3000/fitness/5c3751200607fc3f2009e43a/January%208%2C%202019 */}
           <Route component={NoMatch} />
         </Switch>
       </div>
