@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import DeleteBtn from "../components/DeleteBtn";
-import Jumbotron from "../components/Jumbotron";
+import Nav from "../components/Nav";
+import DateBar from "../components/DateBar";
+// import Jumbotron from "../components/Jumbotron";
 import API from "../utils/API";
 import { Link } from "react-router-dom";
 import { Col, Row, Container } from "../components/Grid";
@@ -20,7 +22,7 @@ class Fitness extends Component {
   }
 
   loadBooks = () => {
-    API.getData("5c34dc08ceb044215c66f96b", "January%208%2C%202019")
+    API.getData("5c36bff1c998491c1ad4d6cf", "January%208%2C%202019")
       .then(res =>
         this.setState({ fitnessData: res.data }, () => {
           console.log(this.state)
@@ -57,13 +59,19 @@ class Fitness extends Component {
 
   render() {
     return (
-      <Container fluid>
-        <Row>
-          <Col size="md-6">
-            <Jumbotron>
+      <div>
+        <Nav />
+        <DateBar />
+
+        <Container fluid>
+          <Row>
+            <Col size="md-6 sm-12">
+            <div className="div1 section mx-auto"></div>
+            </Col>
+            {/* <Jumbotron>
               <h1>What Books Should I Read?</h1>
-            </Jumbotron>
-            <form>
+            </Jumbotron> */}
+            {/* <form>
               <Input
                 value={this.state.title}
                 onChange={this.handleInputChange}
@@ -88,12 +96,12 @@ class Fitness extends Component {
               >
                 Submit Book
               </FormBtn>
-            </form>
-          </Col>
-          <Col size="md-6 sm-12">
-            <Jumbotron>
+            </form> */}
+
+
+            {/* <Jumbotron>
               <h1>Books On My List</h1>
-            </Jumbotron>
+            </Jumbotron> */}
             {/* {this.state.books.length ? (
               <List>
                 {this.state.books.map(book => (
@@ -110,9 +118,13 @@ class Fitness extends Component {
             ) : (
               <h3>No Results to Display</h3>
             )} */}
-          </Col>
-        </Row>
-      </Container>
+            <Col size="md-6 sm-12">
+            <div className="div2 section mx-auto"></div>
+            <div className="div3 section mx-auto"></div>
+            </Col>
+          </Row>
+        </Container>
+      </div>
     );
   }
 }

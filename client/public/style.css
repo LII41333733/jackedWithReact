@@ -1,0 +1,29 @@
+.no-gutter > [class*='col-'] {
+ padding-right:0;
+ padding-left:0;
+}
+
+.section {
+ height: auto;
+ min-height: 300px;
+ border: 1px solid red;
+ width: 99%;
+ background: green;
+ margin-top: 1%;
+ border-radius: 5px;
+}
+
+.col-md-6 {
+ background: blue;
+ /* padding: 0 2%; */
+}
+
+.div1 {
+ /* margin-left: 10px;
+ margin-right: 10px; */
+}
+.div2 {
+ /* margin-left: 10px;
+ margin-right: 10px; */
+}
+
