@@ -4,9 +4,25 @@ export function WorkoutCard(props) {
 
   return (
     <div className={`workout-card text-center`}>
-    <h4>TODAY'S WORKOUT:</h4>
-      {<h3 className="mt-3">{props.workoutName}</h3>}
-      {props.exercises}
+      <h4>TODAY'S WORKOUT:</h4>
+      {<h3 className="my-3">{props.workoutName}</h3>}
+      <table className="workout-table mx-auto">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Exercise</th>
+            <th>Sets x Reps</th>
+          </tr>
+        </thead>
+
+        {/* <td>""</td>
+       <td>Exercise:</td>
+       <td>Reps:</td> */}
+
+        <tbody>
+          {props.exercises}
+        </tbody>
+      </table>
     </div>
 
   );
@@ -16,8 +32,8 @@ export function WorkoutCard(props) {
 export function WaterCard(props) {
 
   return (
-    <div className={`workout-card text-center`}>
-    <h4>{props.remaining} GLASSES TO GO:</h4>
+    <div className={`water-card text-center`}>
+      <h4>{props.remaining} GLASSES TO GO:</h4>
       {props.cups}
     </div>
 

@@ -11,7 +11,7 @@ html, body, #app, #app>div {
 
 .section {
  height: auto;
- min-height: 300px;
+ /* min-height: 300px; */
  /* border: 1px solid red; */
  background: #FFFFFF;
   /* background: #89D3DE; */
@@ -19,7 +19,7 @@ html, body, #app, #app>div {
  /* margin-top: 2%; */
  border-radius: 4px;
  box-shadow: 5px 5px #c30000;
- padding: 30px;
+ padding: 30px 20px;
 }
 
 .div1 {
@@ -133,7 +133,7 @@ font-size: 1.8rem;
 }
 
 .fa-2x {
- font-size: 1.5em;
+ font-size: 1.2rem;
 }
 
 .fa-square {
@@ -141,5 +141,31 @@ font-size: 1.8rem;
 }
 
 .fa-glass-whiskey {
- font-size: 4rem;
+ font-size: 3rem;
+ margin: 5px;
 }
+
+.workout-table {
+  width: 90%;
+}
+
+.exercise, .reps {
+  font-size: 1.3rem;
+}
+
+th {
+  padding: 15px 0;
+}
+
+.whiskey-div {
+  width: 85%;
+  margin: 0 auto;
+}
+
+.whiskey-div-small {
+  width: 60%;
+  margin: 0 auto;
+
+}
+
+

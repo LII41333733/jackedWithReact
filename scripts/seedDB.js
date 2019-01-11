@@ -15,14 +15,57 @@ const fitnessSeed = [
     // moment().format('LL');  
     workoutData: {
       workoutName: "Chest and Back Day",
-      exercises: [{
+      exercises: [
+        {
         exercise: "Chest Press",
         sets: 3,
         reps: 12,
-        section: "chest",
+        section: "Chest",
         notes: "We a bit light today. Will go heavier next workout.",
         weights: [65, 70, 75]
-      }]
+      },
+        {
+        exercise: "Incline Dumbbell Fly",
+        sets: 4,
+        reps: 8,
+        section: "Chest",
+        notes: "We a bit light today. Will go heavier next workout.",
+        weights: [65, 70, 75]
+      },
+        {
+        exercise: "Close-Grip Bench Press",
+        sets: 5,
+        reps: 5,
+        section: "Chest",
+        notes: "We a bit light today. Will go heavier next workout.",
+        weights: [65, 70, 75]
+      },
+        {
+        exercise: "Decline Press",
+        sets: 3,
+        reps: 12,
+        section: "Chest",
+        notes: "We a bit light today. Will go heavier next workout.",
+        weights: [65, 70, 75]
+      },
+        {
+        exercise: "Wide Push-Ups",
+        sets: "F",
+        reps: "F",
+        section: "Chest",
+        notes: "We a bit light today. Will go heavier next workout.",
+        weights: [65, 70, 75]
+      },
+        {
+        exercise: "Hammer Strength Machine Press",
+        sets: 5,
+        reps: 10,
+        section: "Chest",
+        notes: "We a bit light today. Will go heavier next workout.",
+        weights: [65, 70, 75]
+      },
+
+    ]
     },
     nutritionData: {
       target: 2000,

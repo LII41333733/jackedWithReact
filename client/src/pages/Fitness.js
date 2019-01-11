@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import DeleteBtn from "../components/DeleteBtn";
 import Nav from "../components/Nav";
 import DateBar from "../components/DateBar";
-import {WorkoutCard} from "../components/Cards";
-import {WaterCard} from "../components/Cards";
+import { WorkoutCard } from "../components/Cards";
+import { WaterCard } from "../components/Cards";
 // import Jumbotron from "../components/Jumbotron";
 import API from "../utils/API";
 import { Link } from "react-router-dom";
@@ -14,7 +14,7 @@ import { Input, TextArea, FormBtn } from "../components/Form";
 class Fitness extends Component {
   state = {
     fitnessData: [],
-    _id: "5c37dfe310bf592531a8a4b8",
+    _id: "5c38be8c5ecf753fb414f669",
     date: "January%208%2C%202019"
   };
 
@@ -42,7 +42,7 @@ class Fitness extends Component {
 
 
 
-    console.log(data.workoutData.exercises)
+    // console.log(data.workoutData.exercises)
   }
 
   // deleteBook = id => {
@@ -74,14 +74,19 @@ class Fitness extends Component {
   render() {
 
     const data = this.state.fitnessData[0];
+    const whiskeyDiv = document.querySelectorAll(".whiskey-div")
 
     let glasses = [];
-     if (this.state.fitnessData.length !== 0) {
-       for (let i = 0; i < data.waterData.target; i++) {
-         glasses.push(<i class="fas fa-glass-whiskey"></i>)
-       }
+    if (this.state.fitnessData.length !== 0) {
+      for (let i = 0; i < data.waterData.target; i++) {
+        glasses.push(<i className="fas fa-glass-whiskey" key={i}></i>)
       }
-    
+
+    }
+
+
+
+
 
     return (
 
@@ -106,15 +111,14 @@ class Fitness extends Component {
 
                     exercises={data.workoutData.exercises.map(({ exercise, notes, reps, sets, section }, i) => {
                       return (
-                        <div key={i}>
-                          <span class="fa-stack fa-2x mt-4">
-                            <i className="fas fa-square fa-stack-2x"></i>
-                            <i className="fas fa-stack-1x fa-inverse">{i + 1}</i>
-                          </span>
-                          <p className="exercise">{exercise}</p>
-                          <p className="bodypart">({section})</p>
-                          <p className="reps">{sets}x{reps}</p>
-                        </div>
+                          <tr key={i}>
+                            <td className="fa-stack fa-2x">
+                              <i className="fas fa-square fa-stack-2x"></i>
+                              <i className="fas fa-stack-1x fa-inverse">{i + 1}</i>
+                            </td>
+                            <td className="exercise">{exercise}</td>
+                            <td className="reps">{sets} x {reps}</td>
+                          </tr>
                       )
                     })}
                   />
@@ -122,13 +126,13 @@ class Fitness extends Component {
               </Col>
               <Col size="md-5 sm-12">
                 <div className="div2 section mt-4">
-                    <WaterCard 
-                      remaining={data.waterData.target - data.waterData.consumed}
-                      cups={
+                  <WaterCard
+                    remaining={data.waterData.target - data.waterData.consumed}
+                    cups={
 
-                      <div>{glasses}</div>
-                      }
-                    />
+                      <div className={(glasses.length % 4 === 0)?("whiskey-div-small"):("whiskey-div")}>{glasses}</div>
+                    }
+                  />
                 </div>
                 <div className="div3 section mt-4"></div>
               </Col>
