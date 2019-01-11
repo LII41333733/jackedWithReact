@@ -1,9 +1,17 @@
 import React from "react";
 
 export default function WorkoutCard(props) {
+
+
+
   return (
     <div className={`workout-card text-center`}>
-      {<h5>{`Hello World!`}</h5>}
+      {<p>{props.username}</p>}
+      {<p>{props.foodTarget}</p>}
+      {<p>{props.waterDrank}</p>}
+      {<p>{props.waterTarget}</p>}
+      {<p>{props.workoutName}</p>}
+      {<p>{props.foodArray}</p>}
     </div>
 
   );
@@ -12,7 +20,7 @@ export default function WorkoutCard(props) {
 
 
 
-// const data = this.state.fitnessData[0];
+
 
 // data._id
 // data.date

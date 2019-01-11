@@ -21,6 +21,10 @@ html, body, #app, #app>div {
  padding: 10px;
 }
 
+.div1 {
+ width: 99%
+}
+
 body {
  /* background: #89D3DE; */
  background: #303740;

@@ -23,7 +23,7 @@ class Fitness extends Component {
   }
 
   loadBooks = () => {
-    API.getData("5c3751200607fc3f2009e43a", "January%208%2C%202019")
+    API.getData("5c37dfe310bf592531a8a4b8", "January%208%2C%202019")
       .then(res =>
         this.setState({ fitnessData: res.data }, () => {
           console.log(this.state)
@@ -60,26 +60,93 @@ class Fitness extends Component {
   // };
 
   render() {
+
+    const data = this.state.fitnessData[0];
+
     return (
-      <div>
+      
+      (this.state.fitnessData.length !== 0) 
+      
+      ?
+
+      (<div>
         <Nav />
         <hr />
-        <DateBar />
-
+        <DateBar 
+          date={data.date}
+        />
         <Container fluid>
           <Row>
             <Col size="md-6 sm-12">
               <div className="div1 section mx-auto">
-                {/* {(this.state.fitnessData.length !== 0) ? (<h1>{this.state.fitnessData[0].date}</h1>) : (<h1>This</h1>)} */}
-              <WorkoutCard />
+                  <WorkoutCard
+                    key={data.id}
+                    username={`Username: ${data.username}`}
+                    foodTarget={`Calories Target: ${data.nutritionData.target}`}
+                    waterDrank={`Current Glasses Drank: ${data.waterData.consumed}`}
+                    waterTarget={`Glasses target: ${data.waterData.target}`}
+                    workoutName={`Workout Name: ${data.workoutData.workoutName}`}
+                    foodArray={`Food Array: ${data.nutritionData.items.toString()}`}
+                    
+                  />
               </div>
             </Col>
-            {/* {<h1>{(this.state.fitnessData[0].date)?(`Hello ${this.state.fitnessData[0].date}`):("Not loaded yet")}</h1>} */}
-            {/* {<h1>{this.state.fitnessData[0].workoutData.workoutName}</h1>} */}
-            {/* <Jumbotron>
-              <h1>What Books Should I Read?</h1>
-            </Jumbotron> */}
-            {/* <form>
+            <Col size="md-6 sm-12">
+              <div className="div2 section mx-auto"></div>
+              <div className="div3 section mx-auto"></div>
+            </Col>
+          </Row>
+        </Container>
+      </div>) 
+      
+      :
+
+      (<div>
+        <Nav />
+        <hr />
+        <DateBar date={`January 10, 2019`}/> 
+        <Container fluid>
+          <Row>
+            <Col size="md-6 sm-12">
+              <div className="div1 section mx-auto">
+                  <WorkoutCard
+                    username={`You ain't got no data`}
+                  />
+              </div>
+            </Col>
+            <Col size="md-6 sm-12">
+              <div className="div2 section mx-auto"></div>
+              <div className="div3 section mx-auto"></div>
+            </Col>
+          </Row>
+        </Container>
+      </div>)
+    )
+  }
+}
+
+export default Fitness;
+
+
+
+
+ 
+{/* <List>
+{this.state.books.map(book => (
+  <ListItem key={book._id}>
+    <Link to={"/books/" + book._id}>
+      <strong>
+        {book.title} by {book.author}
+      </strong>
+    </Link>
+    <DeleteBtn onClick={() => this.deleteBook(book._id)} />
+  </ListItem>
+))}
+</List> */}
+
+
+
+{/* <form>
               <Input
                 value={this.state.title}
                 onChange={this.handleInputChange}
@@ -105,36 +172,3 @@ class Fitness extends Component {
                 Submit Book
               </FormBtn>
             </form> */}
-
-
-            {/* <Jumbotron>
-              <h1>Books On My List</h1>
-            </Jumbotron> */}
-            {/* {this.state.books.length ? (
-              <List>
-                {this.state.books.map(book => (
-                  <ListItem key={book._id}>
-                    <Link to={"/books/" + book._id}>
-                      <strong>
-                        {book.title} by {book.author}
-                      </strong>
-                    </Link>
-                    <DeleteBtn onClick={() => this.deleteBook(book._id)} />
-                  </ListItem>
-                ))}
-              </List>
-            ) : (
-              <h3>No Results to Display</h3>
-            )} */}
-            <Col size="md-6 sm-12">
-              <div className="div2 section mx-auto"></div>
-              <div className="div3 section mx-auto"></div>
-            </Col>
-          </Row>
-        </Container>
-      </div>
-    );
-  }
-}
-
-export default Fitness;
