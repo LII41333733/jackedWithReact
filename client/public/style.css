@@ -1,5 +1,7 @@
+/* Coda, Gruppo */
+
 html, body, #app, #app>div {
-  height: 100%
+  height: 100%;
 }
 
 .no-gutter > [class*='col-'] {
@@ -11,23 +13,28 @@ html, body, #app, #app>div {
  height: auto;
  min-height: 300px;
  /* border: 1px solid red; */
- width: 95%;
  background: #FFFFFF;
   /* background: #89D3DE; */
-  border: 2px solid #303740;
- margin-top: 2%;
+  border: 2px solid #000000;
+ /* margin-top: 2%; */
  border-radius: 4px;
- box-shadow: 4px 4px #c30000;
- padding: 10px;
+ box-shadow: 5px 5px #c30000;
+ padding: 30px;
 }
 
 .div1 {
- width: 99%
+ width: 90%
+}
+
+.div2, .div3 {
+ width: 100%
 }
 
 body {
  /* background: #89D3DE; */
- background: #303740;
+ background: #383838;
+ font-family: 'Monda', sans-serif;
+ /* background: #000000; */
  /* background: #010914; */
  /* padding: 0 2%; */
 }
@@ -36,7 +43,34 @@ body {
 
 .navbar {
   /* background: #386A98; */
-  background: #010914;
+  background: #000000;
+  padding: 0;
+}
+
+.nav-username {
+ position: absolute;
+ top: 10px;
+ right: 10px;
+ font-family: 'Gruppo', cursive;
+ letter-spacing: 5px;
+ color: white;
+ margin: 20px;
+ font-size: 1.6rem;
+
+}
+
+.sub-brand {
+ font-family: 'Gruppo', cursive;
+ letter-spacing: 15px;
+ padding: 0;
+ font-size: 1.6rem;
+}
+
+.brand {
+ font-family: 'Orbitron', sans-serif;
+ letter-spacing: 15px;
+ font-size: 1.8rem;
+ font-weight: 900;
 }
 
 a {
@@ -45,10 +79,67 @@ a {
 
 .date-bar {
   /* background: #010914 */
-  background: #ff0505
+  background: #ff0505;
+  line-height: 3rem;
+  font-family: 'Monda', sans-serif;
+  font-size: 1.5rem;
+  letter-spacing: 4px;
 }
 
 hr {
   margin: .4rem 0;
   bordeR: none;
+}
+
+.dumbbell {
+ height: 150px;
+ width: auto;
+}
+
+p {
+ font-size: 1.3rem;
+ letter-spacing: 2px;
+}
+
+h4 {
+ font-family: 'Monda', sans-serif;
+ font-size: 1.8rem;
+ letter-spacing: 5px;
+}
+
+h3 {
+ font-family: 'Monda', sans-serif;
+ font-size: 2rem;
+}
+
+p {
+ margin: 0
+}
+
+.exercise, .reps {
+ font-size: 2rem;
+}
+
+.bodypart {
+ font-size: 1.3rem
+}
+
+.reps {
+font-size: 1.8rem;
+}
+
+.fa-stack-1x {
+ font-family: 'Gruppo', cursive;
+}
+
+.fa-2x {
+ font-size: 1.5em;
+}
+
+.fa-square {
+ color: #ff0505;
+}
+
+.fa-glass-whiskey {
+ font-size: 4rem;
 }

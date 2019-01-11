@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import DeleteBtn from "../components/DeleteBtn";
 import Nav from "../components/Nav";
 import DateBar from "../components/DateBar";
-import WorkoutCard from "../components/WorkoutCard";
+import {WorkoutCard} from "../components/Cards";
+import {WaterCard} from "../components/Cards";
 // import Jumbotron from "../components/Jumbotron";
 import API from "../utils/API";
 import { Link } from "react-router-dom";
@@ -13,25 +14,36 @@ import { Input, TextArea, FormBtn } from "../components/Form";
 class Fitness extends Component {
   state = {
     fitnessData: [],
-    // title: "",
-    // author: "",
-    // synopsis: ""
+    _id: "5c37dfe310bf592531a8a4b8",
+    date: "January%208%2C%202019"
   };
 
   componentDidMount() {
-    this.loadBooks();
+    this.loadWorkouts();
   }
 
-  loadBooks = () => {
-    API.getData("5c37dfe310bf592531a8a4b8", "January%208%2C%202019")
+  loadWorkouts = () => {
+    API.getData(this.state._id, this.state.date)
       .then(res =>
         this.setState({ fitnessData: res.data }, () => {
-          console.log(this.state)
-          console.log(this.state.fitnessData[0].workoutData.workoutName)
+          const data = this.state.fitnessData[0];
+          this.configureData(data);
         })
       )
       .catch(err => console.log(err));
   };
+
+  configureData = (data) => {
+
+    const nutritionItems = [];
+
+
+
+
+
+
+    console.log(data.workoutData.exercises)
+  }
 
   // deleteBook = id => {
   //   API.deleteBook(id)
@@ -62,71 +74,90 @@ class Fitness extends Component {
   render() {
 
     const data = this.state.fitnessData[0];
-//     const myItems = [{ name: 'item 1' }, { name: 'item2' }];
-// function MyApp() {
-//     return (
-//        <TodoList items={myItems} />
-//     );
-// }
+
+    let glasses = [];
+     if (this.state.fitnessData.length !== 0) {
+       for (let i = 0; i < data.waterData.target; i++) {
+         glasses.push(<i class="fas fa-glass-whiskey"></i>)
+       }
+      }
+    
 
     return (
-      
-      (this.state.fitnessData.length !== 0) 
-      
-      ?
 
-      (<div>
-        <Nav />
-        <hr />
-        <DateBar 
-          date={data.date}
-        />
-        <Container fluid>
-          <Row>
-            <Col size="md-6 sm-12">
-              <div className="div1 section mx-auto">
+      (this.state.fitnessData.length !== 0)
+
+        ?
+
+        (<div>
+          <Nav
+            username={data.username}
+          />
+          <hr />
+          <DateBar
+            date={data.date}
+          />
+          <Container>
+            <Row>
+              <Col size="md-7 sm-12">
+                <div className="div1 section mt-4 mx-auto">
                   <WorkoutCard
-                    key={data.id}
-                    username={`Username: ${data.username}`}
-                    foodTarget={`Calories Target: ${data.nutritionData.target}`}
-                    waterDrank={`Current Glasses Drank: ${data.waterData.consumed}`}
-                    waterTarget={`Glasses target: ${data.waterData.target}`}
-                    workoutName={`Workout Name: ${data.workoutData.workoutName}`}
-                    foodArray={`Food Array: ${data.nutritionData.items.toString()}`}
-                    
-                  />
-              </div>
-            </Col>
-            <Col size="md-6 sm-12">
-              <div className="div2 section mx-auto"></div>
-              <div className="div3 section mx-auto"></div>
-            </Col>
-          </Row>
-        </Container>
-      </div>) 
-      
-      :
+                    workoutName={`${data.workoutData.workoutName}`}
 
-      (<div>
-        <Nav />
-        <hr />
-        <DateBar date={`January 10, 2019`}/> 
-        <Container fluid>
-          <Row>
-            <Col size="md-6 sm-12">
-              <div className="div1 section mx-auto">
+                    exercises={data.workoutData.exercises.map(({ exercise, notes, reps, sets, section }, i) => {
+                      return (
+                        <div key={i}>
+                          <span class="fa-stack fa-2x mt-4">
+                            <i className="fas fa-square fa-stack-2x"></i>
+                            <i className="fas fa-stack-1x fa-inverse">{i + 1}</i>
+                          </span>
+                          <p className="exercise">{exercise}</p>
+                          <p className="bodypart">({section})</p>
+                          <p className="reps">{sets}x{reps}</p>
+                        </div>
+                      )
+                    })}
+                  />
+                </div>
+              </Col>
+              <Col size="md-5 sm-12">
+                <div className="div2 section mt-4">
+                    <WaterCard 
+                      remaining={data.waterData.target - data.waterData.consumed}
+                      cups={
+
+                      <div>{glasses}</div>
+                      }
+                    />
+                </div>
+                <div className="div3 section mt-4"></div>
+              </Col>
+            </Row>
+          </Container>
+        </div>)
+
+        :
+
+        (<div>
+          <Nav />
+          <hr />
+          <DateBar date={`January 10, 2019`} />
+          <Container fluid>
+            <Row>
+              <Col size="md-6 sm-12">
+                <div className="div1 section mx-auto">
                   <WorkoutCard
                     username={`You ain't got no data`}
                   />
-              </div>
-            </Col>
-            <Col size="md-6 sm-12">
-              <div className="div2 section mx-auto"></div>
-              <div className="div3 section mx-auto"></div>
-            </Col>
-          </Row>
-        </Container>
-      </div>)
+                </div>
+              </Col>
+              <Col size="md-6 sm-12">
+                <div className="div2 section mx-auto"></div>
+                <div className="div3 section mx-auto"></div>
+              </Col>
+            </Row>
+          </Container>
+        </div>)
     )
   }
 }
@@ -136,7 +167,7 @@ export default Fitness;
 
 
 
- 
+
 {/* <List>
 {this.state.books.map(book => (
   <ListItem key={book._id}>

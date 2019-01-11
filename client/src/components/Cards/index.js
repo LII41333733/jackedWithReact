@@ -1,17 +1,24 @@
 import React from "react";
 
-export default function WorkoutCard(props) {
-
-
+export function WorkoutCard(props) {
 
   return (
     <div className={`workout-card text-center`}>
-      {<p>{props.username}</p>}
-      {<p>{props.foodTarget}</p>}
-      {<p>{props.waterDrank}</p>}
-      {<p>{props.waterTarget}</p>}
-      {<p>{props.workoutName}</p>}
-      {<p>{props.foodArray}</p>}
+    <h4>TODAY'S WORKOUT:</h4>
+      {<h3 className="mt-3">{props.workoutName}</h3>}
+      {props.exercises}
+    </div>
+
+  );
+
+}
+
+export function WaterCard(props) {
+
+  return (
+    <div className={`workout-card text-center`}>
+    <h4>{props.remaining} GLASSES TO GO:</h4>
+      {props.cups}
     </div>
 
   );
