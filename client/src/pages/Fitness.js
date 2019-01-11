@@ -1,9 +1,11 @@
 import React, { Component } from "react";
+import StarRatingComponent from 'react-star-rating-component';
 import DeleteBtn from "../components/DeleteBtn";
 import Nav from "../components/Nav";
 import DateBar from "../components/DateBar";
 import { WorkoutCard } from "../components/Cards";
 import { WaterCard } from "../components/Cards";
+import { NutritionCard } from "../components/Cards";
 // import Jumbotron from "../components/Jumbotron";
 import API from "../utils/API";
 import { Link } from "react-router-dom";
@@ -15,7 +17,8 @@ class Fitness extends Component {
   state = {
     fitnessData: [],
     _id: "5c38be8c5ecf753fb414f669",
-    date: "January%208%2C%202019"
+    date: "January%208%2C%202019",
+    rating: 1
   };
 
   componentDidMount() {
@@ -25,24 +28,26 @@ class Fitness extends Component {
   loadWorkouts = () => {
     API.getData(this.state._id, this.state.date)
       .then(res =>
-        this.setState({ fitnessData: res.data }, () => {
-          const data = this.state.fitnessData[0];
-          this.configureData(data);
-        })
+        this.setState({ 
+          fitnessData: res.data,
+        }, () => {
+          this.setState({
+            rating: this.state.fitnessData[0].waterData.consumed
+          }, () => {
+            console.log(this.state)
+          })
+         })
       )
-      .catch(err => console.log(err));
-  };
-
-  configureData = (data) => {
-
-    const nutritionItems = [];
+  }
 
 
+  onStarClick(nextValue, prevValue, name) {
+    // const rating = this.state.fitnessData[0].waterData.consumed;
+    this.setState({ 
+      rating: nextValue 
+    }, () => {
 
-
-
-
-    // console.log(data.workoutData.exercises)
+    });
   }
 
   // deleteBook = id => {
@@ -73,8 +78,10 @@ class Fitness extends Component {
 
   render() {
 
+    const { rating } = this.state;
+
     const data = this.state.fitnessData[0];
-    const whiskeyDiv = document.querySelectorAll(".whiskey-div")
+    // const whiskeyDiv = document.querySelectorAll(".whiskey-div")
 
     let glasses = [];
     if (this.state.fitnessData.length !== 0) {
@@ -105,36 +112,61 @@ class Fitness extends Component {
           <Container>
             <Row>
               <Col size="md-7 sm-12">
-                <div className="div1 section mt-4 mx-auto">
+                <div className="div1 section my-4 mx-auto">
                   <WorkoutCard
                     workoutName={`${data.workoutData.workoutName}`}
 
                     exercises={data.workoutData.exercises.map(({ exercise, notes, reps, sets, section }, i) => {
                       return (
-                          <tr key={i}>
-                            <td className="fa-stack fa-2x">
-                              <i className="fas fa-square fa-stack-2x"></i>
-                              <i className="fas fa-stack-1x fa-inverse">{i + 1}</i>
-                            </td>
-                            <td className="exercise">{exercise}</td>
-                            <td className="reps">{sets} x {reps}</td>
-                          </tr>
+                        <tr key={i}>
+                          <td className="fa-stack fa-2x">
+                            <i className="fas fa-square fa-stack-2x"></i>
+                            <i className="fas fa-stack-1x fa-inverse">{i + 1}</i>
+                          </td>
+                          <td className="exercise">{exercise}</td>
+                          <td className="reps">{sets} x {reps}</td>
+                        </tr>
                       )
                     })}
                   />
                 </div>
               </Col>
               <Col size="md-5 sm-12">
-                <div className="div2 section mt-4">
+                <div className="div2 section text-center mt-4">
                   <WaterCard
                     remaining={data.waterData.target - data.waterData.consumed}
-                    cups={
-
-                      <div className={(glasses.length % 4 === 0)?("whiskey-div-small"):("whiskey-div")}>{glasses}</div>
-                    }
+                    size={(data.waterData.target % 4 === 0) ? ("whiskey-div-small") : ("whiskey-div")}
+                 />
+                  <StarRatingComponent
+                    name="rate1"
+                    starCount={data.waterData.target}
+                    value={this.state.rating}
+                    onStarClick={this.onStarClick.bind(this)}
+                    starColor={`#09d0ff`}
+                    emptyStarColor={`#333333`}
+                    renderStarIcon={() => <i className="fas fa-glass-whiskey"></i>}
+            
                   />
                 </div>
-                <div className="div3 section mt-4"></div>
+                <div className="div3 section mt-4">
+                    <NutritionCard 
+                    target = {data.nutritionData.target}
+                    // consumed = {data.nutritionData.target Reduce on the objects when it comes in}
+                    items={data.nutritionData.items.map(({ item, kcal }, i) => {
+                      return (
+                        <tr key={i}>
+                          <td className="fa-stack fa-2x">
+                            <i className="fas fa-square fa-stack-2x"></i>
+                            <i className="fas fa-stack-1x fa-inverse">{i + 1}</i>
+                          </td>
+                          <td className="item">{item}</td>
+                          <td className="calories">{kcal}</td>
+                        </tr>
+                      )
+                    })}
+        
+                    />
+                </div>
               </Col>
             </Row>
           </Container>

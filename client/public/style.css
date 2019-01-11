@@ -55,7 +55,7 @@ body {
  letter-spacing: 5px;
  color: white;
  margin: 20px;
- font-size: 1.6rem;
+ font-size: 1rem;
 
 }
 
@@ -107,6 +107,13 @@ h4 {
  letter-spacing: 5px;
 }
 
+h5 {
+ font-family: 'Monda', sans-serif;
+ font-size: 1.5rem;
+ letter-spacing: 5px;
+ text-align: center;
+}
+
 h3 {
  font-family: 'Monda', sans-serif;
  font-size: 2rem;
@@ -141,11 +148,11 @@ font-size: 1.8rem;
 }
 
 .fa-glass-whiskey {
- font-size: 3rem;
+ font-size: 2.2rem;
  margin: 5px;
 }
 
-.workout-table {
+.workout-table, .nutrition-table {
   width: 90%;
 }
 
@@ -158,7 +165,7 @@ th {
 }
 
 .whiskey-div {
-  width: 85%;
+  width: 80%;
   margin: 0 auto;
 }
 

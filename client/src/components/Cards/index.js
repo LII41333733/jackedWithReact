@@ -4,7 +4,7 @@ export function WorkoutCard(props) {
 
   return (
     <div className={`workout-card text-center`}>
-      <h4>TODAY'S WORKOUT:</h4>
+      <h4>TODAY'S WORKOUT</h4>
       {<h3 className="my-3">{props.workoutName}</h3>}
       <table className="workout-table mx-auto">
         <thead>
@@ -14,27 +14,45 @@ export function WorkoutCard(props) {
             <th>Sets x Reps</th>
           </tr>
         </thead>
-
-        {/* <td>""</td>
-       <td>Exercise:</td>
-       <td>Reps:</td> */}
-
         <tbody>
           {props.exercises}
         </tbody>
       </table>
     </div>
-
   );
-
 }
 
 export function WaterCard(props) {
-
   return (
-    <div className={`water-card text-center`}>
-      <h4>{props.remaining} GLASSES TO GO:</h4>
+    <div className={`water-card d-flex mx-auto ${props.size}`}>
+      <h5 className="mx-auto">{props.remaining} GLASSES TO GO</h5>
       {props.cups}
+    </div>
+  );
+}
+
+export function NutritionCard(props) {
+  return (
+    <div className={`nutrition-card text-center`}>
+      <h5 className="">CALORIE TARGET</h5>
+      <h5 className="mb-4">{props.target} kcal</h5>
+      <h5 className="">CURRENT CALORIES</h5>
+      <h5 className="mb-4">3000 kcal</h5>
+      {/* <h5 className="mb-4">{props.consumed}</h5> */}
+      
+
+      <table className="nutrition-table mx-auto">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Item</th>
+            <th>Calories</th>
+          </tr>
+        </thead>
+        <tbody>
+          {props.items}
+        </tbody>
+      </table>
     </div>
 
   );

@@ -14,7 +14,7 @@ const fitnessSeed = [
     date: "January 8, 2019",
     // moment().format('LL');  
     workoutData: {
-      workoutName: "Chest and Back Day",
+      workoutName: "Chest and Back",
       exercises: [
         {
         exercise: "Chest Press",
@@ -69,10 +69,24 @@ const fitnessSeed = [
     },
     nutritionData: {
       target: 2000,
-      items: [{
-        item: "Bacon and Eggs",
-        kcal: 400
-      }]
+      items: [
+        {
+          item: "Bacon and Eggs",
+          kcal: 400
+        },
+        {
+          item: "Chicken Lentil Soup",
+          kcal: 350
+        },
+        {
+          item: "Small salad w/ Balsamic Dressing",
+          kcal: 200
+        },
+        {
+          item: "Martini",
+          kcal: 100
+        }
+      ]
     },
     waterData: {
       consumed: 4,
