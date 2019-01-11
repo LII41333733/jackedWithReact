@@ -62,6 +62,12 @@ class Fitness extends Component {
   render() {
 
     const data = this.state.fitnessData[0];
+//     const myItems = [{ name: 'item 1' }, { name: 'item2' }];
+// function MyApp() {
+//     return (
+//        <TodoList items={myItems} />
+//     );
+// }
 
     return (
       
