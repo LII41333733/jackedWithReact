@@ -204,7 +204,7 @@ label {
 }
 
 .green {
-  color: green;
+  color: rgb(46, 180, 46);
 }
 
 .far {
@@ -228,7 +228,7 @@ label {
 
 }
 
-.dv-star-rating {
-
-
+.fa-plus-square {
+  color: rgb(46, 180, 46);
+  font-size: 1.5rem;
 }
