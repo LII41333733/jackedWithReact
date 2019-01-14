@@ -4,6 +4,7 @@ const Schema = mongoose.Schema;
 const fitnessSchema = new Schema({
   username: { type: String, required: true },
   date: { type: String, required: true },
+  localID: Number,
   workoutData: {
     workoutName: String,
     exercises: [{

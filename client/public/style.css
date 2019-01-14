@@ -117,10 +117,15 @@ h5 {
 h3 {
  font-family: 'Monda', sans-serif;
  font-size: 2rem;
+ margin: 0;
 }
 
 p {
  margin: 0
+}
+
+.no-data {
+  font-size: 1.5rem;
 }
 
 .exercise, .reps {
@@ -220,5 +225,10 @@ label {
 
 .small {
   font-size: .9rem !important;
+
+}
+
+.dv-star-rating {
+
 
 }

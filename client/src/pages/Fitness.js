@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import StarRatingComponent from 'react-star-rating-component';
 import DeleteBtn from "../components/DeleteBtn";
 import Nav from "../components/Nav";
+import NoData from "../components/NoData";
 import UpdateButton from "../components/Buttons";
 import DateBar from "../components/DateBar";
 import { WorkoutCard } from "../components/Cards";
@@ -17,9 +18,6 @@ import { Input, TextArea, FormBtn } from "../components/Form";
 class Fitness extends Component {
   state = {
     fitnessData: [],
-    _id: "5c3b573187d68310f74af709",
-    date: "January%208%2C%202019",
-    // rating: 1
     editModeActive: false
   };
 
@@ -28,7 +26,8 @@ class Fitness extends Component {
   }
 
   loadWorkouts = () => {
-    API.getData(this.state._id, this.state.date)
+    
+    API.getData(1, "January 8, 2019")
       .then(res =>
         this.setState({
           fitnessData: res.data[0],
@@ -46,17 +45,27 @@ class Fitness extends Component {
     this.setState({
       fitnessData: data
     }, () => {
-      API.updateData(this.state._id, this.state.date, data)
+      API.updateData(1, "January 8, 2019")
         .catch(err => console.log(err));
     })
   }
 
+  ezPass = (ext) => {
+    switch (ext) {
+      case 1:
+        return this.state.fitnessData.workoutData;
+      case 2:
+        return this.state.fitnessData.waterData;
+      case 3:
+        return this.state.fitnessData.nutritionData;
+      default:
+        return this.state.fitnessData;
+    }
+  }
+
   ezPassUpdate = (ext, route, newVal) => {
-
     const fitnessData = { ...this.state.fitnessData }
-
     let choice;
-
     switch (ext) {
       case 1:
         choice = fitnessData.workoutData;
@@ -67,22 +76,16 @@ class Fitness extends Component {
       case 3:
         choice = fitnessData.nutritionData;
         break;
+      default:
+      return false;
     }
-
-    console.log(choice[route])
-    console.log(newVal)
-
-
     choice[route] = newVal;
-
     this.updateData(fitnessData);
   }
 
   ezPassDelete = (ext, route, key) => {
     const fitnessData = { ...this.state.fitnessData }
-
     let choice;
-
     switch (ext) {
       case 1:
         choice = fitnessData.workoutData;
@@ -93,15 +96,109 @@ class Fitness extends Component {
       case 3:
         choice = fitnessData.nutritionData;
         break;
+        default:
+        return false;
     }
-
     choice[route].splice(key, 1)
-
     this.updateData(fitnessData);
   }
 
   deleteItem = (key) => {
     this.ezPassState(3).items.splice(key, 1);
+  }
+
+  dataCheck = (ext) => {
+
+    switch (ext) {
+      case 1:
+        if (!this.ezPass(ext).workoutName) {
+          // return form
+          return (
+            <NoData category="Workout" />
+          )
+        } else {
+          return (
+            <WorkoutCard
+              workoutName={this.ezPass(ext).workoutName}
+              exercises={this.ezPass(ext).exercises.map(({ exercise, notes, reps, sets, section }, i) => {
+                return (
+                  <tr key={i}>
+                    <td className="fa-stack fa-2x">
+                      <i className="fas fa-square fa-stack-2x"></i>
+                      <i className="fas fa-stack-1x fa-inverse">{i + 1}</i>
+                    </td>
+                    <td className="exercise">{exercise}</td>
+                    <td className="reps">{sets} x {reps}</td>
+                  </tr>
+                )
+              })}
+            />
+          )
+        }
+      case 2:
+        if (!this.ezPass(ext).target) {
+          // return form
+          return (
+            <NoData category="Water" />
+          )
+        } else {
+          return (
+
+            <div>
+              <WaterCard
+                remaining={this.ezPass(ext).target - this.ezPass(ext).consumed}
+                size={(this.ezPass(ext).target % 4 === 0) ? ("whiskey-div-small") : ("whiskey-div")}
+              />
+
+              <StarRatingComponent
+                name="rate1"
+                starCount={this.ezPass(ext).target}
+                value={this.ezPass(ext).consumed}
+                onStarClick={this.onStarClick.bind(this)}
+                starColor={`#09d0ff`}
+                emptyStarColor={`#333333`}
+                renderStarIcon={() => <i className="fas fa-glass-whiskey"></i>}
+              />
+            </div>
+          )
+        }
+      case 3:
+        if (!this.ezPass(ext).target) {
+          // return form
+          return (
+            <NoData category="nutrition" />
+          )
+        } else {
+          return (
+
+            <div>
+              <NutritionCard
+                status={this.reduceCalories().status}
+                target={this.ezPass(ext).target}
+                current={this.reduceCalories().total}
+                items={this.ezPass(ext).items.map(({ item, kcal }, i) => {
+                  return (
+                    <tr key={i}>
+                      <td className="fa-stack fa-2x">
+                        <i className="fas fa-square fa-stack-2x"></i>
+                        <i className="fas fa-stack-1x fa-inverse">{i + 1}</i>
+                      </td>
+                      <td className="item max">{item}</td>
+                      <td className="calories">{kcal}</td>
+                      <td><i className="far fa-edit ml-4" onClick={() => { this.editMode(i) }}></i></td>
+                      {/* <td><i className="far fa-trash-alt" onClick={() => {this.deleteItem(i)}}></i></td> */}
+                      <td><i className="far fa-trash-alt" onClick={() => { this.ezPassDelete(3, "items", i) }}></i></td>
+                    </tr>
+                  )
+                })}
+
+              />
+            </div>
+          )
+        }
+        default:
+        return false;
+    }
   }
 
   onStarClick = (nextValue, prevValue, name) => {
@@ -172,66 +269,19 @@ class Fitness extends Component {
             <Row>
               <Col size="md-7 sm-12">
                 <div className="div1 section my-4 mx-auto">
-                  <WorkoutCard
-                    workoutName={`${data.workoutData.workoutName}`}
-
-                    exercises={data.workoutData.exercises.map(({ exercise, notes, reps, sets, section }, i) => {
-                      return (
-                        <tr key={i}>
-                          <td className="fa-stack fa-2x">
-                            <i className="fas fa-square fa-stack-2x"></i>
-                            <i className="fas fa-stack-1x fa-inverse">{i + 1}</i>
-                          </td>
-                          <td className="exercise">{exercise}</td>
-                          <td className="reps">{sets} x {reps}</td>
-                        </tr>
-                      )
-                    })}
-                  />
+                  {this.dataCheck(1)}
                 </div>
               </Col>
               <Col size="md-5 sm-12">
                 <div className="div2 section text-center mt-4">
 
-                  <WaterCard
-                    remaining={data.waterData.target - data.waterData.consumed}
-                    size={(data.waterData.target % 4 === 0) ? ("whiskey-div-small") : ("whiskey-div")}
-                  />
+                  {this.dataCheck(2)}
 
-                  <StarRatingComponent
-                    name="rate1"
-                    starCount={data.waterData.target}
-                    value={data.waterData.consumed}
-                    onStarClick={this.onStarClick.bind(this)}
-                    starColor={`#09d0ff`}
-                    emptyStarColor={`#333333`}
-                    renderStarIcon={() => <i className="fas fa-glass-whiskey"></i>}
-                  />
 
                 </div>
                 <div className="div3 section mt-4">
-                  <NutritionCard
-                    // status={(data.nutritionData.)?():()} 
-                    status={this.reduceCalories().status}
-                    target={data.nutritionData.target}
-                    current={this.reduceCalories().total}
-                    items={data.nutritionData.items.map(({ item, kcal }, i) => {
-                      return (
-                        <tr key={i}>
-                          <td className="fa-stack fa-2x">
-                            <i className="fas fa-square fa-stack-2x"></i>
-                            <i className="fas fa-stack-1x fa-inverse">{i + 1}</i>
-                          </td>
-                          <td className="item max">{item}</td>
-                          <td className="calories">{kcal}</td>
-                          <td><i className="far fa-edit ml-4" onClick={() => {this.editMode(i)}}></i></td>
-                          {/* <td><i className="far fa-trash-alt" onClick={() => {this.deleteItem(i)}}></i></td> */}
-                          <td><i className="far fa-trash-alt" onClick={() => {this.ezPassDelete(3, "items", i)}}></i></td>
-                        </tr>
-                      )
-                    })}
+                  {this.dataCheck(3)}
 
-                  />
                 </div>
               </Col>
             </Row>

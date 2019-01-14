@@ -12,6 +12,7 @@ const fitnessSeed = [
   {
     username: "LII41333733",
     date: "January 8, 2019",
+    localID: 1,
     // moment().format('LL');  
     workoutData: {
       workoutName: "Chest and Back",
@@ -96,6 +97,7 @@ const fitnessSeed = [
   {
     username: "mfisher36",
     date: "January 9, 2019",
+    localID: 2,
     // moment().format('LL');  
     workoutData: {
       workoutName: "Back and Bicep Day",
