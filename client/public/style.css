@@ -19,7 +19,7 @@ html, body, #app, #app>div {
  /* margin-top: 2%; */
  border-radius: 4px;
  box-shadow: 5px 5px #c30000;
- padding: 30px 20px;
+ padding: 30px 0;
 }
 
 .div1 {
@@ -110,7 +110,7 @@ h4 {
 h5 {
  font-family: 'Monda', sans-serif;
  font-size: 1.5rem;
- letter-spacing: 5px;
+ letter-spacing: 4px;
  text-align: center;
 }
 
@@ -152,7 +152,11 @@ font-size: 1.8rem;
  margin: 5px;
 }
 
-.workout-table, .nutrition-table {
+.workout-table {
+
+  width: 90%;
+}
+.nutrition-table {
   width: 90%;
 }
 
@@ -170,9 +174,51 @@ th {
 }
 
 .whiskey-div-small {
-  width: 60%;
+  width: 75%;
   margin: 0 auto;
 
 }
 
 
+.monda {
+  font-family: 'Monda', sans-serif;
+}
+
+.update-button {
+  color: #fff;
+  background-color: #ff0505;
+  border-color: rgb(0, 0, 0);
+}
+
+label {
+  margin-bottom: 0;
+}
+
+.red {
+  color: red;
+}
+
+.green {
+  color: green;
+}
+
+.far {
+  font-size: 20px;
+}
+
+.max {
+  max-width: 200px;
+}
+
+.fa-edit, .fa-save {
+  color: #383838;
+}
+
+.fa-edit:hover, .fa-trash-alt:hover {
+  cursor: pointer;
+}
+
+.small {
+  font-size: .9rem !important;
+
+}

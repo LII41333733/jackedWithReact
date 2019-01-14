@@ -11,6 +11,7 @@ router
  .route("/:id/:date")
   .get(fitnessController.findData)
   .put(fitnessController.update)
+  .post(fitnessController.create)
   .delete(fitnessController.remove);
 
 module.exports = router;

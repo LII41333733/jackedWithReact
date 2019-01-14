@@ -12,5 +12,8 @@ export default {
   // Saves a book to the database
   saveData: function(fitnessData) {
     return axios.post("/api/fitness/", fitnessData);
+  },
+  updateData: function(id, date, data) {
+    return axios.put(`/api/fitness/${id}/${date}`, data);
   }
 };

@@ -50,8 +50,8 @@ const fitnessSeed = [
       },
         {
         exercise: "Wide Push-Ups",
-        sets: "F",
-        reps: "F",
+        sets: "3",
+        reps: "10",
         section: "Chest",
         notes: "We a bit light today. Will go heavier next workout.",
         weights: [65, 70, 75]

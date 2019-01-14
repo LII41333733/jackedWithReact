@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import StarRatingComponent from 'react-star-rating-component';
 import DeleteBtn from "../components/DeleteBtn";
 import Nav from "../components/Nav";
+import UpdateButton from "../components/Buttons";
 import DateBar from "../components/DateBar";
 import { WorkoutCard } from "../components/Cards";
 import { WaterCard } from "../components/Cards";
@@ -16,9 +17,10 @@ import { Input, TextArea, FormBtn } from "../components/Form";
 class Fitness extends Component {
   state = {
     fitnessData: [],
-    _id: "5c38be8c5ecf753fb414f669",
+    _id: "5c3b573187d68310f74af709",
     date: "January%208%2C%202019",
-    rating: 1
+    // rating: 1
+    editModeActive: false
   };
 
   componentDidMount() {
@@ -28,33 +30,98 @@ class Fitness extends Component {
   loadWorkouts = () => {
     API.getData(this.state._id, this.state.date)
       .then(res =>
-        this.setState({ 
-          fitnessData: res.data,
+        this.setState({
+          fitnessData: res.data[0],
         }, () => {
           this.setState({
-            rating: this.state.fitnessData[0].waterData.consumed
+            rating: this.state.fitnessData.waterData.consumed
           }, () => {
-            console.log(this.state)
+            // console.log(this.state)
           })
-         })
+        })
       )
   }
 
-
-  onStarClick(nextValue, prevValue, name) {
-    // const rating = this.state.fitnessData[0].waterData.consumed;
-    this.setState({ 
-      rating: nextValue 
+  updateData = (data) => {
+    this.setState({
+      fitnessData: data
     }, () => {
-
-    });
+      API.updateData(this.state._id, this.state.date, data)
+        .catch(err => console.log(err));
+    })
   }
 
-  // deleteBook = id => {
-  //   API.deleteBook(id)
-  //     .then(res => this.loadBooks())
-  //     .catch(err => console.log(err));
-  // };
+  ezPassUpdate = (ext, route, newVal) => {
+
+    const fitnessData = { ...this.state.fitnessData }
+
+    let choice;
+
+    switch (ext) {
+      case 1:
+        choice = fitnessData.workoutData;
+        break;
+      case 2:
+        choice = fitnessData.waterData;
+        break;
+      case 3:
+        choice = fitnessData.nutritionData;
+        break;
+    }
+
+    console.log(choice[route])
+    console.log(newVal)
+
+
+    choice[route] = newVal;
+
+    this.updateData(fitnessData);
+  }
+
+  ezPassDelete = (ext, route, key) => {
+    const fitnessData = { ...this.state.fitnessData }
+
+    let choice;
+
+    switch (ext) {
+      case 1:
+        choice = fitnessData.workoutData;
+        break;
+      case 2:
+        choice = fitnessData.waterData;
+        break;
+      case 3:
+        choice = fitnessData.nutritionData;
+        break;
+    }
+
+    choice[route].splice(key, 1)
+
+    this.updateData(fitnessData);
+  }
+
+  deleteItem = (key) => {
+    this.ezPassState(3).items.splice(key, 1);
+  }
+
+  onStarClick = (nextValue, prevValue, name) => {
+    this.ezPassUpdate(2, "consumed", nextValue)
+  }
+
+  reduceCalories = () => {
+    const data = this.state.fitnessData.nutritionData
+
+    let count = 0;
+    data.items.forEach((item) => {
+      count += item.kcal
+    })
+
+
+    return (count <= data.target) ? ({ status: "green", total: count }) : ({ status: "red", total: count })
+
+
+
+  }
 
   handleInputChange = event => {
     const { name, value } = event.target;
@@ -62,6 +129,11 @@ class Fitness extends Component {
       [name]: value
     });
   };
+
+  editMode = (huh) => {
+    console.log(huh)
+
+  }
 
   // handleFormSubmit = event => {
   //   event.preventDefault();
@@ -78,21 +150,8 @@ class Fitness extends Component {
 
   render() {
 
-    const { rating } = this.state;
-
-    const data = this.state.fitnessData[0];
-    // const whiskeyDiv = document.querySelectorAll(".whiskey-div")
-
-    let glasses = [];
-    if (this.state.fitnessData.length !== 0) {
-      for (let i = 0; i < data.waterData.target; i++) {
-        glasses.push(<i className="fas fa-glass-whiskey" key={i}></i>)
-      }
-
-    }
-
-
-
+    let data;
+    data = this.state.fitnessData;
 
 
     return (
@@ -133,25 +192,29 @@ class Fitness extends Component {
               </Col>
               <Col size="md-5 sm-12">
                 <div className="div2 section text-center mt-4">
+
                   <WaterCard
                     remaining={data.waterData.target - data.waterData.consumed}
                     size={(data.waterData.target % 4 === 0) ? ("whiskey-div-small") : ("whiskey-div")}
-                 />
+                  />
+
                   <StarRatingComponent
                     name="rate1"
                     starCount={data.waterData.target}
-                    value={this.state.rating}
+                    value={data.waterData.consumed}
                     onStarClick={this.onStarClick.bind(this)}
                     starColor={`#09d0ff`}
                     emptyStarColor={`#333333`}
                     renderStarIcon={() => <i className="fas fa-glass-whiskey"></i>}
-            
                   />
+
                 </div>
                 <div className="div3 section mt-4">
-                    <NutritionCard 
-                    target = {data.nutritionData.target}
-                    // consumed = {data.nutritionData.target Reduce on the objects when it comes in}
+                  <NutritionCard
+                    // status={(data.nutritionData.)?():()} 
+                    status={this.reduceCalories().status}
+                    target={data.nutritionData.target}
+                    current={this.reduceCalories().total}
                     items={data.nutritionData.items.map(({ item, kcal }, i) => {
                       return (
                         <tr key={i}>
@@ -159,13 +222,16 @@ class Fitness extends Component {
                             <i className="fas fa-square fa-stack-2x"></i>
                             <i className="fas fa-stack-1x fa-inverse">{i + 1}</i>
                           </td>
-                          <td className="item">{item}</td>
+                          <td className="item max">{item}</td>
                           <td className="calories">{kcal}</td>
+                          <td><i className="far fa-edit ml-4" onClick={() => {this.editMode(i)}}></i></td>
+                          {/* <td><i className="far fa-trash-alt" onClick={() => {this.deleteItem(i)}}></i></td> */}
+                          <td><i className="far fa-trash-alt" onClick={() => {this.ezPassDelete(3, "items", i)}}></i></td>
                         </tr>
                       )
                     })}
-        
-                    />
+
+                  />
                 </div>
               </Col>
             </Row>

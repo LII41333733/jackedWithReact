@@ -35,9 +35,9 @@ export function NutritionCard(props) {
   return (
     <div className={`nutrition-card text-center`}>
       <h5 className="">CALORIE TARGET</h5>
-      <h5 className="mb-4">{props.target} kcal</h5>
-      <h5 className="">CURRENT CALORIES</h5>
-      <h5 className="mb-4">3000 kcal</h5>
+      <h5 className={`mb-3`}>{props.target}</h5>
+      <h5 className={""}>CURRENT CALORIES</h5>
+      <h5 className={`${props.status}`}>{props.current}</h5>
       {/* <h5 className="mb-4">{props.consumed}</h5> */}
       
 
@@ -47,6 +47,8 @@ export function NutritionCard(props) {
             <th>#</th>
             <th>Item</th>
             <th>Calories</th>
+            <th></th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
