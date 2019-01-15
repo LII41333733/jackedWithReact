@@ -65,6 +65,8 @@ export function NutritionCard(props) {
 
 
 
+
+
 // data._id
 // data.date
 // data.username

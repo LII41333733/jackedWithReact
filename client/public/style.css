@@ -110,8 +110,9 @@ h4 {
 h5 {
  font-family: 'Monda', sans-serif;
  font-size: 1.5rem;
- letter-spacing: 4px;
+ letter-spacing: 3px;
  text-align: center;
+ margin: 0;
 }
 
 h3 {
@@ -219,7 +220,7 @@ label {
   color: #383838;
 }
 
-.fa-edit:hover, .fa-trash-alt:hover {
+.fa-edit:hover, .fa-trash-alt:hover, .fas {
   cursor: pointer;
 }
 
@@ -231,4 +232,57 @@ label {
 .fa-plus-square {
   color: rgb(46, 180, 46);
   font-size: 1.5rem;
+}
+
+
+
+
+/* -------------------------------------------------- LOGIN --------------------------------------------------------*/
+
+.login {
+  width: 30%;
+}
+
+.credentials {
+  font-size: 1.2rem;
+}
+
+.btn-danger-form { 
+  color: #ffffff; 
+  background-color: rgb(255, 0, 0) !important; 
+  border-color: #000000; 
+} 
+ 
+.btn-danger:hover, 
+.btn-danger:focus, 
+.btn-danger:active, 
+.btn-danger.active, 
+.open .dropdown-toggle.btn-danger { 
+  color: #ffffff; 
+  background-color: #000000; 
+  border-color: #000000; 
+} 
+ 
+.btn-danger:active, 
+.btn-danger.active, 
+.open .dropdown-toggle.btn-danger { 
+  background-image: none; 
+} 
+
+.new-account {
+  color: black;
+  font-size: 1.3rem;
+  margin-top: 40px;
+}
+.new-account:hover {
+  color: red;
+  text-decoration: none;
+}
+
+a:-webkit-any-link {
+  text-decoration-line: none;
+}
+
+.warning {
+  display: none;
 }

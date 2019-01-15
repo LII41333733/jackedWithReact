@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { Redirect } from "react-router-dom";
+
 import StarRatingComponent from 'react-star-rating-component';
 import DeleteBtn from "../components/DeleteBtn";
 import Nav from "../components/Nav";
@@ -14,19 +16,42 @@ import { Link } from "react-router-dom";
 import { Col, Row, Container } from "../components/Grid";
 import { List, ListItem } from "../components/List";
 import { Input, TextArea, FormBtn } from "../components/Form";
+// import Moment from 'react-moment';
+// import 'moment-timezone';
 
 class Fitness extends Component {
   state = {
     fitnessData: [],
-    editModeActive: false
+    isLoggedIn: true,
+    username: "",
+    editModeActive: false,
+    logDate: ""
   };
 
   componentDidMount() {
+    console.log(this.props.match.params.username)
+    // this.loginCheck();
     this.loadWorkouts();
   }
 
+  loginCheck = () => {
+    API
+      .loginCheck()
+      .then(res => this.setState({
+        isLoggedIn: res.data.isLoggedIn, username: res.data.username
+      }), () => {
+        console.log(this.state)
+      })
+      .catch(err => {
+        console.log(err);
+        this.setState({ isLoggedIn: false })
+      })
+  }
+
+
   loadWorkouts = () => {
-    
+
+    console.log(this.state)
     API.getData(1, "January 8, 2019")
       .then(res =>
         this.setState({
@@ -77,7 +102,7 @@ class Fitness extends Component {
         choice = fitnessData.nutritionData;
         break;
       default:
-      return false;
+        return false;
     }
     choice[route] = newVal;
     this.updateData(fitnessData);
@@ -96,7 +121,7 @@ class Fitness extends Component {
       case 3:
         choice = fitnessData.nutritionData;
         break;
-        default:
+      default:
         return false;
     }
     choice[route].splice(key, 1)
@@ -186,7 +211,7 @@ class Fitness extends Component {
                       <td className="item max">{item}</td>
                       <td className="calories">{kcal}</td>
                       <td><i className="far fa-edit ml-4" onClick={() => { this.editMode(i) }}></i></td>
-                      {/* <td><i className="far fa-trash-alt" onClick={() => {this.deleteItem(i)}}></i></td> */}
+           
                       <td><i className="far fa-trash-alt" onClick={() => { this.ezPassDelete(3, "items", i) }}></i></td>
                     </tr>
                   )
@@ -196,7 +221,7 @@ class Fitness extends Component {
             </div>
           )
         }
-        default:
+      default:
         return false;
     }
   }
@@ -225,7 +250,7 @@ class Fitness extends Component {
     this.setState({
       [name]: value
     });
-  };
+  }
 
   editMode = (huh) => {
     console.log(huh)
@@ -247,6 +272,10 @@ class Fitness extends Component {
 
   render() {
 
+    if (!this.state.isLoggedIn) {
+      return <Redirect to="/login" />
+    }
+
     let data;
     data = this.state.fitnessData;
 
@@ -259,7 +288,7 @@ class Fitness extends Component {
 
         (<div>
           <Nav
-            username={data.username}
+            username={`Username: ${data.username}`}
           />
           <hr />
           <DateBar

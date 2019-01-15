@@ -8,7 +8,7 @@ function Nav(props) {
       <img className="dumbbell my-2" src="./dumbbell.png"></img>
         <div className="brand">FEEL THE MERN</div>
         <div className="sub-brand mb-3">Get Jacked with React</div>
-        <span className="nav-username">Username: {props.username}</span>
+        <span className="nav-username">{props.username}</span>
       </a>
     </nav>
 

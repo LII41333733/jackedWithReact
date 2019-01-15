@@ -1,3 +1,3 @@
 module.exports = {
-  Log: require("./fitness")
+  User: require("./user")
 };
