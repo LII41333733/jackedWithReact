@@ -35,7 +35,7 @@ router
 
 // Matches with "/api/user/:id"
 router
-.route("/:id/:date")
+.route("/:id")
 .get(usersController.findData)
 .put(usersController.update)
 .post(usersController.create)
@@ -47,3 +47,4 @@ router
   .post(usersController.register);
 
 module.exports = router;
+

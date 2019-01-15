@@ -30,7 +30,7 @@ class Fitness extends Component {
 
   componentDidMount() {
     console.log(this.props.match.params.username)
-    // this.loginCheck();
+    this.loginCheck();
     this.loadWorkouts();
   }
 

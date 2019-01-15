@@ -10,11 +10,11 @@ class Login extends Component {
     username: "",
     password: ""
   }
-  
+
   handleInputChange = e => {
     const { name, value } = e.target;
     this.setState({
-      [name] : value
+      [name]: value
     })
   }
 
@@ -24,44 +24,24 @@ class Login extends Component {
     API
       .register({ username: this.state.username, password: this.state.password })
       .then(res => {
-        console.log(res.data);
+        console.log(res.data)
         this.setState({ success: res.data })
-
       })
-      .catch(err => console.log(err.response.data));
+      .catch(err => {
+        this.setState({
+          warning: err.response.data
+        })
+      });
   }
 
+
+
+
+
   render() {
-    // If Signup was a success, take them to the Login page
+
     if (this.state.success) {
-        API
-          .login({ username: this.state.username, password: this.state.password })
-          .then(res => {
-            console.log(res.data);
-            this.setState({ isLoggedIn: res.data }, () => {
-              const username = this.state.username; 
-              return <Redirect to="/fitness" />
-              
-            })
-    
-          })
-          // .catch(err => {
-            
-            
-          //   const error = err.response;
-    
-          //   this.setState({
-          //     warning: err.response.data
-          //   })
-          // }
-            
-          // )
-
-      
-
-
-
-
+      return <Redirect to="/login" />
     }
 
     return (
@@ -72,18 +52,18 @@ class Login extends Component {
             <form>
               <h4 className="text-center">CREATE AN ACCOUNT</h4>
               <div className="form-group mt-4">
-              <h5 className="credentials mb-3">USERNAME</h5>
+                <h5 className="credentials mb-3">USERNAME</h5>
                 <input
                   type="text"
                   name="username"
                   value={this.state.username}
                   onChange={this.handleInputChange}
                   className="form-control"
-                  />
+                />
                 <small id="usernameHelp" className="form-text text-muted"></small>
               </div>
               <div className="form-group">
-              <h5 className="credentials mb-3">PASSWORD</h5>
+                <h5 className="credentials mb-3">PASSWORD</h5>
                 <input
                   type="password"
                   name="password"
@@ -101,10 +81,6 @@ class Login extends Component {
         </div>
       </div>
     )
-
-
-
-
   }
 }
 
