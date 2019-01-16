@@ -18,7 +18,6 @@ import { Input, TextArea, FormBtn } from "../components/Form";
 class Fitness extends Component {
   state = {
     fitnessData: [],
-    editModeActive: false
   };
 
   componentDidMount() {
@@ -26,7 +25,7 @@ class Fitness extends Component {
   }
 
   loadWorkouts = () => {
-    
+
     API.getData(1, "January 8, 2019")
       .then(res =>
         this.setState({
@@ -63,7 +62,7 @@ class Fitness extends Component {
     }
   }
 
-  ezPassUpdate = (ext, route, newVal) => {
+  ezPassUpdateDB = (ext, route, newVal) => {
     const fitnessData = { ...this.state.fitnessData }
     let choice;
     switch (ext) {
@@ -77,7 +76,7 @@ class Fitness extends Component {
         choice = fitnessData.nutritionData;
         break;
       default:
-      return false;
+        return false;
     }
     choice[route] = newVal;
     this.updateData(fitnessData);
@@ -96,19 +95,28 @@ class Fitness extends Component {
       case 3:
         choice = fitnessData.nutritionData;
         break;
-        default:
+      default:
         return false;
     }
     choice[route].splice(key, 1)
     this.updateData(fitnessData);
   }
 
-  deleteItem = (key) => {
-    this.ezPassState(3).items.splice(key, 1);
+  ezPassUpdateItem = (ext, value, key) => {
+
+    let target = this.ezPass(ext)[value][key];
+
+    this.setState({
+      editMode: true,
+      primary: target.item,
+      secondary: target.kcal
+    }, () => {
+      console.log(this.state)
+    })
   }
 
   dataCheck = (ext) => {
-
+    console.log("dataCheck top");
     switch (ext) {
       case 1:
         if (!this.ezPass(ext).workoutName) {
@@ -163,12 +171,14 @@ class Fitness extends Component {
           )
         }
       case 3:
+        console.log("dataCheck case 3");
         if (!this.ezPass(ext).target) {
           // return form
           return (
             <NoData category="nutrition" />
           )
         } else {
+          console.log("one more")
           return (
 
             <div>
@@ -177,6 +187,7 @@ class Fitness extends Component {
                 target={this.ezPass(ext).target}
                 current={this.reduceCalories().total}
                 items={this.ezPass(ext).items.map(({ item, kcal }, i) => {
+                  console.log("is this here")
                   return (
                     <tr key={i}>
                       <td className="fa-stack fa-2x">
@@ -185,7 +196,7 @@ class Fitness extends Component {
                       </td>
                       <td className="item max">{item}</td>
                       <td className="calories">{kcal}</td>
-                      <td><i className="far fa-edit ml-4" onClick={() => { this.editMode(i) }}></i></td>
+                      <td><i className="far fa-edit ml-4" onClick={() => { this.ezPassUpdateItem(3, "items", i) }}></i></td>
                       {/* <td><i className="far fa-trash-alt" onClick={() => {this.deleteItem(i)}}></i></td> */}
                       <td><i className="far fa-trash-alt" onClick={() => { this.ezPassDelete(3, "items", i) }}></i></td>
                     </tr>
@@ -196,13 +207,13 @@ class Fitness extends Component {
             </div>
           )
         }
-        default:
+      default:
         return false;
     }
   }
 
   onStarClick = (nextValue, prevValue, name) => {
-    this.ezPassUpdate(2, "consumed", nextValue)
+    this.ezPassUpdateDB(2, "consumed", nextValue)
   }
 
   reduceCalories = () => {
@@ -227,10 +238,31 @@ class Fitness extends Component {
     });
   };
 
-  editMode = (huh) => {
-    console.log(huh)
-
+  checkEdit = () => {
+    console.log(this.state.editMode)
+    if (this.state.editMode) {
+      return (
+        <form>
+          <Input
+            value={this.state.primary}
+            onChange={this.handleInputChange}
+            name="itemName"
+            placeholder="Title (required)"
+          />
+          <Input
+            value={this.state.secondary}
+            onChange={this.handleInputChange}
+            name="calories"
+            placeholder="Title (required)"
+          />
+          <UpdateButton />
+        </form>)
+    } else {
+      console.log("Hello")
+      return this.dataCheck(3)
+    }
   }
+
 
   // handleFormSubmit = event => {
   //   event.preventDefault();
@@ -280,7 +312,12 @@ class Fitness extends Component {
 
                 </div>
                 <div className="div3 section mt-4">
-                  {this.dataCheck(3)}
+
+
+                  {this.checkEdit()}
+
+
+
 
                 </div>
               </Col>
@@ -361,3 +398,11 @@ export default Fitness;
                 Submit Book
               </FormBtn>
             </form> */}
+
+
+            //when the edit icon is clicked
+              // run a function to log the item into state
+              // render a component to read state and print to be edited
+              //on submission
+                //update state
+                //render newData
