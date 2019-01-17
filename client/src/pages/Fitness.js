@@ -49,74 +49,57 @@ class Fitness extends Component {
     })
   }
 
-  ezPass = (ext) => {
-    switch (ext) {
-      case 1:
-        return this.state.fitnessData.workoutData;
-      case 2:
-        return this.state.fitnessData.waterData;
-      case 3:
-        return this.state.fitnessData.nutritionData;
-      default:
-        return this.state.fitnessData;
+  ezPass = (ext, route, key) => {
+    if (route) {
+      let target = this.ezPass(ext)[route][key];
+      (ext === 1) ?
+        (this.setState({
+          editMode: true,
+          EDITworkout: target.exercise,
+          EDITsets: target.sets,
+          EDITreps: target.reps
+        })) :
+        (this.setState({
+          editMode: true,
+          EDITitem: target.item,
+          EDITkcal: target.kcal
+        }))
+
+    } else {
+      switch (ext) {
+        case 1:
+          return this.state.fitnessData.workoutData;
+        case 2:
+          return this.state.fitnessData.waterData;
+        case 3:
+          return this.state.fitnessData.nutritionData;
+        default:
+          return this.state.fitnessData;
+      }
     }
   }
 
-  ezPassUpdateDB = (ext, route, newVal) => {
-    const fitnessData = { ...this.state.fitnessData }
+  ezPassDB = (ext, route, valKey, update) => {
+    console.log(this.state.fitnessData)
     let choice;
+    const fitnessData = { ...this.state.fitnessData }
     switch (ext) {
       case 1:
         choice = fitnessData.workoutData;
-        break;
       case 2:
         choice = fitnessData.waterData;
-        break;
       case 3:
         choice = fitnessData.nutritionData;
-        break;
       default:
-        return false;
+        choice = false;
     }
-    choice[route] = newVal;
+
+
+    (update) ? (choice[route] = valKey) : (choice[route].splice(valKey, 1))
     this.updateData(fitnessData);
-  }
-
-  ezPassDelete = (ext, route, key) => {
-    const fitnessData = { ...this.state.fitnessData }
-    let choice;
-    switch (ext) {
-      case 1:
-        choice = fitnessData.workoutData;
-        break;
-      case 2:
-        choice = fitnessData.waterData;
-        break;
-      case 3:
-        choice = fitnessData.nutritionData;
-        break;
-      default:
-        return false;
-    }
-    choice[route].splice(key, 1)
-    this.updateData(fitnessData);
-  }
-
-  ezPassUpdateItem = (ext, value, key) => {
-
-    let target = this.ezPass(ext)[value][key];
-
-    this.setState({
-      editMode: true,
-      primary: target.item,
-      secondary: target.kcal
-    }, () => {
-      console.log(this.state)
-    })
   }
 
   dataCheck = (ext) => {
-    console.log("dataCheck top");
     switch (ext) {
       case 1:
         if (!this.ezPass(ext).workoutName) {
@@ -171,14 +154,12 @@ class Fitness extends Component {
           )
         }
       case 3:
-        console.log("dataCheck case 3");
         if (!this.ezPass(ext).target) {
           // return form
           return (
             <NoData category="nutrition" />
           )
         } else {
-          console.log("one more")
           return (
 
             <div>
@@ -196,9 +177,9 @@ class Fitness extends Component {
                       </td>
                       <td className="item max">{item}</td>
                       <td className="calories">{kcal}</td>
-                      <td><i className="far fa-edit ml-4" onClick={() => { this.ezPassUpdateItem(3, "items", i) }}></i></td>
+                      <td><i className="far fa-edit ml-4" onClick={() => { this.UpdateItem(3, "items", i) }}></i></td>
                       {/* <td><i className="far fa-trash-alt" onClick={() => {this.deleteItem(i)}}></i></td> */}
-                      <td><i className="far fa-trash-alt" onClick={() => { this.ezPassDelete(3, "items", i) }}></i></td>
+                      <td><i className="far fa-trash-alt" onClick={() => { this.ezPassDB(3, "items", i) }}></i></td>
                     </tr>
                   )
                 })}
@@ -213,22 +194,16 @@ class Fitness extends Component {
   }
 
   onStarClick = (nextValue, prevValue, name) => {
-    this.ezPassUpdateDB(2, "consumed", nextValue)
+    this.ezPassDB(2, "consumed", nextValue)
   }
 
   reduceCalories = () => {
     const data = this.state.fitnessData.nutritionData
-
     let count = 0;
     data.items.forEach((item) => {
       count += item.kcal
     })
-
-
     return (count <= data.target) ? ({ status: "green", total: count }) : ({ status: "red", total: count })
-
-
-
   }
 
   handleInputChange = event => {
@@ -239,7 +214,6 @@ class Fitness extends Component {
   };
 
   checkEdit = () => {
-    console.log(this.state.editMode)
     if (this.state.editMode) {
       return (
         <form>
@@ -258,8 +232,7 @@ class Fitness extends Component {
           <UpdateButton />
         </form>)
     } else {
-      console.log("Hello")
-      return this.dataCheck(3)
+      return (this.dataCheck(3))
     }
   }
 
