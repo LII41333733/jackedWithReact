@@ -44,25 +44,34 @@ class Fitness extends Component {
     this.setState({
       fitnessData: data
     }, () => {
-      API.updateData(1, "January 8, 2019")
+      API.updateData(1, "January 8, 2019", this.state.fitnessData)
         .catch(err => console.log(err));
+      this.setState({
+        editMode: false,
+        EDITtitle: false,
+        EDITworkout: false,
+      }, () => {
+        this.loadWorkouts();
+      })
     })
   }
 
-  ezPass = (ext, route, key) => {
+  ezPass = (ext, route, index) => {
     if (route) {
-      let target = this.ezPass(ext)[route][key];
+      let target = this.ezPass(ext)[route][index];
       (ext === 1) ?
         (this.setState({
           editMode: true,
-          EDITworkout: target.exercise,
+          EDITexercise: target.exercise,
           EDITsets: target.sets,
-          EDITreps: target.reps
+          EDITreps: target.reps,
+          EDITindex: index
         })) :
         (this.setState({
           editMode: true,
           EDITitem: target.item,
-          EDITkcal: target.kcal
+          EDITkcal: target.kcal,
+          EDITindex: index
         }))
 
     } else {
@@ -79,24 +88,47 @@ class Fitness extends Component {
     }
   }
 
-  ezPassDB = (ext, route, valKey, update) => {
-    console.log(this.state.fitnessData)
+  ezPassDB = (ext, route, valIndex, update) => {
     let choice;
     const fitnessData = { ...this.state.fitnessData }
     switch (ext) {
       case 1:
         choice = fitnessData.workoutData;
+        break;
       case 2:
         choice = fitnessData.waterData;
+        choice[route] = valIndex;
+        break;
       case 3:
         choice = fitnessData.nutritionData;
+
+        // *** if update is true, valIndex will be a value 
+        // *** if update is false, valIndex will be an index (#)
+
+        //if update is set to True
+        (update) ?
+          // fitnessData.nutritionData["items"][0] = {item: "Bacon and Eggs", kcal: 2000}
+          (choice[route][this.state.EDITindex] = valIndex) :
+          //else delete the item at the index
+          (choice[route].splice(valIndex, 1))
+        //update fitnessData
+        break;
       default:
         choice = false;
+
     }
 
-
-    (update) ? (choice[route] = valKey) : (choice[route].splice(valKey, 1))
     this.updateData(fitnessData);
+
+
+  }
+
+  editTitle = () => {
+    this.setState({
+      EDITtitle: true,
+      EDITworkout: true,
+      EDITindex: this.state.fitnessData.workoutData.workoutName
+    })
   }
 
   dataCheck = (ext) => {
@@ -111,6 +143,7 @@ class Fitness extends Component {
           return (
             <WorkoutCard
               workoutName={this.ezPass(ext).workoutName}
+              editTitle={() => this.editTitle()}
               exercises={this.ezPass(ext).exercises.map(({ exercise, notes, reps, sets, section }, i) => {
                 return (
                   <tr key={i}>
@@ -120,6 +153,8 @@ class Fitness extends Component {
                     </td>
                     <td className="exercise">{exercise}</td>
                     <td className="reps">{sets} x {reps}</td>
+                    <td><i className="far fa-edit ml-4" onClick={() => { this.ezPass(1, "exercises", i) }}></i></td>
+                    <td><i className="far fa-trash-alt" onClick={() => { this.ezPassDB(1, "exercises", i) }}></i></td>
                   </tr>
                 )
               })}
@@ -155,7 +190,6 @@ class Fitness extends Component {
         }
       case 3:
         if (!this.ezPass(ext).target) {
-          // return form
           return (
             <NoData category="nutrition" />
           )
@@ -168,7 +202,6 @@ class Fitness extends Component {
                 target={this.ezPass(ext).target}
                 current={this.reduceCalories().total}
                 items={this.ezPass(ext).items.map(({ item, kcal }, i) => {
-                  console.log("is this here")
                   return (
                     <tr key={i}>
                       <td className="fa-stack fa-2x">
@@ -177,8 +210,7 @@ class Fitness extends Component {
                       </td>
                       <td className="item max">{item}</td>
                       <td className="calories">{kcal}</td>
-                      <td><i className="far fa-edit ml-4" onClick={() => { this.UpdateItem(3, "items", i) }}></i></td>
-                      {/* <td><i className="far fa-trash-alt" onClick={() => {this.deleteItem(i)}}></i></td> */}
+                      <td><i className="far fa-edit ml-4" onClick={() => { this.ezPass(3, "items", i) }}></i></td>
                       <td><i className="far fa-trash-alt" onClick={() => { this.ezPassDB(3, "items", i) }}></i></td>
                     </tr>
                   )
@@ -213,55 +245,106 @@ class Fitness extends Component {
     });
   };
 
-  checkEdit = () => {
-    if (this.state.editMode) {
-      return (
-        <form>
-          <Input
-            value={this.state.primary}
-            onChange={this.handleInputChange}
-            name="itemName"
-            placeholder="Title (required)"
-          />
-          <Input
-            value={this.state.secondary}
-            onChange={this.handleInputChange}
-            name="calories"
-            placeholder="Title (required)"
-          />
-          <UpdateButton />
-        </form>)
+  checkEdit = (ext) => {
+
+    if (ext === 1) {
+      if (this.state.EDITtitle && this.state.EDITworkout) {
+        return (
+          <form>
+            <Input
+              value={this.state.EDITindex}
+              onChange={this.handleInputChange}
+              name="EDITindex"
+              placeholder="Workout Name (required)"
+            />
+
+            <UpdateButton
+              onClick={() => this.ezPassDB(1, "workoutName", this.setState.EDITindex, true)}
+
+            />
+          </form>
+        )
+      }
+
+      if (this.state.editMode && ext === 1) {
+        return (
+          <form>
+            <Input
+              value={this.state.EDITexercise}
+              onChange={this.handleInputChange}
+              name="EDITitem"
+              placeholder="Item (required)"
+            />
+            <Input
+              value={this.state.EDITkcal}
+              onChange={this.handleInputChange}
+              name="EDITkcal"
+              placeholder="Calories (required)"
+            />
+            <UpdateButton
+
+              onClick={() => this.ezPassDB(1, "", { item: this.state.EDITitem, kcal: this.state.EDITkcal }, true)}
+
+            />
+          </form>)
+      } else {
+        return (this.dataCheck(1))
+      }
     } else {
-      return (this.dataCheck(3))
+      if (this.state.editMode) {
+        return (
+          <form>
+            <Input
+              value={this.state.EDITitem}
+              onChange={this.handleInputChange}
+              name="EDITitem"
+              placeholder="Item (required)"
+            />
+            <Input
+              value={this.state.EDITkcal}
+              onChange={this.handleInputChange}
+              name="EDITkcal"
+              placeholder="Calories (required)"
+            />
+            <UpdateButton
+
+              onClick={() => this.ezPassDB(3, "items", { item: this.state.EDITitem, kcal: this.state.EDITkcal }, true)}
+
+            />
+          </form>)
+      } else {
+        return (this.dataCheck(3))
+      }
     }
   }
 
 
-  // handleFormSubmit = event => {
-  //   event.preventDefault();
-  //   if (this.state.title && this.state.author) {
-  //     API.saveBook({
-  //       title: this.state.title,
-  //       author: this.state.author,
-  //       synopsis: this.state.synopsis
-  //     })
-  //       .then(res => this.loadBooks())
-  //       .catch(err => console.log(err));
-  //   }
-  // };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  //////////////////////// RENDER ////////////////////////
+
 
   render() {
 
     let data;
     data = this.state.fitnessData;
 
-
     return (
-
-      (this.state.fitnessData.length !== 0)
-
-        ?
-
+      (this.state.fitnessData.length !== 0) ?
         (<div>
           <Nav
             username={data.username}
@@ -274,7 +357,9 @@ class Fitness extends Component {
             <Row>
               <Col size="md-7 sm-12">
                 <div className="div1 section my-4 mx-auto">
-                  {this.dataCheck(1)}
+
+                  {this.checkEdit(1)}
+
                 </div>
               </Col>
               <Col size="md-5 sm-12">
@@ -282,49 +367,79 @@ class Fitness extends Component {
 
                   {this.dataCheck(2)}
 
-
                 </div>
                 <div className="div3 section mt-4">
 
-
-                  {this.checkEdit()}
-
-
-
+                  {this.checkEdit(3)}
 
                 </div>
               </Col>
             </Row>
           </Container>
-        </div>)
-
-        :
-
-        (<div>
-          <Nav />
-          <hr />
-          <DateBar date={`January 10, 2019`} />
-          <Container fluid>
-            <Row>
-              <Col size="md-6 sm-12">
-                <div className="div1 section mx-auto">
-                  <WorkoutCard
-                    username={`You ain't got no data`}
-                  />
-                </div>
-              </Col>
-              <Col size="md-6 sm-12">
-                <div className="div2 section mx-auto"></div>
-                <div className="div3 section mx-auto"></div>
-              </Col>
-            </Row>
-          </Container>
-        </div>)
+        </div>) : (-1)
     )
   }
 }
 
 export default Fitness;
+
+
+/////////////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -370,12 +485,25 @@ export default Fitness;
               >
                 Submit Book
               </FormBtn>
-            </form> */}
+            </form> */
 
 
-            //when the edit icon is clicked
-              // run a function to log the item into state
-              // render a component to read state and print to be edited
-              //on submission
-                //update state
-                //render newData
+  //when the edit icon is clicked
+  // run a function to log the item into state
+  // render a component to read state and print to be edited
+  //on submission
+  //update state
+  //render newData
+  // handleFormSubmit = event => {
+  //   event.preventDefault();
+  //   if (this.state.title && this.state.author) {
+  //     API.saveBook({
+  //       title: this.state.title,
+  //       author: this.state.author,
+  //       synopsis: this.state.synopsis
+  //     })
+  //       .then(res => this.loadBooks())
+  //       .catch(err => console.log(err));
+  //   }
+  // };
+}

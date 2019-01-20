@@ -5,7 +5,9 @@ export function WorkoutCard(props) {
   return (
     <div className={`workout-card text-center`}>
       <h4>TODAY'S WORKOUT</h4>
-      {<h3 className="my-3">{props.workoutName}</h3>}
+      <h3 className="my-3">{props.workoutName}</h3>
+      <i className="far fa-edit ml-4" onClick={props.editTitle}></i>
+
       <table className="workout-table mx-auto">
         <thead>
           <tr>
@@ -36,9 +38,11 @@ export function NutritionCard(props) {
     <div className={`nutrition-card text-center`}>
       <h5 className="">CALORIE TARGET</h5>
       <h5 className={`mb-3`}>{props.target}</h5>
+      <i className="far fa-edit ml-4" {...props}></i>
       <h5 className={""}>CURRENT CALORIES</h5>
       <h5 className={`${props.status}`}>{props.current}</h5>
-      {/* <h5 className="mb-4">{props.consumed}</h5> */}
+
+      {/* <i className="far fa-edit ml-4" onClick={() => { this.ezPass(3, "items", i) }}></i> */}
       
 
       <table className="nutrition-table mx-auto">
