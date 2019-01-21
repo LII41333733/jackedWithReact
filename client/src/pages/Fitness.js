@@ -135,9 +135,7 @@ class Fitness extends Component {
     const onStarClick = (nextValue, prevValue, name) => {
       this.setState({
         waterConsumed: nextValue
-      }, () => {
-        this.updateData();
-      })
+      }, () => { this.updateData(); })
     }
     return (
       <div>
@@ -206,9 +204,7 @@ class Fitness extends Component {
 
   handleInputChange = (event) => {
     const { name, value } = event.target;
-    this.setState({
-      [name]: value
-    });
+    this.setState({ [name]: value });
   };
 
   render() {
@@ -239,7 +235,7 @@ class Fitness extends Component {
          </Container>
         </div>
       )
-    } else { return; }
+    } else { return }
   }
 }
 
