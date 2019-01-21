@@ -8,7 +8,7 @@ router.route("/")
 
 // Matches with "/api/books/:id"
 router
- .route("/:id/:date")
+ .route("/:username/:date")
   .get(fitnessController.findData)
   .put(fitnessController.update)
   .post(fitnessController.create)

@@ -2,7 +2,6 @@ import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Fitness from "./pages/Fitness";
 // import Detail from "./pages/Detail";
-import Nav from "./components/Nav";
 
 function App() {
   return (
@@ -10,7 +9,7 @@ function App() {
       <div>
         <Switch>
           <Route exact path="/" component={Fitness} />
-          <Route exact path="/fitness/:id/:date" component={Fitness} />
+          <Route exact path="/fitness/:username/:date" component={Fitness} />
         </Switch>
       </div>
     </Router>

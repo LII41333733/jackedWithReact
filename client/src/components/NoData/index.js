@@ -4,8 +4,9 @@ function NoData(props) {
   return (
 
     <div className="text-center">
-      <h3 className="no-data"> You do not have any {props.category} data. </h3>
-      <i class="fas fa-plus-square mt-2"></i>
+      <h3 className="no-data"> You do not have any {props.category} data for today. </h3>
+      <i className="fas fa-plus-square mt-2"></i>
+      {props.form}
     </div>
 
 

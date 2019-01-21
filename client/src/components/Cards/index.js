@@ -26,7 +26,7 @@ export function WorkoutCard(props) {
 
 export function WaterCard(props) {
   return (
-    <div className={`water-card d-flex mx-auto ${props.size}`}>
+    <div className={`water-card d-flex mx-auto`}>
       <h5 className="mx-auto">{props.remaining} GLASSES TO GO</h5>
       {props.cups}
     </div>
