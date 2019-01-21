@@ -119,16 +119,13 @@ class Fitness extends Component {
               </td>
               <td className="exercise">{exercise}</td>
               <td className="reps">{sets} x {reps}</td>
-              {/* <td><i className="far fa-edit ml-4" onClick={() => { this.ezPass(1, "exercises", i) }}></i></td> */}
               <td><i className="far fa-edit ml-4" onClick={() => { console.log("Hello World") }}></i></td>
               <td><i className="far fa-trash-alt" onClick={() => { console.log("Hello World") }}></i></td>
-              {/* <td><i className="far fa-trash-alt" onClick={() => { this.ezPassDB(1, "exercises", i) }}></i></td> */}
             </tr>
           )
         })}
       />
     )
-
   }
 
   displayWater = () => {
@@ -254,13 +251,13 @@ export default Fitness;
 ))}
 </List> */}
 
+// <TextArea
+//  value={this.state.synopsis}
+//  onChange={this.handleInputChange}
+//  name="synopsis"
+//  placeholder="Synopsis (Optional)"
+// />
 
-//              <TextArea
-//              value={this.state.synopsis}
-//                onChange={this.handleInputChange}
-//                name="synopsis"
-//                placeholder="Synopsis (Optional)"
-//              />
-
-  // handleFormSubmit = event => {
-  //   event.preventDefault();
+// handleFormSubmit = event => {
+//   event.preventDefault();
+// }
