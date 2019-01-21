@@ -19,7 +19,10 @@ class Fitness extends Component {
   state = {
     NEWcalorieTarget: "",
     NEWworkoutName:"",
-    NEWwaterTarget: ""
+    NEWwaterTarget: "",
+    EDITworkout: false,
+    EDITwater: false,
+    EDITnutrition: false
   }
 
   componentDidMount() {
