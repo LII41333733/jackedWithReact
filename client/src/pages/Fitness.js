@@ -37,39 +37,52 @@ class Fitness extends Component {
         })
       })
   }
+  
+// if (this.state.workoutName) {
+// if (this.state.EDITworkout) {
+// return this.editWorkout();
+// } else {
+// return this.displayWorkout();
+// }
+  
+  renderNewWorkoutForm = (ext) => {
+    return (
+      <div>
+        <NoData category="Workout" />
+        <form>
+          <h5>What do you want to call your workout for today?</h5>
+          <Input
+            value={this.state.NEWworkoutName}
+            onChange={this.handleInputChange}
+            name="NEWworkoutName"
+            placeholder="Workout Name (Required)"
+          />
+          <UpdateButton 
+            onClick={() => this.setState({workoutName: this.state.NEWworkoutName}, () => {this.updateData()})}
+          />
+        </form>
+      </div>
+    )
+  } 
 
   dataCheck = (ext) => {
-    if (ext === 1) {
-      if (this.state.workoutName) {
-        if (this.state.EDITworkout) {
-          return this.editWorkout();
-        } else {
-          return this.displayWorkout();
-        }
+      if (ext === 1) {
+        return (this.state.EDITworkout)?(this.editWorkout()):(this.displayWorkout())
       } else {
-        return (
-          <div>
-          <NoData
-            category="Workout"
-          />
-            
-              <form>
-                <h5>What do you want to call your workout for today?</h5>
-                <Input
-                  value={this.state.NEWworkoutName}
-                  onChange={this.handleInputChange}
-                  name="NEWworkoutName"
-                  placeholder="Workout Name (Required)"
-                />
-                <UpdateButton 
-                  onClick={() => this.setState({
-                    workoutName: this.state.NEWworkoutName
-                  }, () => {this.updateData()})}
-                />
-              </form>
-              </div>
-            
-          )
+        
+        return renderNewWorkoutForm(ext);
+        
+
+    
+    else if (ext === 2) {
+          
+          } else {
+          
+          }
+        } 
+        
+        
+        
       }
     } else if (ext === 2) {
       if (this.state.waterTarget) {
