@@ -88,42 +88,21 @@ class Fitness extends Component {
     } else {
       return (
         <div>
-          <NoData category="Nutrition"
-   />
-            
-              <form>
-                <h5>What is your calorie target for today?</h5>
-                <Input
-                  value={this.state.NEWcalorieTarget}
-                  onChange={this.handleInputChange}
-                  name="NEWcalorieTarget"
-                  placeholder="Calorie Target (Required)"
-                />
-                <UpdateButton 
-                  onClick={() => this.setState({calorieTarget: this.state.NEWcalorieTarget}, () => {this.updateData()})}
-                />
-              </form>
-              </div>
-            
-          )
-    }
-  }
-
-
-
-
-} else {
-      if (this.state.calorieTarget) {
-        if (this.state.EDITnutrition) {
-          return this.editNutrition();
-        } else {
-          return this.displayNutrition();
-        }
-      } else {
-        
-
-
-      }
+          <NoData category="Nutrition" />
+          <form>
+            <h5>What is your calorie target for today?</h5>
+            <Input
+              value={this.state.NEWcalorieTarget}
+              onChange={this.handleInputChange}
+              name="NEWcalorieTarget"
+              placeholder="Calorie Target (Required)"
+            />
+            <UpdateButton 
+              onClick={() => this.setState({calorieTarget: this.state.NEWcalorieTarget}, () => {this.updateData()})}
+            />
+          </form>
+        </div>  
+      )
     }
   }
 
@@ -153,7 +132,6 @@ class Fitness extends Component {
   }
 
   displayWater = () => {
-
     const onStarClick = (nextValue, prevValue, name) => {
       this.setState({
         waterConsumed: nextValue
@@ -161,13 +139,11 @@ class Fitness extends Component {
         this.updateData();
       })
     }
-
     return (
       <div>
         <WaterCard
           remaining={this.state.waterTarget - this.state.waterConsumed}
         />
-
         <StarRatingComponent
           name="rate1"
           starCount={this.state.waterTarget}
@@ -179,13 +155,9 @@ class Fitness extends Component {
         />
       </div>
     )
-
-
-
   }
 
   displayNutrition = () => {
-
     const reduceCalories = () => {
       let count = 0;
       this.state.items.forEach((item) => {
@@ -193,7 +165,6 @@ class Fitness extends Component {
       })
       return (count <= this.state.calorieTarget) ? ({ status: "green", total: count }) : ({ status: "red", total: count })
     }
-
     return (
       <NutritionCard
         status={reduceCalories().status}
@@ -213,8 +184,8 @@ class Fitness extends Component {
             </tr>
           )
         })}
-
-      />)
+      />
+    )
   }
 
   updateData = () => {
@@ -229,37 +200,26 @@ class Fitness extends Component {
       waterConsumed: this.state.waterConsumed,
       waterTarget: this.state.waterTarget
     }
-
     API.updateData("LII41333733", "January 8, 2019", data)
       .catch(err => console.log(err));
-
   }
 
-  handleInputChange = event => {
+  handleInputChange = (event) => {
     const { name, value } = event.target;
     this.setState({
       [name]: value
     });
   };
 
-  //////////////////////// RENDER ////////////////////////
-
   render() {
-
     if (this.state.username) {
       let data;
       data = this.state
-
       return (
-
         <div>
-          <Nav
-            username={data.username}
-          />
+          <Nav username={data.username} />
           <hr />
-          <DateBar
-            date={data.date}
-          />
+          <DateBarn date={data.date} />
           <Container>
             <Row>
               <Col size="md-7 sm-12">
@@ -276,80 +236,14 @@ class Fitness extends Component {
                 </div>
               </Col>
             </Row>
-          </Container>
+         </Container>
         </div>
-
       )
-
-    } else {
-      return false;
-    }
-
+    } else { return; }
   }
 }
 
 export default Fitness;
-
-/////////////////////////////////////////////////
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 {/* <List>
 {this.state.books.map(book => (
@@ -365,189 +259,12 @@ export default Fitness;
 </List> */}
 
 
+//              <TextArea
+//              value={this.state.synopsis}
+//                onChange={this.handleInputChange}
+//                name="synopsis"
+//                placeholder="Synopsis (Optional)"
+//              />
 
-{/* <form>
-              <Input
-                value={this.state.title}
-                onChange={this.handleInputChange}
-                name="title"
-                placeholder="Title (required)"
-              />
-              <Input
-                value={this.state.author}
-                onChange={this.handleInputChange}
-                name="author"
-                placeholder="Author (required)"
-              />
-              <TextArea
-                value={this.state.synopsis}
-                onChange={this.handleInputChange}
-                name="synopsis"
-                placeholder="Synopsis (Optional)"
-              />
-              <FormBtn
-                disabled={!(this.state.author && this.state.title)}
-                onClick={this.handleFormSubmit}
-              >
-                Submit Book
-              </FormBtn>
-            </form> */
-
-
-  //when the edit icon is clicked
-  // run a function to log the item into state
-  // render a component to read state and print to be edited
-  //on submission
-  //update state
-  //render newData
   // handleFormSubmit = event => {
   //   event.preventDefault();
-  //   if (this.state.title && this.state.author) {
-  //     API.saveBook({
-  //       title: this.state.title,
-  //       author: this.state.author,
-  //       synopsis: this.state.synopsis
-  //     })
-  //       .then(res => this.loadBooks())
-  //       .catch(err => console.log(err));
-  //   }
-  // };
-}
-
-{//       return (
-
-  //       )
-
-  //       case 2:
-  //     if (!this.ezPass(ext).target) {
-  //       // return form
-  //       return (
-  //         <NoData category="Water" />
-  //       )
-  //     } else {
-  //       return (
-
-
-
-
-
-  //       )
-  //     }
-  //       case 3:
-  //     if (!this.ezPass(ext).target) {
-  //       return (
-  //         <NoData category="nutrition" />
-  //       )
-  //     } else {
-  //       return (
-
-  //         <div>
-  //           <NutritionCard
-  //             status={this.reduceCalories().status}
-  //             target={this.ezPass(ext).target}
-  //             current={this.reduceCalories().total}
-  //             items={this.ezPass(ext).items.map(({ item, kcal }, i) => {
-  //               return (
-  //                 <tr key={i}>
-  //                   <td className="fa-stack fa-2x">
-  //                     <i className="fas fa-square fa-stack-2x"></i>
-  //                     <i className="fas fa-stack-1x fa-inverse">{i + 1}</i>
-  //                   </td>
-  //                   <td className="item max">{item}</td>
-  //                   <td className="calories">{kcal}</td>
-  //                   <td><i className="far fa-edit ml-4" onClick={() => { this.ezPass(3, "items", i) }}></i></td>
-  //                   <td><i className="far fa-trash-alt" onClick={() => { this.ezPassDB(3, "items", i) }}></i></td>
-  //                 </tr>
-  //               )
-  //             })}
-
-  //           />
-  //         </div>
-  //       )
-  //     }
-  //       default:
-  //     return false;
-  // }
-  //   }
-  // }
-  // ***
-
-
-
-
-
-
-
-  // checkEdit = (ext) => {
-
-  //   if (ext === 1) {
-  //     if (this.state.EDITtitle && this.state.EDITworkout) {
-  //       return (
-  //         <form>
-  //           <Input
-  //             value={this.state.EDITindex}
-  //             onChange={this.handleInputChange}
-  //             name="EDITindex"
-  //             placeholder="Workout Name (required)"
-  //           />
-
-  //           <UpdateButton
-  //             onClick={() => this.ezPassDB(1, "workoutName", this.setState.EDITindex, true)}
-
-  //           />
-  //         </form>
-  //       )
-  //     }
-
-  //     if (this.state.editMode && ext === 1) {
-  //       return (
-  //         <form>
-  //           <Input
-  //             value={this.state.EDITexercise}
-  //             onChange={this.handleInputChange}
-  //             name="EDITitem"
-  //             placeholder="Item (required)"
-  //           />
-  //           <Input
-  //             value={this.state.EDITkcal}
-  //             onChange={this.handleInputChange}
-  //             name="EDITkcal"
-  //             placeholder="Calories (required)"
-  //           />
-  //           <UpdateButton
-
-  //             onClick={() => this.ezPassDB(1, "", { item: this.state.EDITitem, kcal: this.state.EDITkcal }, true)}
-
-  //           />
-  //         </form>)
-  //     } else {
-  //       return (this.dataCheck(1))
-  //     }
-  //   } else {
-  //     if (this.state.editMode) {
-  //       return (
-  //         <form>
-  //           <Input
-  //             value={this.state.EDITitem}
-  //             onChange={this.handleInputChange}
-  //             name="EDITitem"
-  //             placeholder="Item (required)"
-  //           />
-  //           <Input
-  //             value={this.state.EDITkcal}
-  //             onChange={this.handleInputChange}
-  //             name="EDITkcal"
-  //             placeholder="Calories (required)"
-  //           />
-  //           <UpdateButton
-
-  //             onClick={() => this.ezPassDB(3, "items", { item: this.state.EDITitem, kcal: this.state.EDITkcal }, true)}
-
-  //           />
-  //         </form>)
-  //     } else {
-  //       return (this.dataCheck(3))
-  //     }
-  //   }
-  // 
-}
