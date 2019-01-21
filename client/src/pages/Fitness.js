@@ -70,7 +70,7 @@ class Fitness extends Component {
             <Input
               value={this.state.NEWwaterTarget}
               onChange={this.handleInputChange}
-              name="NEWwaterTarget
+              name="NEWwaterTarget"
               placeholder="Water Target (Required)"
             />
             <UpdateButton 
