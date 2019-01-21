@@ -31,19 +31,8 @@ class Fitness extends Component {
 
   loadWorkouts = () => {
     API.getData("LII41333733", "January 8, 2019")
-      .then(res => {
-        this.setState(res.data[0], () => {
-          // rating: this.state.fitnessData.waterData.consumed
-        })
-      })
+      .then(res => { this.setState(res.data[0]) });
   }
-  
-
-// if (this.state.EDITworkout) {
-// return this.editWorkout();
-// } else {
-// return this.displayWorkout();
-// }
   
   renderWorkoutComponent = () => {
     if (this.state.workoutName) {
@@ -67,68 +56,40 @@ class Fitness extends Component {
         </div>
       )  
     }
-  } 
-
-  dataCheck = (ext) => {
-    if (ext === 1) {
-
-    else if (ext === 2) {
-      if (this.state.waterTarget) {
-        return (this.state.EDITwater)?(this.editWater()):(this.displayWater());
-      } else {
-        return renderNewWaterForm();
-      }
-        } 
-        
-        
-        
-      }
-    } else if (ext === 2) {
-
-        if (this.state.EDITwater) {
-          this.editWater();
-        } else {
-          return this.displayWater();
-        }
-      } else {
-        return (
-          <div>
-          <NoData
-            category="Water"
-          />
-            
-              <form>
-                <h5>How many glasses of water are you aiming to drink today?</h5>
-                <Input
-                  value={this.state.NEWwaterTarget}
-                  onChange={this.handleInputChange}
-                  name="NEWwaterTarget"
-                  placeholder="Water Target (Required)"
-                />
-                <UpdateButton 
-                  onClick={() => this.setState({
-                    waterTarget: this.state.NEWwaterTarget,
-                    waterConsumed: 0
-                  }, () => {this.updateData()})}
-                />
-              </form>
-              </div>
-            
-          )
-      }
+  }
+  
+  renderWaterComponent = () => {
+    if (this.state.waterTarget) {
+      return (this.state.EDITwater)?(this.editWater()):(this.displayWater());
     } else {
-      if (this.state.calorieTarget) {
-        if (this.state.EDITnutrition) {
-          return this.editNutrition();
-        } else {
-          return this.displayNutrition();
-        }
-      } else {
-        return (
-          <div>
-          <NoData
-            category="Nutrition"
-          />
+      return (
+        <div>
+          <NoData category="Water" />
+          <form>
+            <h5>How many glasses of water are you aiming to drink today?</h5>
+            <Input
+              value={this.state.NEWwaterTarget}
+              onChange={this.handleInputChange}
+              name="NEWwaterTarget
+              placeholder="Water Target (Required)"
+            />
+            <UpdateButton 
+              onClick={() => this.setState({ waterTarget: this.state.NEWwaterTarget, waterConsumed: 0 }, () => {this.updateData()})}
+            />
+          </form>
+        </div>  
+      )
+    }
+  } 
+  
+  renderNutritionComponent = () = > {
+    if (this.state.calorieTarget) {
+      return (this.state.EDITnutrition)?(this.editNutrition()):(this.displayNutrition());
+    } else {
+      return (
+        <div>
+          <NoData category="Nutrition"
+   />
             
               <form>
                 <h5>What is your calorie target for today?</h5>
@@ -145,6 +106,21 @@ class Fitness extends Component {
               </div>
             
           )
+    }
+  }
+
+
+
+
+} else {
+      if (this.state.calorieTarget) {
+        if (this.state.EDITnutrition) {
+          return this.editNutrition();
+        } else {
+          return this.displayNutrition();
+        }
+      } else {
+        
 
 
       }
