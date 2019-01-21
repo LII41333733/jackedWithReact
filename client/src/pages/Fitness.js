@@ -82,7 +82,7 @@ class Fitness extends Component {
     }
   } 
   
-  renderNutritionComponent = () = > {
+  renderNutritionComponent = () => {
     if (this.state.calorieTarget) {
       return (this.state.EDITnutrition)?(this.editNutrition()):(this.displayNutrition());
     } else {
