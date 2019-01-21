@@ -38,14 +38,14 @@ class Fitness extends Component {
       })
   }
   
-// if (this.state.workoutName) {
+
 // if (this.state.EDITworkout) {
 // return this.editWorkout();
 // } else {
 // return this.displayWorkout();
 // }
   
-  renderNewWorkoutForm = (ext) => {
+  renderNewWorkoutForm = () => {
     return (
       <div>
         <NoData category="Workout" />
@@ -66,26 +66,24 @@ class Fitness extends Component {
   } 
 
   dataCheck = (ext) => {
-      if (ext === 1) {
-        return (this.state.EDITworkout)?(this.editWorkout()):(this.displayWorkout())
-      } else {
-        
-        return renderNewWorkoutForm(ext);
-        
-
-    
+    if (ext === 1) {
+      if (this.state.workoutName) {
+        return (this.state.EDITworkout)?(this.editWorkout()):(this.displayWorkout());
+      } else {   
+        return renderNewWorkoutForm();
+      }
     else if (ext === 2) {
-          
-          } else {
-          
-          }
+      if (this.state.waterTarget) {
+        return (this.state.EDITwater)?(this.editWater()):(this.displayWater());
+      } else {
+        return renderNewWaterForm();
+      }
         } 
         
         
         
       }
     } else if (ext === 2) {
-      if (this.state.waterTarget) {
 
         if (this.state.EDITwater) {
           this.editWater();
