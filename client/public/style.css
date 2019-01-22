@@ -105,18 +105,27 @@ h4 {
  font-family: 'Monda', sans-serif;
  font-size: 1.8rem;
  letter-spacing: 5px;
+ text-align: center;
 }
+
+.h4-reduced {
+  font-family: 'Monda', sans-serif;
+  font-size: 1.5rem;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+ }
 
 h5 {
  font-family: 'Monda', sans-serif;
- font-size: 1.5rem;
- letter-spacing: 4px;
+ font-size: 1.1rem;
  text-align: center;
+ padding: 10px 50px;
 }
 
 h3 {
  font-family: 'Monda', sans-serif;
- font-size: 2rem;
+ font-size: 1.3rem;
+ text-align: center;
  margin: 0;
 }
 
@@ -124,7 +133,7 @@ p {
  margin: 0
 }
 
-.no-data {
+.font-onepointfive {
   font-size: 1.5rem;
 }
 
@@ -189,7 +198,7 @@ th {
   font-family: 'Monda', sans-serif;
 }
 
-.update-button {
+.edit, .save {
   color: #fff;
   background-color: #ff0505;
   border-color: rgb(0, 0, 0);
@@ -216,7 +225,13 @@ label {
 }
 
 .fa-edit, .fa-save {
-  color: #383838;
+  color: #ffffff;
+}
+
+.fa-save {
+  font-size: 1.3rem;
+  margin-top: 1px;
+  margin-left: 10px;
 }
 
 .fa-edit:hover, .fa-trash-alt:hover {
@@ -229,6 +244,24 @@ label {
 }
 
 .fa-plus-square {
-  color: rgb(46, 180, 46);
-  font-size: 1.5rem;
+  color: white;
+  font-size: 1.4rem;
+  margin-top: 1.2px;
+}
+
+.form-control {
+  width: 80%;
+  text-align: center;
+  margin: 0 auto;
+}
+
+
+form {
+  border-bottom: 1px solid black;
+  margin: 20px 0;
+  padding-bottom: 20px;
+}
+
+hr {
+  height: 10px;
 }

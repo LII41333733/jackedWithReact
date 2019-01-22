@@ -5,15 +5,13 @@ export function WorkoutCard(props) {
   return (
     <div className={`workout-card text-center`}>
       <h4>TODAY'S WORKOUT</h4>
-      <h3 className="my-3">{props.workoutName}</h3>
-      <i className="far fa-edit ml-4" onClick={props.editTitle}></i>
-
+      <h3 className="mt-3 mb-2 h4-reduced">{props.workoutName}</h3>
       <table className="workout-table mx-auto">
         <thead>
           <tr>
             <th>#</th>
             <th>Exercise</th>
-            <th>Sets x Reps</th>
+            <th>Sets/Reps</th>
           </tr>
         </thead>
         <tbody>
@@ -27,7 +25,7 @@ export function WorkoutCard(props) {
 export function WaterCard(props) {
   return (
     <div className={`water-card d-flex mx-auto`}>
-      <h5 className="mx-auto">{props.remaining} GLASSES TO GO</h5>
+      <h4 className="mx-auto h4-reduced">{props.remaining} GLASSES TO GO</h4>
       {props.cups}
     </div>
   );
@@ -36,14 +34,10 @@ export function WaterCard(props) {
 export function NutritionCard(props) {
   return (
     <div className={`nutrition-card text-center`}>
-      <h5 className="">CALORIE TARGET</h5>
-      <h5 className={`mb-3`}>{props.target}</h5>
-      <i className="far fa-edit ml-4" {...props}></i>
-      <h5 className={""}>CURRENT CALORIES</h5>
-      <h5 className={`${props.status}`}>{props.current}</h5>
-
-      {/* <i className="far fa-edit ml-4" onClick={() => { this.ezPass(3, "items", i) }}></i> */}
-      
+      <h4 className="h4-reduced">CALORIE TARGET</h4>
+      <h4 className={`mb-3`}>{props.target}</h4>
+      <h4 className={"h4-reduced"}>CURRENT CALORIES</h4>
+      <h4 className={`${props.status}`}>{props.current}</h4>      
 
       <table className="nutrition-table mx-auto">
         <thead>
