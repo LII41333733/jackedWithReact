@@ -26,17 +26,19 @@ class Fitness extends Component {
   }
 
   componentDidMount() {
-    this.loadWorkouts();
+    this.loadFitnessData();
   }
 
-  loadWorkouts = () => {
+  loadFitnessData = () => {
     API.getData("LII41333733", "January 8, 2019")
       .then(res => { this.setState(res.data[0]) });
   }
 
   renderWorkoutComponent = () => {
-    if (this.state.workoutName) {
-      return (this.state.EDITworkout) ? (this.editWorkout()) : (this.displayWorkout());
+    if (this.state.EDITworkout) {
+      return this.editWorkout();
+    } else if (this.state.workoutName) {
+      return this.displayWorkout();
     } else {
       return (
         <div>
@@ -61,9 +63,6 @@ class Fitness extends Component {
   }
 
   displayWorkout = () => {
-
-
-
     return (
       <div>
         <WorkoutCard
@@ -103,84 +102,58 @@ class Fitness extends Component {
           placeholder="Workout Name (Required)"
         />
 
-        {this.state.exercises.map(({ exercise, sets, reps }, i) => {
-          return (
-            <form>
-              <div className="row p-3" key={i}>
-                <div className="col-8">
-                  <h5 className="mt-5">Exercise</h5>
-                  <Input
-                    value={this.state.exercises[i].exercise}
-                    onChange={this.handleInputChange}
-                    name="exercises"
-                    placeholder="Exercise (Required)"
-                  />
-                </div>
-                <div className="col-4">
-                  <h5>Sets</h5>
-                  <Input
-                    value={this.state.exercises[i].sets}
-                    onChange={this.handleInputChange}
-                    name="sets"
-                    placeholder="Exercise (Required)"
-                />
-                  <h5>Reps</h5>
-                  <Input
-                    value={this.state.exercises[i].reps}
-                    onChange={this.handleInputChange}
-                    name="reps"
-                    placeholder="Exercise (Required)"
-                  />
-                </div>
-              <hr/>
-              </div>
-              </form>
-)
-})}
+        {this.state.exercises.map((exercise, i) => {
 
+          return (<div className="row p-3" key={i}>
+            <div className="col-8">
+              <h5 className="mt-5">Exercise</h5>
+              <Input
+                attr={i}
+                value={this.state.exercises[i].exercise}
+                onChange={this.handleArrayInputChange}
+                name="exercise"
+                placeholder="Exercise (Required)"
+              />
+            </div>
+            <div className="col-4">
+              <h5>Sets</h5>
+              <Input
+                attr={i}
+                value={this.state.exercises[i].sets}
+                onChange={this.handleArrayInputChange}
+                name="sets"
+                placeholder="Sets (Required)"
+              />
+              <h5>Reps</h5>
+              <Input
+                attr={i}
+                value={this.state.exercises[i].reps}
+                onChange={this.handleArrayInputChange}
+                name="reps"
+                placeholder="Reps (Required)"
+              />
+            </div>
+            <hr />
+          </div>)
 
+        })}
 
         <Button
           type="save"
           buttonName="SAVE"
-          // onClick={() => this.setState({ workoutName: this.state.NEWworkoutName }, () => { this.updateData() })}
-          />
-
-       
-      </div>
-    )
-  }
-  editWater = () => {
-    return (
-      <div>
-        <h4 className="h4-reduced">Edit Water Data</h4>
-        <h4 className="h4-reduced">Water Target</h4>
-        <Button
-          type="save"
-          buttonName="SAVE"
-        // onClick={() => this.setState({ workoutName: this.state.NEWworkoutName }, () => { this.updateData() })}
+          onClick={() => { this.setState({ EDITworkout: false }, () => this.updateData()) }}
         />
-      </div>
-    )
-  }
-  editNutrition = () => {
-    return (
-      <div>
-        <h4 className="h4-reduced">Edit Nutrition Data</h4>
-        <h4 className="h4-reduced">Calorie Target</h4>
-        <h4 className="h4-reduced">Items</h4>
-        <Button
-          type="save"
-          buttonName="SAVE"
-        // onClick={() => this.setState({ workoutName: this.state.NEWworkoutName }, () => { this.updateData() })}
-        />
+
+
       </div>
     )
   }
 
   renderWaterComponent = () => {
-    if (this.state.waterTarget) {
-      return (this.state.EDITwater) ? (this.editWater()) : (this.displayWater());
+    if (this.state.EDITwater) {
+      return this.editWater();
+    } else if (this.state.waterTarget) {
+      return this.displayWater();
     } else {
       return (
         <div>
@@ -224,14 +197,40 @@ class Fitness extends Component {
           emptyStarColor={`#333333`}
           renderStarIcon={() => <i className="fas fa-glass-whiskey"></i>}
         />
-        <Button type="edit" buttonName="EDIT WATER DATA" />
+        <Button
+          type="edit"
+          buttonName="EDIT WATER DATA"
+          onClick={() => this.setState({ EDITwater: true })}
+        />
+      </div>
+    )
+  }
+
+  editWater = () => {
+    return (
+      <div>
+        <h4 className="h4-reduced">Edit Water Data</h4>
+        <h5>Water Target</h5>
+        <Input
+          value={this.state.waterTarget}
+          onChange={this.handleInputChange}
+          name="waterTarget"
+          placeholder="Water Target (Required)"
+        />
+        <Button
+          type="save"
+          buttonName="SAVE"
+          onClick={() => { this.setState({ EDITwater: false }, () => this.updateData()) }}
+        />
       </div>
     )
   }
 
   renderNutritionComponent = () => {
-    if (this.state.calorieTarget) {
-      return (this.state.EDITnutrition) ? (this.editNutrition()) : (this.displayNutrition());
+    if (this.state.EDITnutrition) {
+      return this.editNutrition();
+    } else if (this.state.calorieTarget) {
+      return this.displayNutrition();
     } else {
       return (
         <div>
@@ -283,7 +282,26 @@ class Fitness extends Component {
             )
           })}
         />
-        <Button type="edit" buttonName="EDIT NUTRITION DATA" />
+        <Button 
+          type="edit" 
+          buttonName="EDIT NUTRITION DATA" 
+          onClick={() => this.setState({ EDITnutrition: true })}
+        />
+      </div>
+    )
+  }
+
+  editNutrition = () => {
+    return (
+      <div>
+        <h4 className="h4-reduced">Edit Nutrition Data</h4>
+        <h5>Calorie Target</h5>
+        <h5>Items</h5>
+        <Button
+          type="save"
+          buttonName="SAVE"
+          onClick={() => { this.setState({ EDITnutrition: false }, () => this.updateData()) }}
+        />
       </div>
     )
   }
@@ -309,10 +327,29 @@ class Fitness extends Component {
     this.setState({ [name]: value });
   };
 
+  handleArrayInputChange = (event) => {
+    const { name, value, dataset } = event.target;
+    console.log(dataset)
+    const i = dataset.indexnum;
+    let dataArray = this.state.exercises;
+
+    console.log(name)
+    console.log(i)
+    console.log(value)
+
+    dataArray[i][name] = value;
+
+    console.log(dataArray)
+
+    this.setState({ exercises: dataArray });
+  }
+
   render() {
     if (this.state.username) {
+
       let data;
-      data = this.state
+      data = this.state;
+
       return (
         <div>
           <Nav username={data.username} />
@@ -339,34 +376,35 @@ class Fitness extends Component {
       )
     } else { return false }
   }
+
 }
 
 export default Fitness;
 
-{/* <List>
-{this.state.books.map(book => (
-  <ListItem key={book._id}>
-    <Link to={"/books/" + book._id}>
-      <strong>
-        {book.title} by {book.author}
-      </strong>
-    </Link>
-    <DeleteBtn onClick={() => this.deleteBook(book._id)} />
-  </ListItem>
-))}
-</List> */}
+// /* <List>
+// {this.state.books.map(book => (
+//   <ListItem key={book._id}>
+//     <Link to={"/books/" + book._id}>
+//       <strong>
+//         {book.title} by {book.author}
+//       </strong>
+//     </Link>
+//     <DeleteBtn onClick={() => this.deleteBook(book._id)} />
+//   </ListItem>
+// ))}
+// </List> */
 
-// <TextArea
-//  value={this.state.synopsis}
-//  onChange={this.handleInputChange}
-//  name="synopsis"
-//  placeholder="Synopsis (Optional)"
-// />
+// // <TextArea
+// //  value={this.state.synopsis}
+// //  onChange={this.handleInputChange}
+// //  name="synopsis"
+// //  placeholder="Synopsis (Optional)"
+// // />
 
-// handleFormSubmit = event => {
-//   event.preventDefault();
-// }
+// // handleFormSubmit = event => {
+// //   event.preventDefault();
+// // }
 
 
-{/* <i class="fas fa-save"></i> */ }
-{/* <i class="fas fa-plus-square ml-2"></i> */ }
+// /* <i class="fas fa-save"></i> */ 
+// /* <i class="fas fa-plus-square ml-2"></i> */ 

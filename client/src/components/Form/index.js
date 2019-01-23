@@ -4,8 +4,8 @@ import React from "react";
 
 export function Input(props) {
   return (
-    <div className="form-group">
-      <input className="form-control" {...props} />
+    <div className="form-group" data-indexnum={props.attr} {...props}>
+      <input type="text" data-indexnum={props.attr} className="form-control" {...props}/>
     </div>
   );
 }
