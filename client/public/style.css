@@ -210,6 +210,12 @@ th {
   border-color: rgb(0, 0, 0);
 }
 
+.clear {
+  color: white;
+  background-color: #0366d6;
+  border-color: rgb(0, 0, 0);
+}
+
 label {
   margin-bottom: 0;
 }
