@@ -380,8 +380,8 @@ class="weight-input"
         />
 <Button
           type="clear"
-          buttonName="SAVE"
-          onClick={() => { this.setState({ EDITwater: false }, () => this.updateData()) }}
+          buttonName="CLEAR"
+//           onClick={() => { this.setState({ EDITwater: false }, () => this.updateData()) }}
         />
 
 </div>
