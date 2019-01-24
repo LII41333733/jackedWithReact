@@ -46,7 +46,7 @@ class Fitness extends Component {
         <div>
           <NoData category="Workout" />
           <form>
-            <h5>What would you like to call today's workout?</h5>
+            <h5>`What would you like to call today's workout?`</h5>
             <Input
               value={this.state.NEWworkoutName}
               onChange={this.handleInputChange}
