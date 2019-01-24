@@ -20,9 +20,11 @@ class Fitness extends Component {
     NEWcalorieTarget: "",
     NEWworkoutName: "",
     NEWwaterTarget: "",
-    EDITworkout: true,
-    EDITwater: true,
-    EDITnutrition: true
+    EDITworkout: false,
+    EDITwater: false,
+    EDITnutrition: false,
+    startWorkout: true,
+    currentWeight: ""
   }
 
   componentDidMount() {
@@ -70,7 +72,7 @@ class Fitness extends Component {
           exercises={this.state.exercises.map(({ exercise, notes, reps, sets, section }, i) => {
             return (
               <tr key={i}>
-                <td className="fa-stack fa-2x">
+                <td className="fa-stack fa-2x numBadge">
                   <i className="fas fa-square fa-stack-2x"></i>
                   <i className="fas fa-stack-1x fa-inverse">{i + 1}</i>
                 </td>
@@ -84,6 +86,11 @@ class Fitness extends Component {
           type="edit"
           buttonName="EDIT WORKOUT DATA"
           onClick={() => this.setState({ EDITworkout: true })}
+        />
+        <Button
+          type="start"
+          buttonName="START WORKOUT"
+          onClick={() => this.setState({ startWorkout: true })}
         />
       </div>
     )
@@ -271,7 +278,7 @@ class Fitness extends Component {
           items={this.state.items.map(({ item, calories }, i) => {
             return (
               <tr key={i}>
-                <td className="fa-stack fa-2x">
+                <td className="fa-stack fa-2x numBadge">
                   <i className="fas fa-square fa-stack-2x"></i>
                   <i className="fas fa-stack-1x fa-inverse">{i + 1}</i>
                 </td>
@@ -304,6 +311,86 @@ class Fitness extends Component {
         />
       </div>
     )
+  }
+
+  startWorkout = () => {
+    return (
+    <div class="weightsDiv">
+    
+    <div class="weightOne"></div>
+    
+    <img class="barbell" src="https://spartantraining.se/wp-content/uploads/2015/02/riotbar1.jpg"></img>
+    
+    
+    
+    
+    <div class="plate plate45 left-plate-1"></div>
+    <div class="plate plate35 left-plate-2"></div>
+    <div class="plate plate25 left-plate-3"></div>
+    <div class="plate plate10 left-plate-4"></div>
+    
+    <div class="plate plate45 right-plate-1"></div>
+    <div class="plate plate35 right-plate-2"></div>
+    <div class="plate plate25 right-plate-3"></div>
+    <div class="plate plate10 right-plate-4"></div>
+    
+    
+    
+    
+    
+    
+    
+    
+    <span class="fa-stack weight fa-35x p45">
+  <i class="fas fa-circle one fa-stack-2x "></i>
+  <strong class="fa-stack-1x weight-text">45</strong>
+    </span>
+    
+        <span class="fa-stack weight fa-3x p35">
+  <i class="fas fa-circle two fa-stack-2x"></i>
+  <strong class="fa-stack-1x weight-text">35</strong>
+    </span>
+    
+            <span class="fa-stack weight fa-25x p25">
+  <i class="fas fa-circle three fa-stack-2x"></i>
+  <strong class="fa-stack-1x weight-text">25</strong>
+    </span>
+    
+                <span class="fa-stack weight fa-2x p10">
+  <i class="fas fa-circle three fa-stack-2x"></i>
+  <strong class="fa-stack-1x weight-text">10</strong>
+    </span>
+    
+                    <span class="fa-stack weight fa-15x p5">
+  <i class="fas fa-circle three fa-stack-2x"></i>
+  <strong class="fa-stack-1x weight-text">5</strong>
+    </span>
+    
+<h5 className="currWeight p0">Current Weight (lbs)</h5>
+<Input
+value={this.state.currentWeight}
+onChange={this.handleInputChange}
+name="currentWeight"
+class="weight-input"
+/>
+<Button
+          type="save"
+          buttonName="SAVE"
+          onClick={() => { this.setState({ EDITwater: false }, () => this.updateData()) }}
+        />
+<Button
+          type="clear"
+          buttonName="SAVE"
+          onClick={() => { this.setState({ EDITwater: false }, () => this.updateData()) }}
+        />
+
+</div>
+
+
+
+
+
+    );
   }
 
   updateData = () => {
@@ -364,7 +451,7 @@ class Fitness extends Component {
               </Col>
               <Col size="md-5 sm-12">
                 <div className="div2 section text-center mt-4">
-                  {this.renderWaterComponent()}
+                  {(this.state.startWorkout)?(this.startWorkout()):(this.renderWaterComponent())}
                 </div>
                 <div className="div3 section mt-4">
                   {this.renderNutritionComponent()}

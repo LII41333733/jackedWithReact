@@ -153,7 +153,7 @@ font-size: 1.8rem;
  font-family: 'Gruppo', cursive;
 }
 
-.fa-2x {
+.numBadge {
  font-size: 1.2rem;
 }
 
@@ -201,6 +201,12 @@ th {
 .edit, .save {
   color: #fff;
   background-color: #ff0505;
+  border-color: rgb(0, 0, 0);
+}
+
+.start {
+  color: white;
+  background-color: rgb(49, 124, 49);
   border-color: rgb(0, 0, 0);
 }
 
@@ -265,3 +271,159 @@ form {
 hr {
   height: 10px;
 }
+
+
+
+
+/* ------------------------------------------- */
+
+
+
+
+
+.weightsDiv {
+  height: 400px;
+   width: 400px;
+  background-color: white;
+  position: relative;
+  margin-left: 80px;
+  /* margin-left: 10px; */
+
+}
+
+/* .weightOne {
+    height: 200px;
+   width: 200px;
+  background-color: red;
+  position: absolute;
+  top: 10px;
+} */
+
+.weight {
+  position: absolute;
+  top: 180px;
+}
+
+
+.fa-35x {
+  font-size: 3.5em;
+}
+
+.fa-25x {
+  font-size: 2.5em;
+}
+
+.fa-15x {
+  font-size: 1.5em;
+}
+
+
+
+.weight-text { color: white; top: 0px; font-size: 35px }
+
+.barbell {
+  position: absolute;
+  width: 400px;
+  height: 65px;
+  top: 52px;
+  left: -8px;
+}
+
+.plate {
+  border-radius: 5px;
+  position: absolute;
+  width: 18px;
+}
+
+.plate45 {
+  height: 150px;
+  background: red;  
+}
+.left-plate-1 {
+  top: 10px;
+  left: 60px;
+}
+.right-plate-1 {
+  top: 10px;
+  right: 70px;
+}
+/* .p45 {color: red} */
+
+
+.plate35 {
+  height: 130px;
+  background: blue;
+}
+.left-plate-2 {
+  top: 20px;
+  left: 42px;
+}
+.right-plate-2 {
+  top: 20px;
+  right: 52px;
+}
+/* .p35 {color: blue} */
+
+.plate25 {
+  height: 110px;
+  background: darkgreen;
+  top: 30px;
+}
+.left-plate-3 {
+  left: 24px;
+}
+.right-plate-3 {
+  right: 34px;
+}
+
+.plate10 {
+  height: 90px;
+  background: orange;
+  top: 40px;
+}
+.left-plate-4 {
+  left: 6px;
+}
+.right-plate-4 {
+  right: 16px;
+}
+
+.p45 {
+  left: -35px;
+}
+
+.p35 {
+  left: 91px;
+  top: 183px;
+}
+
+.p25 {
+  left: 196px;
+  top: 190px;
+}
+
+.p10 {
+  left: 285px;
+  top: 198px;
+}
+
+.p5 {
+  left: 359px;
+  top: 204px;
+}
+
+.currWeight {
+  width: 70%;
+  padding: 0;
+  top: 315px;
+  position: absolute;
+}
+
+.weight-input {
+  top: 305px;
+  left: 205px;
+  position: absolute;
+  margin-left: 35px;
+
+}
+
