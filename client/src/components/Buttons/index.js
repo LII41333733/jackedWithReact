@@ -8,7 +8,9 @@ function Button(props) {
   if (props.type === "edit") {
     typeIcon = <i className="far fa-edit ml-2"></i>
   } else if (props.type === "start") {
-    typeIcon = <i class="fas fa-dumbbell mt-1 ml-2"></i>
+    typeIcon = <i className="fas fa-dumbbell mt-1 ml-2"></i>
+  } else if (props.type === "clear") {
+    typeIcon = <i class="far fa-times-circle"></i>
   } else {
     typeIcon = <i className="fas fa-save"></i>
   }
