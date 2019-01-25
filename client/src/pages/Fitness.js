@@ -311,8 +311,6 @@ class Fitness extends Component {
           placeholder="Calorie Target (Required)"
         />
       
-      
-      
         <h5>Items</h5>
       
         {this.state.items.map((item, i) => {
@@ -334,14 +332,19 @@ class Fitness extends Component {
                 name="item"
                 placeholder="Calories (Required)"
               />
+              <Button
+                type="delete"
+                buttonName="DELETE"
+                onClick={() => { this.deleteItem(ext, i) }}
+//                 onClick={() => { this.setState({ EDITnutrition: false }, () => this.updateData()) }}
+        />
             </div>
           )
         }
         <Button
           type="save"
           buttonName="SAVE"
-          onClick={() => { this.deleteItem(3, i) }}
-//           onClick={() => { this.setState({ EDITnutrition: false }, () => this.updateData()) }}
+          onClick={() => { this.setState({ EDITnutrition: false }, () => this.updateData()) }}
         />
       </div>
     )
@@ -350,8 +353,7 @@ class Fitness extends Component {
   startWorkout = () => {
     return (
     <div class="weightsDiv">
-    
-    <div class="weightOne"></div>
+   
     
     <img class="barbell" src="https://spartantraining.se/wp-content/uploads/2015/02/riotbar1.jpg"></img>
     
