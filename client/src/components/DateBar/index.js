@@ -13,11 +13,13 @@ function DateBar(props) {
       <a className="navbar-brand mx-auto small" href="/">Tomorrow<i className="fas fa-angle-right ml-2"></i></a>
     
     <DatePicker {props.selected} {props.onChange} {props.onSelect}  />
-    <Button
-      type="save"
-      buttonName="SAVE"
-      onClick={() => this.setState({ date: this.state.startDate }, () => { this.loadFitnessData() })}
-    />
+    
+  
+//     <Button
+//       type="save"
+//       buttonName="SAVE"
+//       onClick={() => this.setState({ date: this.state.startDate }, () => { this.loadFitnessData() })}
+//     />
     </nav>
 
   );
