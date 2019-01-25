@@ -11,8 +11,8 @@ function Button(props) {
     typeIcon = <i className="fas fa-dumbbell mt-1 ml-2"></i>
   } else if (props.type === "clear") {
     typeIcon = <i class="far fa-times-circle"></i>
-  } else {
-    typeIcon = <i className="fas fa-save"></i>
+  } else if (props.type === "delete") {
+    typeIcon = <i class="far fa-trash-alt"></i>
   }
 
   return (
