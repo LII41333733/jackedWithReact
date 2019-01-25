@@ -11,6 +11,8 @@ function DateBar(props) {
         {props.date}
       </a>
       <a className="navbar-brand mx-auto small" href="/">Tomorrow<i className="fas fa-angle-right ml-2"></i></a>
+    
+    {props.datePicker}
     </nav>
 
   );
