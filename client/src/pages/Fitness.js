@@ -496,7 +496,11 @@ class="weight-input"
         <div>
           <Nav username={data.username} />
           <hr />
-          <DateBar date={data.date} />
+          <DateBar 
+            date={data.date}
+            selected={this.state.startDate} 
+            onChange={this.handleChange}
+          />
           <Container>
             <Row>
               <Col size="md-7 sm-12">
