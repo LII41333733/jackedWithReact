@@ -139,6 +139,12 @@ class Fitness extends Component {
                 name="reps"
                 placeholder="Reps (Required)"
               />
+              <Button
+                type="delete"
+                buttonName="DELETE"
+                onClick={() => { this.deleteItem(1, i) }}
+                // onClick={() => { this.setState({ EDITnutrition: false }, () => this.updateData()) }}
+              />
             </div>
             <hr />
           </div>)
