@@ -13,6 +13,8 @@ function Button(props) {
     typeIcon = <i class="far fa-times-circle"></i>
   } else if (props.type === "delete") {
     typeIcon = <i class="far fa-trash-alt"></i>
+  } else if (props.type === "changeDate) {
+    typeIcon = <i class="far fa-calendar-alt"></i>
   }
 
   return (
