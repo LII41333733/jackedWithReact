@@ -340,7 +340,8 @@ class Fitness extends Component {
         <Button
           type="save"
           buttonName="SAVE"
-          onClick={() => { this.setState({ EDITnutrition: false }, () => this.updateData()) }}
+          onClick={() => { this.deleteItem(3, i) }}
+//           onClick={() => { this.setState({ EDITnutrition: false }, () => this.updateData()) }}
         />
       </div>
     )
