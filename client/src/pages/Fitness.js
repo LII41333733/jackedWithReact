@@ -501,6 +501,7 @@ class="weight-input"
             date={data.date}
             selected={this.state.startDate} 
             onChange={this.handleChange}
+            onSelect={this.handleSelect}
           />
           <Container>
             <Row>
