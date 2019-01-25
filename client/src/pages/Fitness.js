@@ -24,15 +24,16 @@ class Fitness extends Component {
     EDITwater: false,
     EDITnutrition: false,
     startWorkout: true,
-    currentWeight: ""
+    currentWeight: "",
+//     username: "LII41333733"
   }
 
   componentDidMount() {
-    this.loadFitnessData();
+    this.loadFitnessData(new Date(Date.now()).toLocaleString().split(",").slice(0)[0];);
   }
 
-  loadFitnessData = () => {
-    API.getData("LII41333733", "January 8, 2019")
+  loadFitnessData = (date) => {
+    API.getData("LII41333733", date)
       .then(res => { this.setState(res.data[0]) });
   }
 
