@@ -302,8 +302,41 @@ class Fitness extends Component {
     return (
       <div>
         <h4 className="h4-reduced">Edit Nutrition Data</h4>
+      
         <h5>Calorie Target</h5>
+        <Input
+          value={this.state.calorieTarget}
+          onChange={this.handleInputChange}
+          name="calorieTarget"
+          placeholder="Calorie Target (Required)"
+        />
+      
+      
+      
         <h5>Items</h5>
+      
+        {this.state.items.map((item, i) => {
+          return(
+            <div class="nutrition-items-div">
+              <h5 className="mt-5">Item</h5>
+              <Input
+                attr={i}
+                value={this.state.items[i].item}
+                onChange={this.handleArrayInputChange}
+                name="item"
+                placeholder="Item (Required)"
+              />
+              <h5 className="mt-5">Calories</h5>
+              <Input
+                attr={i}
+                value={this.state.items[i].calories}
+                onChange={this.handleArrayInputChange}
+                name="item"
+                placeholder="Calories (Required)"
+              />
+            </div>
+          )
+        }
         <Button
           type="save"
           buttonName="SAVE"
