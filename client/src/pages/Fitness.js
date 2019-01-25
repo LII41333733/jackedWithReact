@@ -349,6 +349,19 @@ class Fitness extends Component {
       </div>
     )
   }
+  
+  deleteItem = (ext, i) => { 
+    if (ext === 1) {
+      let data = this.state.exercises;
+      data.slice(i, 1);
+      this.setState({items: data}, () => { this.updatedata() });
+    } else {
+      let data = this.state.items;
+      data.slice(i, 1);
+      this.setState({items: data}, () => { this.updatedata() });
+    }
+    
+  }
 
   startWorkout = () => {
     return (
