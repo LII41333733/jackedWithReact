@@ -11,82 +11,98 @@ mongoose.connect(
 const fitnessSeed = [
   {
     username: "LII41333733",
-    date: "January 8, 2019",
-    workoutName: "Chest and Back",
-    exercises: [
+    fitnessData: [
       {
-        exercise: "Chest Press",
-        sets: 3,
-        reps: 12,
-        section: "Chest",
-        notes: "We a bit light today. Will go heavier next workout.",
-        weights: [65, 70, 75]
-      },
-      {
-        exercise: "Incline Dumbbell Fly",
-        sets: 4,
-        reps: 8,
-        section: "Chest",
-        notes: "We a bit light today. Will go heavier next workout.",
-        weights: [65, 70, 75]
-      },
-      {
-        exercise: "Close-Grip Bench Press",
-        sets: 5,
-        reps: 5,
-        section: "Chest",
-        notes: "We a bit light today. Will go heavier next workout.",
-        weights: [65, 70, 75]
-      },
-      {
-        exercise: "Decline Press",
-        sets: 3,
-        reps: 12,
-        section: "Chest",
-        notes: "We a bit light today. Will go heavier next workout.",
-        weights: [65, 70, 75]
-      },
-      {
-        exercise: "Wide Push-Ups",
-        sets: "3",
-        reps: "10",
-        section: "Chest",
-        notes: "We a bit light today. Will go heavier next workout.",
-        weights: [65, 70, 75]
-      },
-      {
-        exercise: "Hammer Strength Machine Press",
-        sets: 5,
-        reps: 10,
-        section: "Chest",
-        notes: "We a bit light today. Will go heavier next workout.",
-        weights: [65, 70, 75]
-      },
+        date: "",
+        workoutName: "Chest",
+        exercises: [],
+        calorieTarget: "",
+        items: [],
+        waterConsumed: "",
+        waterTarget: ""
+      }]
+  },
+  // {
+  //   username: "LII41333733",
+  //   fitnessData: [
+  //     {
+  //       date: "Monday, January 28th 2019",
+  //       workoutName: "Chest and Back",
+  //       exercises: [
+  //         {
+  //           exercise: "Chest Press",
+  //           sets: 3,
+  //           reps: 12,
+  //           section: "Chest",
+  //           notes: "We a bit light today. Will go heavier next workout.",
+  //           weights: [65, 70, 75]
+  //         },
+  //         {
+  //           exercise: "Incline Dumbbell Fly",
+  //           sets: 4,
+  //           reps: 8,
+  //           section: "Chest",
+  //           notes: "We a bit light today. Will go heavier next workout.",
+  //           weights: [65, 70, 75]
+  //         },
+  //         {
+  //           exercise: "Close-Grip Bench Press",
+  //           sets: 5,
+  //           reps: 5,
+  //           section: "Chest",
+  //           notes: "We a bit light today. Will go heavier next workout.",
+  //           weights: [65, 70, 75]
+  //         },
+  //         {
+  //           exercise: "Decline Press",
+  //           sets: 3,
+  //           reps: 12,
+  //           section: "Chest",
+  //           notes: "We a bit light today. Will go heavier next workout.",
+  //           weights: [65, 70, 75]
+  //         },
+  //         {
+  //           exercise: "Wide Push-Ups",
+  //           sets: "3",
+  //           reps: "10",
+  //           section: "Chest",
+  //           notes: "We a bit light today. Will go heavier next workout.",
+  //           weights: [65, 70, 75]
+  //         },
+  //         {
+  //           exercise: "Hammer Strength Machine Press",
+  //           sets: 5,
+  //           reps: 10,
+  //           section: "Chest",
+  //           notes: "We a bit light today. Will go heavier next workout.",
+  //           weights: [65, 70, 75]
+  //         },
 
-    ],
-    calorieTarget: 2000,
-    items: [
-      {
-        item: "Bacon and Eggs",
-        calories: 400
-      },
-      {
-        item: "Chicken Lentil Soup",
-        calories: 350
-      },
-      {
-        item: "Small salad w/ Balsamic Dressing",
-        calories: 200
-      },
-      {
-        item: "Martini",
-        calories: 100
-      }
-    ],
-    waterConsumed: 4,
-    waterTarget: 8
-  }
-];
+  //       ],
+  //       calorieTarget: 2000,
+  //       items: [
+  //         {
+  //           item: "Bacon and Eggs",
+  //           calories: 400
+  //         },
+  //         {
+  //           item: "Chicken Lentil Soup",
+  //           calories: 350
+  //         },
+  //         {
+  //           item: "Small salad w/ Balsamic Dressing",
+  //           calories: 200
+  //         },
+  //         {
+  //           item: "Martini",
+  //           calories: 100
+  //         }
+  //       ],
+  //       waterConsumed: 4,
+  //       waterTarget: 8
+  //     }]
+  // }
+]
 
 db.Log
   .remove({})

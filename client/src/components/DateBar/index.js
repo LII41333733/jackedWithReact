@@ -1,4 +1,6 @@
 import React from "react";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 function DateBar(props) {
   return (
@@ -12,14 +14,9 @@ function DateBar(props) {
       </a>
       <a className="navbar-brand mx-auto small" href="/">Tomorrow<i className="fas fa-angle-right ml-2"></i></a>
     
-    <DatePicker {props.selected} {props.onChange} {props.onSelect}  />
+    <DatePicker {...props}  />
     
-  
-//     <Button
-//       type="save"
-//       buttonName="SAVE"
-//       onClick={() => this.setState({ date: this.state.startDate }, () => { this.loadFitnessData() })}
-//     />
+
     </nav>
 
   );

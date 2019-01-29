@@ -23,11 +23,19 @@ html, body, #app, #app>div {
 }
 
 .div1 {
- width: 90%
+ width: 97%;
+ /* padding-left: 40px; */
+}
+
+
+
+.water-data-div {
+  padding: 20px;
 }
 
 .div2, .div3 {
- width: 100%
+ width: 100%;
+ max-width: 480px;
 }
 
 body {
@@ -153,6 +161,15 @@ font-size: 1.8rem;
  font-family: 'Gruppo', cursive;
 }
 
+.fa-stack {
+  display: block;
+  height: 2em;
+  line-height: 2em;
+  position: relative;
+  /* vertical-align: middle; */
+  width: 2.5em;
+}
+
 .numBadge {
  font-size: 1.2rem;
 }
@@ -166,9 +183,13 @@ font-size: 1.8rem;
  margin: 5px;
 }
 
-.workout-table {
+.fa-times-circle {
+  margin-top: 0.1rem;
+}
 
+.workout-table {
   width: 90%;
+  margin-left: 45px;
 }
 .nutrition-table {
   width: 90%;
@@ -204,6 +225,21 @@ th {
   border-color: rgb(0, 0, 0);
 }
 
+.delete {
+  color: #fff;
+  background-color: #666666;
+  border-color: rgb(0, 0, 0);
+}
+
+.edit-delete {
+  margin-top: 45px !important;
+  /* margin-left:  0px !important; */
+}
+
+.edit-sets, .edit-reps {
+  padding: -30px;
+}
+
 .start {
   color: white;
   background-color: rgb(49, 124, 49);
@@ -212,8 +248,16 @@ th {
 
 .clear {
   color: white;
-  background-color: #0366d6;
+  /* background-color: #0366d6; */
+  background-color: #ff0505;
+
   border-color: rgb(0, 0, 0);
+  position: relative;
+  top: 62px;
+}
+.saveBar {
+  position: relative;
+  top: 190px;
 }
 
 label {
@@ -268,12 +312,6 @@ label {
 }
 
 
-form {
-  border-bottom: 1px solid black;
-  margin: 20px 0;
-  padding-bottom: 20px;
-}
-
 hr {
   height: 10px;
 }
@@ -288,14 +326,16 @@ hr {
 
 
 .weightsDiv {
-  height: 400px;
-   width: 400px;
+  height: 370px;
+   width: 460px;
+   margin: 0 auto;
   background-color: white;
   position: relative;
-  margin-left: 80px;
-  /* margin-left: 10px; */
-
+  /* margin-left: 80px; */
+  /* border: 1px solid blue; */
 }
+
+
 
 /* .weightOne {
     height: 200px;
@@ -329,93 +369,105 @@ hr {
 
 .barbell {
   position: absolute;
-  width: 400px;
+  width: 420px;
   height: 65px;
-  top: 52px;
-  left: -8px;
+  top: 60px;
+  left: 23px;
+  z-index: 1;
 }
 
 .plate {
   border-radius: 5px;
   position: absolute;
-  width: 18px;
+  width: 15px;
+  border: 1px solid black;
+  z-index: 3;
 }
 
-.plate45 {
+.plate, .weight, .p45, .p35, .p25, .p10, .p5 {
+  cursor: pointer;
+}
+
+.plate1L {left: 95px}
+.plate1R {right: 93px}
+.plate2L {left: 81px}
+.plate2R {right: 79px}
+.plate3L {left: 67px}
+.plate3R {right: 65px}
+.plate4L {left: 54px}
+.plate4R {right: 51px}
+.plate5L {left: 40px}
+.plate5R {right: 37px}
+
+.plate-45 {
   height: 150px;
-  background: red;  
+  background: #ff0000;  
+  top: 15px;
 }
-.left-plate-1 {
-  top: 10px;
-  left: 60px;
+.plate-45 {
+  height: 150px;
+  background: #ff0000;  
+  top: 15px;
 }
-.right-plate-1 {
-  top: 10px;
-  right: 70px;
-}
-/* .p45 {color: red} */
-
-
-.plate35 {
-  height: 130px;
-  background: blue;
-}
-.left-plate-2 {
-  top: 20px;
-  left: 42px;
-}
-.right-plate-2 {
-  top: 20px;
-  right: 52px;
-}
-/* .p35 {color: blue} */
-
-.plate25 {
-  height: 110px;
-  background: darkgreen;
-  top: 30px;
-}
-.left-plate-3 {
-  left: 24px;
-}
-.right-plate-3 {
-  right: 34px;
-}
-
-.plate10 {
-  height: 90px;
-  background: orange;
-  top: 40px;
-}
-.left-plate-4 {
-  left: 6px;
-}
-.right-plate-4 {
-  right: 16px;
-}
-
 .p45 {
-  left: -35px;
+  color: #ff0000;
 }
 
-.p35 {
-  left: 91px;
-  top: 183px;
+.plate-35 {
+  top: 25px;
+  height: 130px;
+  background: #cc0000;
+  /* background: blue;; */
 }
-
-.p25 {
-  left: 196px;
-  top: 190px;
+.plate-35 {
+  top: 25px;
+  height: 130px;
+  background: #cc0000;
 }
+.p35 { color: #cc0000 }
 
-.p10 {
-  left: 285px;
-  top: 198px;
+.plate-25 {
+  height: 110px;
+  background: #990000;
+  top: 35px;
 }
+.plate-25 {
+  height: 110px;
+  background: #990000;
+  top: 35px;
+}
+.p25 { color: #990000 }
 
-.p5 {
-  left: 359px;
-  top: 204px;
+
+.plate-10 {
+  height: 90px;
+  background: #660000;
+  top: 45px;
+}
+.plate-10 {
+  height: 90px;
+  background: #660000;
+  top: 45px;
+}
+.p10 { color: #660000 }
+
+.plate-5 {
+  height: 80px;
+  background: #330000;
+  top: 50px;
+}
+.plate-5 {
+  height: 80px;
+  background: #330000;
+  top: 50px;
+}
+.p5 { color: #330000 }
+
+
+.total {
+  position: absolute;
+  left: 40%;
+  font-size: 2rem;
 }
 
 .currWeight {
@@ -430,6 +482,56 @@ hr {
   left: 205px;
   position: absolute;
   margin-left: 35px;
-
 }
 
+.p45, .p35, .p25, .p10, .p5 {
+  position: absolute;
+}
+
+.p45 {
+  top: 182px;
+}
+
+.p35 {
+  top: 190px;
+  left: 120px;
+}
+
+.p25 {
+  top: 198px;
+  left: 225px;
+}
+
+.p10 {
+  top: 206px;
+  left: 315px;
+}
+
+.p5 {
+  top: 215px;
+  left: 391px;
+}
+
+.hide {
+  visibility: hidden;
+}
+
+.weight-total {
+
+  position: relative;
+  top: 25px;
+}
+
+.total-form {
+  width: 40%;
+  margin: 0 auto;
+  position: relative;
+  top: 20px;
+  z-index: 5
+
+  
+}
+
+.total-form > input {
+  font-size: 1.5rem;
+}

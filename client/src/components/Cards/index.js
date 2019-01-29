@@ -1,43 +1,50 @@
 import React from "react";
 
+
 export function WorkoutCard(props) {
 
-  return (
-    <div className={`workout-card text-center`}>
-      <h4>TODAY'S WORKOUT</h4>
-      <h3 className="mt-3 mb-2 h4-reduced">{props.workoutName}</h3>
-      <table className="workout-table mx-auto">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Exercise</th>
-            <th>Sets/Reps</th>
-          </tr>
-        </thead>
-        <tbody>
-          {props.exercises}
-        </tbody>
-      </table>
-    </div>
-  );
-}
+  if (props.exercisesEntered.length > 0) {
 
-export function WaterCard(props) {
-  return (
-    <div className={`water-card d-flex mx-auto`}>
-      <h4 className="mx-auto h4-reduced">{props.remaining} GLASSES TO GO</h4>
-      {props.cups}
-    </div>
-  );
+    return (
+      <div className={`workout-card text-center`}>
+        <h4>TODAY'S WORKOUT</h4>
+        <h3 className="mt-3 mb-2 h4-reduced">{props.workoutName}</h3>
+        <table className="workout-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Exercise</th>
+              <th>Sets/Reps</th>
+            </tr>
+          </thead>
+          <tbody>
+            {props.exercises}
+          </tbody>
+        </table>
+        {props.editButton}
+        {props.startButton}
+      </div>
+    );
+  } else {
+    return(
+      <div className={`workout-card text-center`}>
+        <h4>TODAY'S WORKOUT</h4>
+        <h3 className="mt-3 mb-2 h4-reduced">{props.workoutName}</h3>
+        {props.addButton}
+      </div>
+    )
+  }
 }
 
 export function NutritionCard(props) {
+
+if (props.itemsEntered.length > 0) {
   return (
     <div className={`nutrition-card text-center`}>
       <h4 className="h4-reduced">CALORIE TARGET</h4>
       <h4 className={`mb-3`}>{props.target}</h4>
       <h4 className={"h4-reduced"}>CURRENT CALORIES</h4>
-      <h4 className={`${props.status}`}>{props.current}</h4>      
+      <h4 className={`${props.status}`}>{props.current}</h4>
 
       <table className="nutrition-table mx-auto">
         <thead>
@@ -56,8 +63,32 @@ export function NutritionCard(props) {
     </div>
 
   );
+} else {
+  return(
+    <div className={`nutrition-card text-center`}>
+      <h4 className="h4-reduced">CALORIE TARGET</h4>
+      <h4 className={`mb-3`}>{props.target}</h4>
+      <h4 className={"h4-reduced"}>CURRENT CALORIES</h4>
+      <h4 className={`${props.status}`}>{props.current}</h4>
+      {props.addButton}
+    </div>
+  )
+}
+
+
 
 }
+
+export function WaterCard(props) {
+  return (
+    <div className={`water-card d-flex mx-auto`}>
+      <h4 className="mx-auto h4-reduced">{props.remaining} GLASSES TO GO</h4>
+      {props.cups}
+    </div>
+  );
+}
+
+
 
 
 
