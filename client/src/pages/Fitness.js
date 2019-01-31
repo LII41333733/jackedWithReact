@@ -12,8 +12,6 @@ import API from "../utils/API";
 import { Col, Row, Container } from "../components/Grid";
 import { Input, TextArea } from "../components/Form";
 import moment from 'moment';
-import Timer from 'react-timer-wrapper';
-import Timecode from 'react-timecode';
 
 class Fitness extends Component {
   state = {
