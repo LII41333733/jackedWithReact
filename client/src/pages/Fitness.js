@@ -74,6 +74,8 @@ class Fitness extends Component {
     API.getData("LII41333733")
       .then(res => {
 
+        console.log(res.data)
+
         if (res.data) {
 
         let data = res.data[0].fitnessData;
