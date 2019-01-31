@@ -27,6 +27,8 @@
     "mongoose": "^5.0.17",
     "react-datepicker": "^2.0.0",
     "react-moment": "^0.8.4",
-    "react-star-rating-component": "^1.4.1"
+    "react-star-rating-component": "^1.4.1",
+    "react-timecode": "^1.1.14",
+    "react-timer-wrapper": "^0.3.7"
   }
 }

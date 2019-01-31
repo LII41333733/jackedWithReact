@@ -5,7 +5,7 @@ import React from "react";
 export function Input(props) {
   return (
     <div className={`form-group ${props.class}`} >
-      <input type="text" data-indexnum={props.attr} className="form-control" name={props.name} onChange={props.onChange} value={props.value}/>
+      <input type="text" data-indexnum={props.attr} className={`form-control ${props.width}`} name={props.name} onChange={props.onChange} value={props.value}/>
     </div>
   );
 }
@@ -13,7 +13,7 @@ export function Input(props) {
 export function TextArea(props) {
   return (
     <div className="form-group">
-      <textarea className="form-control" rows="20" {...props} />
+      <textarea className="form-control gymNotes" rows="10" {...props} />
     </div>
   );
 }

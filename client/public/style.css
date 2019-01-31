@@ -250,14 +250,15 @@ th {
   color: white;
   /* background-color: #0366d6; */
   background-color: #ff0505;
-
+  z-index: 10;
   border-color: rgb(0, 0, 0);
   position: relative;
-  top: 62px;
+  top: 70px;
 }
 .saveBar {
   position: relative;
-  top: 190px;
+  top: 210px;
+  left: 120px;
 }
 
 label {
@@ -290,12 +291,13 @@ label {
   margin-left: 10px;
 }
 
-.fa-edit:hover, .fa-trash-alt:hover {
+.fa-edit:hover, .small, .fa-trash-alt:hover, .setBadge, .result {
   cursor: pointer;
 }
 
 .small {
-  font-size: .9rem !important;
+  font-size: 1.3rem !important;
+  color: white;
 
 }
 
@@ -470,6 +472,19 @@ hr {
   font-size: 2rem;
 }
 
+.shortenWidth {
+  width: 26%;
+  position: relative;
+  top: 20px;
+}
+
+.shortenWidthRep {
+  width: 20%;
+  position: absolute;
+  top: 317px;
+  left: 140px;
+}
+
 .currWeight {
   width: 70%;
   padding: 0;
@@ -534,4 +549,73 @@ hr {
 
 .total-form > input {
   font-size: 1.5rem;
+}
+
+
+.col-md-6 {
+  max-width: 45%;
+}
+
+.set {
+  color: #390000;
+}
+
+.result {
+  height: 35px;
+  width: 142px;
+  /* background: rgb(49, 124, 49); */
+  background: #ff0000;
+  border-radius: 5px;
+  font-size: 1.2rem;
+  color: white;
+  font-family: 'Gruppo', cursive;
+  font-weight: 900;
+
+}
+
+.setDiv {
+  width: 90%;
+  margin: 0 auto;
+
+}
+
+.setNumber {
+  position: relative;
+  top: 8%;
+}
+
+.setBadge {
+
+}
+
+.gymNotes {
+  text-align: left;
+}
+
+.repsDiv {
+  color: black;
+  position: absolute;
+  top: 323px;
+  left: 48px;
+}
+
+.exerciseDiv {
+  height: 70px;
+}
+
+.react-datepicker-wrapper {
+  right: 100px;
+    position: absolute;
+    bottom: 40px;
+}
+
+.changeDate {
+  position: absolute;
+    right: 103px;
+bottom: 83px;    
+font-family: 'Gruppo', cursive;
+    letter-spacing: 5px;
+    color: white;
+    /* margin: 20px; */
+    font-size: 1rem;
 }

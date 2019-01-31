@@ -2,7 +2,6 @@ import React from "react";
 
 function Button(props) {
 
-  let type;
   let typeIcon;
 
   if (props.type === "edit") {

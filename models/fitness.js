@@ -11,10 +11,12 @@ const fitnessSchema = new Schema({
         exercise: String,
         sets: Number,
         reps: Number,
-        section: String,
-        notes: String,
-        weights: [Number]
+        completed: [{
+          repsDone: Number,
+          weightUsed: Number
+        }],
       }],
+      note: String,
       calorieTarget: Number,
       items: [{
         item: String,

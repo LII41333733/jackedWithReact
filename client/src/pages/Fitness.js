@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import StarRatingComponent from 'react-star-rating-component';
-import DeleteBtn from "../components/DeleteBtn";
 import Nav from "../components/Nav";
 import NoData from "../components/NoData";
 import Button from "../components/Buttons";
@@ -10,22 +9,22 @@ import { WaterCard } from "../components/Cards";
 import { NutritionCard } from "../components/Cards";
 // import Jumbotron from "../components/Jumbotron";
 import API from "../utils/API";
-import { Link } from "react-router-dom";
 import { Col, Row, Container } from "../components/Grid";
-import { List, ListItem } from "../components/List";
-import { Input, TextArea, FormBtn } from "../components/Form";
+import { Input, TextArea } from "../components/Form";
 import moment from 'moment';
-
+import Timer from 'react-timer-wrapper';
+import Timecode from 'react-timecode';
 
 class Fitness extends Component {
   state = {
     username: "LII41333733",
     fitnessData: [],
 
-    renderTodaysDate: false,
-    renderDate: "Monday, January 28th 2019",
+    renderDate: "",
+    startDate: new Date(),
 
     ADDexercise: false,
+    ADDitem: false,
 
     EDITworkout: false,
     EDITwater: false,
@@ -41,6 +40,13 @@ class Fitness extends Component {
     NEWexercise: "",
     NEWsets: "",
     NEWreps: "",
+
+    NEWintraReps: 0,
+
+    NEWitem: "",
+    NEWcalories: '',
+
+    currentSet: "",
 
     // currentWeight: "",
     plate1: 0,
@@ -61,7 +67,8 @@ class Fitness extends Component {
 
   componentDidMount() {
     this.setState({
-      todaysDate: moment().format("dddd, MMMM Do YYYY"),
+
+      renderDate: moment().toISOString()
     }, () => { this.loadFitnessData() })
   }
 
@@ -69,45 +76,34 @@ class Fitness extends Component {
     API.getData("LII41333733")
       .then(res => {
 
-
         let data = res.data[0].fitnessData;
 
-        if (this.state.renderTodaysDate) {
-          data.forEach((day) => {
-            console.log(day)
-            if (day.date === this.state.todaysDate) {
-              this.setState({
-                fitnessData: data,
-                renderDate: day.date,
-                date: day.date,
-                calorieTarget: day.calorieTarget,
-                exercises: day.exercises,
-                items: day.items,
-                waterConsumed: day.waterConsumed,
-                waterTarget: day.waterTarget,
-                workoutName: day.workoutName
-              }, () => console.log(this.state))
-            }
-          })
-        } else {
-          data.forEach((day) => {
-            if (day.date === this.state.renderDate) {
-              this.setState({
-                fitnessData: data,
-                calorieTarget: day.calorieTarget,
-                date: day.date,
-                exercises: day.exercises,
-                items: day.items,
-                waterConsumed: day.waterConsumed,
-                waterTarget: day.waterTarget,
-                workoutName: day.workoutName
-              }, () => console.log(this.state))
-            }
-          })
-        }
+        
+        let found = data.find((day) => {
+          return moment(day.date).format("dddd, MMMM Do YYYY") === moment(this.state.renderDate).format("dddd, MMMM Do YYYY")
+        })
 
-
-
+        return (found === undefined) ?
+          (this.setState({
+            fitnessData: data,
+            calorieTarget: "",
+            exercises: [],
+            items: [],
+            waterConsumed: "",
+            waterTarget: "",
+            workoutName: "",
+            note: "",
+          })) :
+          (this.setState({
+            fitnessData: data,
+            calorieTarget: found.calorieTarget,
+            exercises: found.exercises,
+            items: found.items,
+            waterConsumed: found.waterConsumed,
+            waterTarget: found.waterTarget,
+            workoutName: found.workoutName,
+            note: found.note,
+          }))
       });
   }
 
@@ -116,19 +112,16 @@ class Fitness extends Component {
 
     let dataCopy = this.state.fitnessData;
     let data;
-    let dateSwitch;
-
-    (this.state.renderTodaysDate) ? (dateSwitch = this.state.todaysDate) : (dateSwitch = this.state.renderDate)
-
 
     data = {
-      date: dateSwitch,
+      date: moment(this.state.renderDate).toISOString(),
       workoutName: this.state.workoutName,
       exercises: this.state.exercises,
+      note: this.state.note,
       calorieTarget: this.state.calorieTarget,
       items: this.state.items,
       waterConsumed: this.state.waterConsumed,
-      waterTarget: this.state.waterTarget
+      waterTarget: this.state.waterTarget,
     }
 
 
@@ -155,19 +148,52 @@ class Fitness extends Component {
   }
 
   render() {
+
+    // console.log(moment(this.state.renderDate).format('L'))
+
+    if (this.state.renderDate.length > 0) {
+      // console.log(moment(this.state.renderDate).format('L'))
+    }
+    // console.log(moment().subtract(1, 'days').format("dddd, MMMM Do YYYY"))
+
+
     if (this.state.username) {
       let data;
       data = this.state;
 
       return (
         <div>
-          <Nav username={data.username} />
+          <Nav username={data.username}
+            startDate={this.state.startDate}
+            onChange={this.handleChange}
+          />
+
           <hr />
           <DateBar
-            date={data.date}
+            date={moment(data.renderDate).format("dddd, MMMM Do YYYY")}
             selected={this.state.startDate}
             onChange={this.handleChange}
             onSelect={this.handleSelect}
+            yesterday={<h4 className="navbar-brand mx-auto small mt-2" onClick={() => {
+
+
+              this.setState({
+                renderDate: moment(this.state.renderDate).subtract(1, 'days')
+              }, () => {
+                this.loadFitnessData()
+              })
+
+            }} href="/"><i className="fas fa-angle-left mr-2"></i>Yesterday</h4>}
+            tomorrow={<h4 className="navbar-brand mx-auto small mt-2" onClick={() => {
+
+              this.setState({
+                renderDate: moment(this.state.renderDate).add(1, 'days')
+              }, () => {
+                this.loadFitnessData()
+              })
+
+            }} href="/">Tomorrow<i className="fas fa-angle-right ml-2"></i></h4>}
+
           />
           <Container>
             <Row>
@@ -240,8 +266,6 @@ class Fitness extends Component {
         {this.state.exercises.map((exercise, i) => {
 
           return (
-
-
             <div className="row p-3" key={i}>
 
               <div className="col-12">
@@ -253,7 +277,7 @@ class Fitness extends Component {
                 <Input
                   attr={i}
                   value={this.state.exercises[i].exercise}
-                  onChange={this.handleArrayInputChange}
+                  onChange={this.handleExerciseArrayInputChange}
                   name="exercise"
                   placeholder="Exercise (Required)"
                 />
@@ -266,7 +290,7 @@ class Fitness extends Component {
                 <Input
                   attr={i}
                   value={this.state.exercises[i].sets}
-                  onChange={this.handleArrayInputChange}
+                  onChange={this.handleExerciseArrayInputChange}
                   name="sets"
                   placeholder="Sets (Required)"
                 />
@@ -277,7 +301,7 @@ class Fitness extends Component {
                 <Input
                   attr={i}
                   value={this.state.exercises[i].reps}
-                  onChange={this.handleArrayInputChange}
+                  onChange={this.handleExerciseArrayInputChange}
                   name="reps"
                   placeholder="Reps (Required)"
                 />
@@ -290,19 +314,11 @@ class Fitness extends Component {
                   onClick={() => { this.deleteItem(1, i) }}
                 />
               </div>
-
-
-
             </div>
           )
 
         })}
-        <Button
-          type="add start"
-          buttonName="ADD EXERCISE"
-          onClick={() => this.setState({ ADDexercise: true })}
 
-        />
         <Button
           type="save"
           buttonName="SAVE"
@@ -336,7 +352,7 @@ class Fitness extends Component {
             onClick={() => this.setState({ workoutMode: true })}
           />}
           workoutName={this.state.workoutName}
-          exercises={(this.state.exercises) ? (this.state.exercises.map(({ exercise, notes, reps, sets, section }, i) => {
+          exercises={(this.state.exercises) ? (this.state.exercises.map(({ exercise, reps, sets }, i) => {
             return (
               <tr key={i}>
                 <td className="fa-stack fa-2x numBadge mx-auto ">
@@ -355,6 +371,191 @@ class Fitness extends Component {
     )
   }
 
+  displayINTRAworkout = () => {
+
+    return (
+      <div className="row justify-content-center">
+        {this.state.exercises.map((exercise, i) => {
+
+          const setResults = () => {
+            let setCount = this.state.exercises[i].sets
+            let results = []
+            for (let j = 0; j < setCount; j = j + 1) {
+
+
+
+
+              if (this.state.exercises[i].completed[j]) {
+                if (this.state.exercises[i].completed[j].weightsUsed !== 0) {
+
+                  results.push(<div className="result d-inline-block m-1" key={j} onClick={() =>
+
+
+
+                    this.setState({
+                      plate1Class: this.state.exercises[i].completed[j].plate1Class,
+                      plate2Class: this.state.exercises[i].completed[j].plate2Class,
+                      plate3Class: this.state.exercises[i].completed[j].plate3Class,
+                      plate4Class: this.state.exercises[i].completed[j].plate4Class,
+                      plate5Class: this.state.exercises[i].completed[j].plate5Class,
+                      EDITset: true,
+                      currentSet: j + 1,
+                      currentExercise: i,
+                      NEWintraReps: this.state.exercises[i].completed[j].repsDone,
+                      total: this.state.exercises[i].completed[j].weightUsed
+                    })
+
+
+                  } ><span className="setNumber">{j + 1}  &nbsp;-&nbsp;  {this.state.exercises[i].completed[j].repsDone} x {this.state.exercises[i].completed[j].weightUsed} lbs.</span></div>)
+
+
+                }
+              }
+
+            }
+            return results;
+
+
+          }
+
+          const setSets = () => {
+            let setCount = this.state.exercises[i].sets
+            let sets = []
+            for (let j = 0; j < setCount; j = j + 1) {
+              let ww;
+
+              if (this.state.exercises[i].completed[j]) {
+                if (this.state.exercises[i].completed[j].weightsUsed !== 0) {
+                  ww = "hide"
+                } else {
+                  return;
+                }
+              }
+
+              sets.push((
+                <div className={`fa-stack fa-2x numBadge mt-2  mx-auto d-inline-block setBadge ${ww}`} key={j + (i * 2)} data-setorder={j} onClick={() => {
+
+
+
+
+                  let repss = 0;
+                  let weightt = 0;
+
+
+
+
+                  if (this.state.exercises[i].completed[j]) {
+
+
+
+                    if (this.state.exercises[i].completed[j].repsDone) {
+                      repss = this.state.exercises[i].completed[j].repsDone
+                    }
+
+                    if (this.state.exercises[i].completed[j].weightUsed) {
+                      weightt = this.state.exercises[i].completed[j].weightUsed
+                    }
+                  }
+
+                  this.setState({
+                    EDITset: true,
+                    currentSet: j + 1,
+                    currentExercise: i,
+                    NEWintraReps: repss,
+                    total: weightt
+                  })
+
+                }}>
+
+                  <i className="fas fa-square set fa-stack-2x"></i>
+                  <i className="fas fa-stack-1x fa-inverse">{j + 1}</i>
+                </div>
+              ))
+
+
+            }
+            return sets;
+          }
+
+
+          return (
+            <div className="col col-md-6 col-sm-12 mb-3 p-0 text-center" key={i}>
+
+
+              <div className="fa-stack fa-2x numBadge mx-auto my-3 ">
+                <i className="fas fa-square fa-stack-2x"></i>
+                <i className="fas fa-stack-1x fa-inverse">{i + 1}</i>
+              </div>
+
+              <div className="exerciseDiv d-flex justify-content-center align-items-center">
+                <h4>{this.state.exercises[i].exercise.toUpperCase()}</h4>
+              </div>
+
+              {/* <h3 className="h4-reduced">SET</h3> */}
+
+
+              <div className="setDiv mb-2">{setSets()}</div>
+
+              <div className="results mb-2">{setResults()}</div>
+
+
+
+
+
+
+
+
+
+
+
+            </div>
+          )
+
+        })}
+      </div>
+    )
+  }
+
+  renderNotes = () => {
+    return (
+      <div>
+        <TextArea
+          value={this.state.note}
+          onChange={this.handleInputChange}
+          name="note"
+          placeholder="Notes (Optional)"
+        />
+        <Button
+          type="save"
+          buttonName="SAVE"
+          onClick={() => this.updateData()}
+        />
+      </div>
+    )
+  }
+
+  onTimerUpdate = ({ time, duration }) => {
+    this.setState({
+      time,
+      duration,
+    });
+  }
+
+  renderTimer = () => {
+
+    const {
+      time,
+      duration,
+    } = this.state;
+
+    return (this.state.EDITset) ? (this.renderWeights()) :
+      (<div>
+        <Timer active duration={1 * 60 * 1000} onTimeUpdate={this.onTimerUpdate} />
+        <Timecode time={duration - time} />
+      </div>)
+
+  }
+
   renderWeights = () => {
     return (this.state.EDITset) ?
 
@@ -365,10 +566,11 @@ class Fitness extends Component {
             value={this.state.total}
             onChange={this.handleInputChange}
             name="total"
-            className="total-form"
+            className="total"
+            width="shortenWidth"
           />
 
-          <img className="barbell" src="./barbell.png"></img>
+          <img className="barbell" src="./barbell.png" alt="barbell"></img>
 
 
           <div className={`plate plate1L ${this.state.plate1Class}`}></div >
@@ -417,22 +619,56 @@ class Fitness extends Component {
             onClick={() => this.clearBar()}
           />
 
+          <h3 className="repsDiv h4-reduced">REPS</h3>
+
+          <Input
+            value={this.state.NEWintraReps}
+            onChange={this.handleInputChange}
+            name="NEWintraReps"
+            className="repsInput"
+            width="shortenWidthRep"
+          />
+
           <Button
             type="saveBar clear"
             buttonName="SAVE SET"
-            onClick={() => this.clearBar()}
+            onClick={() => this.saveSet()}
           />
-
-
-
-          {/* <div className="total">Total: <span className="weight-total">0</span></div> */}
-
-          {/* <button type="button" className="btn btn-primary clear-button">Clear</button> */}
 
         </div >
       ) :
       (<div>Hello Hyrule!</div>)
 
+  }
+
+  saveSet = () => {
+
+    let exerciseClone = this.state.exercises
+    // let completedSets = this.state.exercises[this.state.currentExercise];
+
+    let completedSet = {
+      repsDone: Number(this.state.NEWintraReps),
+      weightUsed: this.state.total,
+      plate1Class: this.state.plate1Class,
+      plate2Class: this.state.plate2Class,
+      plate3Class: this.state.plate3Class,
+      plate4Class: this.state.plate4Class,
+      plate5Class: this.state.plate5Class
+    }
+
+    exerciseClone[this.state.currentExercise].completed[this.state.currentSet - 1] = completedSet;
+
+    // console.log(completedSets)
+
+
+
+    this.setState({
+      exercises: exerciseClone,
+      EDITset: false,
+    }, () => {
+      this.clearBar();
+      this.updateData();
+    })
   }
 
   handleClickedPlate = (weight) => {
@@ -623,7 +859,7 @@ class Fitness extends Component {
 
   // WATER COMPONENT FUNCTIONS ----------------------------------------------------------
   renderWaterComponent = () => {
-    if (this.state.workoutMode) { return this.renderNotes() }
+    if (this.state.workoutMode) { return this.renderTimer() }
     else if (this.state.EDITwater) { return this.editWater() }
     else if (this.state.waterTarget) { return this.displayWater() }
     else {
@@ -690,12 +926,12 @@ class Fitness extends Component {
         />
         <StarRatingComponent
           name="rate1"
-          starCount={parseInt(this.state.waterTarget)}
-        value={this.state.waterConsumed}
-        onStarClick={onStarClick.bind(this)}
-        starColor={`#09d0ff`}
-        emptyStarColor={`#333333`}
-        renderStarIcon={() => <i className="fas fa-glass-whiskey"></i>}
+          starCount={Number(this.state.waterTarget)}
+          value={this.state.waterConsumed}
+          onStarClick={onStarClick.bind(this)}
+          starColor={`#09d0ff`}
+          emptyStarColor={`#333333`}
+          renderStarIcon={() => <i className="fas fa-glass-whiskey"></i>}
         />
         <Button
           type="edit"
@@ -710,7 +946,8 @@ class Fitness extends Component {
   //--------------------------------------------------------
 
   renderNutritionComponent = () => {
-    if (this.state.workoutMode) { return this.renderTimer() }
+    if (this.state.workoutMode) { return this.renderNotes() }
+    else if (this.state.ADDitem) { return this.addItem() }
     else if (this.state.EDITnutrition) { return this.editNutrition() }
     else if (this.state.calorieTarget) { return this.displayNutrition() }
     else {
@@ -750,35 +987,51 @@ class Fitness extends Component {
           placeholder="Calorie Target (Required)"
         />
 
-        <h5>Items</h5>
 
         {this.state.items.map((item, i) => {
+
           return (
-            <div className="nutrition-items-div">
-              <Input
-                attr={i}
-                value={this.state.items[i].item}
-                onChange={this.handleArrayInputChange}
-                name="item"
-                placeholder="Item (Required)"
-              />
-              <h5 className="mt-5">Calories</h5>
-              <Input
-                attr={i}
-                value={this.state.items[i].calories}
-                onChange={this.handleArrayInputChange}
-                name="item"
-                placeholder="Calories (Required)"
-              />
-              <Button
-                type="delete"
-                buttonName="DELETE"
-                onClick={() => { this.deleteItem(3, i) }}
-              />
+            <div className="row p-3" key={i}>
+
+              <div className="col-12">
+                <div className="fa-stack fa-2x numBadge mx-auto mt-2">
+                  <i className="fas fa-square fa-stack-2x"></i>
+                  <i className="fas fa-stack-1x fa-inverse">{i + 1}</i>
+                </div>
+                <h5 key={i}>Item</h5>
+                <Input
+                  attr={i}
+                  value={this.state.items[i].item}
+                  onChange={this.handleItemArrayInputChange}
+                  name="item"
+                  placeholder="Item (Required)"
+                />
+                <h5>Calories</h5>
+                <Input
+                  attr={i}
+                  value={this.state.items[i].calories}
+                  onChange={this.handleItemArrayInputChange}
+                  name="calories"
+                  placeholder="Calories (Required)"
+                />
+              </div>
+
+
+              <div className="col-4 mx-auto">
+                <Button
+                  type="delete"
+                  class="d-flex mx-auto"
+                  buttonName="DELETE"
+                  onClick={() => { this.deleteItem(3, i) }}
+                />
+              </div>
+
+
             </div>
           )
         })
         }
+
         <Button
           type="save"
           buttonName="SAVE"
@@ -789,6 +1042,7 @@ class Fitness extends Component {
   }
 
   displayNutrition = () => {
+
     const reduceCalories = () => {
       let count = 0;
       this.state.items.forEach((item) => {
@@ -796,6 +1050,7 @@ class Fitness extends Component {
       })
       return (count <= this.state.calorieTarget) ? ({ status: "green", total: count }) : ({ status: "red", total: count })
     }
+
     return (
       <div>
         <NutritionCard
@@ -803,16 +1058,22 @@ class Fitness extends Component {
           addButton={<Button
             type="add start"
             buttonName="ADD ITEM"
-            onClick={() => this.setState({ ADDexercise: true })}
-
+            onClick={() => this.setState({ ADDitem: true })}
           />}
+          editButton={
+            <Button
+              type="edit"
+              buttonName="EDIT NUTRITION DATA"
+              onClick={() => this.setState({ EDITnutrition: true })}
+            />}
           status={reduceCalories().status}
           target={this.state.calorieTarget}
+          remaining={this.state.calorieTarget - reduceCalories().total}
           current={reduceCalories().total}
           items={this.state.items.map(({ item, calories }, i) => {
             return (
               <tr key={i}>
-                <td className="fa-stack fa-2x numBadge">
+                <td className="fa-stack fa-2x numBadge mx-auto">
                   <i className="fas fa-square fa-stack-2x"></i>
                   <i className="fas fa-stack-1x fa-inverse">{i + 1}</i>
                 </td>
@@ -822,17 +1083,51 @@ class Fitness extends Component {
             )
           })}
         />
-        <Button
-          type="edit"
-          buttonName="EDIT NUTRITION DATA"
-          onClick={() => this.setState({ EDITnutrition: true })}
-        />
       </div>
     )
   }
 
+  addItem = () => {
+    return (
+      <div>
+        <h5>Item Name</h5>
+        <Input
+          value={this.state.NEWitem}
+          onChange={this.handleInputChange}
+          name="NEWitem"
+          placeholder="Item Name (Required)"
+        />
+        <h5>How many calories in this item?</h5>
+        <Input
+          value={this.state.NEWcalories}
+          onChange={this.handleInputChange}
+          name="NEWcalories"
+          placeholder="Calories (Required)"
+        />
+
+        <Button
+          type="save"
+          buttonName="SAVE"
+          onClick={() => {
+            let data = this.state.items;
+            data.push({
+              item: this.state.NEWitem,
+              calories: this.state.NEWcalories,
+            })
+
+            this.setState({
+              items: data,
+              ADDitem: false,
+              NEWitem: "",
+              NEWcalories: "",
+            }, () => this.updateData())
+          }}
+        />
 
 
+      </div>
+    )
+  }
 
 
 
@@ -868,12 +1163,20 @@ class Fitness extends Component {
     this.setState({ [name]: value });
   };
 
-  handleArrayInputChange = (event) => {
+  handleExerciseArrayInputChange = (event) => {
     const { name, value, dataset } = event.target;
     const i = dataset.indexnum;
     let dataArray = this.state.exercises;
     dataArray[i][name] = value;
     this.setState({ exercises: dataArray });
+  }
+
+  handleItemArrayInputChange = (event) => {
+    const { name, value, dataset } = event.target;
+    const i = dataset.indexnum;
+    let dataArray = this.state.items;
+    dataArray[i][name] = value;
+    this.setState({ items: dataArray });
   }
 
   logData = () => {
@@ -888,8 +1191,13 @@ class Fitness extends Component {
   // ---------------------------------------------------------------
 
 
-
-
+  handleChange = (date) => {
+    this.setState({
+      startDate: date,
+      renderDate: moment(date).toISOString(),
+    }, () => this.loadFitnessData());
+  }
+  // Mon Jan 21 2019 01:45:57 GMT-0500 (Eastern Standard Time)
 
 }
 
@@ -927,12 +1235,6 @@ export default Fitness;
 
 
 
-// // <TextArea
-// //  value={this.state.synopsis}
-// //  onChange={this.handleInputChange}
-// //  name="synopsis"
-// //  placeholder="Synopsis (Optional)"
-// // />
 
 // // handleFormSubmit = event => {
 // //   event.preventDefault();
