@@ -76,7 +76,7 @@ class Fitness extends Component {
 
         console.log(res.data)
 
-        if (res.data.length > 0) {
+        if (res.data.length > 0 && this.state.workoutName) {
 
           let data = res.data[0].fitnessData;
 
