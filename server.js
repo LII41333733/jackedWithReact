@@ -18,7 +18,7 @@ app.use(routes);
 
 
 // Connect to the Mongo DB
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/jackedWithReact");
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/jackedwithreact");
 
 // Start the API server
 app.listen(PORT, function() {
