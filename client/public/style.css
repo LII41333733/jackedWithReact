@@ -643,3 +643,8 @@ font-family: 'Gruppo', cursive;
   height: 300px;
   width: auto;
 }
+
+.react-datepicker__input-container > input {
+  text-align: center;
+  margin: 0 auto;
+}
