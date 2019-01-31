@@ -81,18 +81,18 @@ class Fitness extends Component {
 
           let data = res.data[0].fitnessData;
 
-          // if (data === undefined) {
-          //   this.setState({
-          //     fitnessData: data,
-          //     calorieTarget: "",
-          //     exercises: [],
-          //     items: [],
-          //     waterConsumed: "",
-          //     waterTarget: "",
-          //     workoutName: "",
-          //     note: "",
-          //   })
-          // }
+          if (data === undefined) {
+            this.setState({
+              fitnessData: data,
+              calorieTarget: "",
+              exercises: [],
+              items: [],
+              waterConsumed: "",
+              waterTarget: "",
+              workoutName: "",
+              note: "",
+            })
+          }
 
 
           let found = data.find((day) => {
