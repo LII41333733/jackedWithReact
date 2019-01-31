@@ -76,49 +76,49 @@ class Fitness extends Component {
 
         console.log(res.data)
 
-        if (res.data !== []) {
+        if (res.data.length > 0) {
 
-        let data = res.data[0].fitnessData;
+          let data = res.data[0].fitnessData;
 
-        if (data === undefined) {
-          this.setState({
-            fitnessData: data,
-            calorieTarget: "",
-            exercises: [],
-            items: [],
-            waterConsumed: "",
-            waterTarget: "",
-            workoutName: "",
-            note: "",
+          if (data === undefined) {
+            this.setState({
+              fitnessData: data,
+              calorieTarget: "",
+              exercises: [],
+              items: [],
+              waterConsumed: "",
+              waterTarget: "",
+              workoutName: "",
+              note: "",
+            })
+          }
+
+
+          let found = data.find((day) => {
+            return moment(day.date).format("dddd, MMMM Do YYYY") === moment(this.state.renderDate).format("dddd, MMMM Do YYYY")
           })
-        }
 
-
-        let found = data.find((day) => {
-          return moment(day.date).format("dddd, MMMM Do YYYY") === moment(this.state.renderDate).format("dddd, MMMM Do YYYY")
-        })
-
-        return (found === undefined) ?
-          (this.setState({
-            fitnessData: data,
-            calorieTarget: "",
-            exercises: [],
-            items: [],
-            waterConsumed: "",
-            waterTarget: "",
-            workoutName: "",
-            note: "",
-          })) :
-          (this.setState({
-            fitnessData: data,
-            calorieTarget: found.calorieTarget,
-            exercises: found.exercises,
-            items: found.items,
-            waterConsumed: found.waterConsumed,
-            waterTarget: found.waterTarget,
-            workoutName: found.workoutName,
-            note: found.note,
-          }))
+          return (found === undefined) ?
+            (this.setState({
+              fitnessData: data,
+              calorieTarget: "",
+              exercises: [],
+              items: [],
+              waterConsumed: "",
+              waterTarget: "",
+              workoutName: "",
+              note: "",
+            })) :
+            (this.setState({
+              fitnessData: data,
+              calorieTarget: found.calorieTarget,
+              exercises: found.exercises,
+              items: found.items,
+              waterConsumed: found.waterConsumed,
+              waterTarget: found.waterTarget,
+              workoutName: found.workoutName,
+              note: found.note,
+            }))
         } else {
           this.setState({
             calorieTarget: "",
@@ -162,18 +162,18 @@ class Fitness extends Component {
     console.log(found)
     console.log(foundIndex)
 
-    
+
     //  (found === undefined) ?
     //   (dataCopy.push(data)) :
     //   (dataCopy[i] = data)
-    
+
     if (found === undefined) {
       dataCopy.push(data)
     } else {
       dataCopy[foundIndex] = data
     }
-    
-    
+
+
     // let foundIndex = dataCopy.indexOf(data)
 
     API.updateData("LII41333733", { username: "LII41333733", fitnessData: dataCopy })
@@ -258,7 +258,7 @@ class Fitness extends Component {
               <Col size="md-5 sm-12">
                 <div className={`div2
                 
-                ${(this.state.EDITset)?("blue-box"):("")}
+                ${(this.state.EDITset) ? ("blue-box") : ("")}
                 
                 section text-center mt-4 mx-auto`}>
                   {this.renderWaterComponent()}
