@@ -76,7 +76,7 @@ class Fitness extends Component {
 
         console.log(res.data)
 
-        if (res.data) {
+        if (res.data !== []) {
 
         let data = res.data[0].fitnessData;
 
