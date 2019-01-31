@@ -78,7 +78,7 @@ class Fitness extends Component {
 
         let data = res.data[0].fitnessData;
 
-        
+
         let found = data.find((day) => {
           return moment(day.date).format("dddd, MMMM Do YYYY") === moment(this.state.renderDate).format("dddd, MMMM Do YYYY")
         })
@@ -124,20 +124,30 @@ class Fitness extends Component {
       waterTarget: this.state.waterTarget,
     }
 
-
-
-
-    dataCopy.forEach((day, i) => {
-      if (day.date === data.date) {
-        dataCopy[i] = data
-      }
+    let found = dataCopy.find((day, i) => {
+      return moment(day.date).format("dddd, MMMM Do YYYY") === moment(this.state.renderDate).format("dddd, MMMM Do YYYY")
     })
 
-    console.log(dataCopy)
+    let foundIndex = dataCopy.findIndex((day, i) => {
+      return moment(day.date).format("dddd, MMMM Do YYYY") === moment(this.state.renderDate).format("dddd, MMMM Do YYYY")
+    })
 
-    if (dataCopy.length === 0) {
+    console.log(found)
+    console.log(foundIndex)
+
+    
+    //  (found === undefined) ?
+    //   (dataCopy.push(data)) :
+    //   (dataCopy[i] = data)
+    
+    if (found === undefined) {
       dataCopy.push(data)
+    } else {
+      dataCopy[foundIndex] = data
     }
+    
+    
+    // let foundIndex = dataCopy.indexOf(data)
 
     API.updateData("LII41333733", { username: "LII41333733", fitnessData: dataCopy })
       .catch(err => console.log(err))
@@ -148,14 +158,6 @@ class Fitness extends Component {
   }
 
   render() {
-
-    // console.log(moment(this.state.renderDate).format('L'))
-
-    if (this.state.renderDate.length > 0) {
-      // console.log(moment(this.state.renderDate).format('L'))
-    }
-    // console.log(moment().subtract(1, 'days').format("dddd, MMMM Do YYYY"))
-
 
     if (this.state.username) {
       let data;
@@ -178,6 +180,18 @@ class Fitness extends Component {
 
 
               this.setState({
+                NEWcalorieTarget: "",
+                NEWworkoutName: "",
+                NEWwaterTarget: "",
+
+                NEWexercise: "",
+                NEWsets: "",
+                NEWreps: "",
+
+                NEWintraReps: 0,
+
+                NEWitem: "",
+                NEWcalories: '',
                 renderDate: moment(this.state.renderDate).subtract(1, 'days')
               }, () => {
                 this.loadFitnessData()
@@ -187,6 +201,18 @@ class Fitness extends Component {
             tomorrow={<h4 className="navbar-brand mx-auto small mt-2" onClick={() => {
 
               this.setState({
+                NEWcalorieTarget: "",
+                NEWworkoutName: "",
+                NEWwaterTarget: "",
+
+                NEWexercise: "",
+                NEWsets: "",
+                NEWreps: "",
+
+                NEWintraReps: 0,
+
+                NEWitem: "",
+                NEWcalories: '',
                 renderDate: moment(this.state.renderDate).add(1, 'days')
               }, () => {
                 this.loadFitnessData()
@@ -203,7 +229,11 @@ class Fitness extends Component {
                 </div>
               </Col>
               <Col size="md-5 sm-12">
-                <div className={`div2 section text-center mt-4 mx-auto`}>
+                <div className={`div2
+                
+                ${(this.state.EDITset)?("blue-box"):("")}
+                
+                section text-center mt-4 mx-auto`}>
                   {this.renderWaterComponent()}
                 </div>
                 <div className="div3 section my-4 mx-auto">
@@ -374,145 +404,156 @@ class Fitness extends Component {
   displayINTRAworkout = () => {
 
     return (
-      <div className="row justify-content-center">
-        {this.state.exercises.map((exercise, i) => {
+      <div>
+        <div className="row justify-content-center">
+          {this.state.exercises.map((exercise, i) => {
 
-          const setResults = () => {
-            let setCount = this.state.exercises[i].sets
-            let results = []
-            for (let j = 0; j < setCount; j = j + 1) {
-
-
-
-
-              if (this.state.exercises[i].completed[j]) {
-                if (this.state.exercises[i].completed[j].weightsUsed !== 0) {
-
-                  results.push(<div className="result d-inline-block m-1" key={j} onClick={() =>
+            const setResults = () => {
+              let setCount = this.state.exercises[i].sets
+              let results = []
+              for (let j = 0; j < setCount; j = j + 1) {
 
 
+
+
+                if (this.state.exercises[i].completed[j]) {
+                  if (this.state.exercises[i].completed[j].weightsUsed !== 0) {
+
+                    results.push(<div className="result d-inline-block m-1" key={j} onClick={() =>
+
+
+
+                      this.setState({
+                        plate1Class: this.state.exercises[i].completed[j].plate1Class,
+                        plate2Class: this.state.exercises[i].completed[j].plate2Class,
+                        plate3Class: this.state.exercises[i].completed[j].plate3Class,
+                        plate4Class: this.state.exercises[i].completed[j].plate4Class,
+                        plate5Class: this.state.exercises[i].completed[j].plate5Class,
+                        EDITset: true,
+                        currentSet: j + 1,
+                        currentExercise: i,
+                        NEWintraReps: this.state.exercises[i].completed[j].repsDone,
+                        total: this.state.exercises[i].completed[j].weightUsed
+                      })
+
+
+                    } ><span className="setNumber">{j + 1}  &nbsp;-&nbsp;  {this.state.exercises[i].completed[j].repsDone} x {this.state.exercises[i].completed[j].weightUsed} lbs.</span></div>)
+
+
+                  }
+                }
+
+              }
+              return results;
+
+
+            }
+
+            const setSets = () => {
+              let setCount = this.state.exercises[i].sets
+              let sets = []
+              for (let j = 0; j < setCount; j = j + 1) {
+                let ww;
+
+                if (this.state.exercises[i].completed[j]) {
+                  if (this.state.exercises[i].completed[j].weightsUsed !== 0) {
+                    ww = "hide"
+                  } else {
+                    return;
+                  }
+                }
+
+                sets.push((
+                  <div className={`fa-stack fa-2x numBadge mt-2  mx-auto d-inline-block setBadge ${ww}`} key={j + (i * 2)} data-setorder={j} onClick={() => {
+
+
+
+
+                    let repss = 0;
+                    let weightt = 0;
+
+
+
+
+                    if (this.state.exercises[i].completed[j]) {
+
+
+
+                      if (this.state.exercises[i].completed[j].repsDone) {
+                        repss = this.state.exercises[i].completed[j].repsDone
+                      }
+
+                      if (this.state.exercises[i].completed[j].weightUsed) {
+                        weightt = this.state.exercises[i].completed[j].weightUsed
+                      }
+                    }
 
                     this.setState({
-                      plate1Class: this.state.exercises[i].completed[j].plate1Class,
-                      plate2Class: this.state.exercises[i].completed[j].plate2Class,
-                      plate3Class: this.state.exercises[i].completed[j].plate3Class,
-                      plate4Class: this.state.exercises[i].completed[j].plate4Class,
-                      plate5Class: this.state.exercises[i].completed[j].plate5Class,
                       EDITset: true,
                       currentSet: j + 1,
                       currentExercise: i,
-                      NEWintraReps: this.state.exercises[i].completed[j].repsDone,
-                      total: this.state.exercises[i].completed[j].weightUsed
+                      NEWintraReps: repss,
+                      total: weightt,
+                    }, () => {
+                      this.clearBar()
                     })
 
+                  }}>
 
-                  } ><span className="setNumber">{j + 1}  &nbsp;-&nbsp;  {this.state.exercises[i].completed[j].repsDone} x {this.state.exercises[i].completed[j].weightUsed} lbs.</span></div>)
+                    <i className="fas fa-square set fa-stack-2x"></i>
+                    <i className="fas fa-stack-1x fa-inverse">{j + 1}</i>
+                  </div>
+                ))
 
 
-                }
               }
-
+              return sets;
             }
-            return results;
 
 
-          }
-
-          const setSets = () => {
-            let setCount = this.state.exercises[i].sets
-            let sets = []
-            for (let j = 0; j < setCount; j = j + 1) {
-              let ww;
-
-              if (this.state.exercises[i].completed[j]) {
-                if (this.state.exercises[i].completed[j].weightsUsed !== 0) {
-                  ww = "hide"
-                } else {
-                  return;
-                }
-              }
-
-              sets.push((
-                <div className={`fa-stack fa-2x numBadge mt-2  mx-auto d-inline-block setBadge ${ww}`} key={j + (i * 2)} data-setorder={j} onClick={() => {
+            return (
+              <div className="col col-md-6 col-sm-12 mb-3 p-0 text-center" key={i}>
 
 
-
-
-                  let repss = 0;
-                  let weightt = 0;
-
-
-
-
-                  if (this.state.exercises[i].completed[j]) {
-
-
-
-                    if (this.state.exercises[i].completed[j].repsDone) {
-                      repss = this.state.exercises[i].completed[j].repsDone
-                    }
-
-                    if (this.state.exercises[i].completed[j].weightUsed) {
-                      weightt = this.state.exercises[i].completed[j].weightUsed
-                    }
-                  }
-
-                  this.setState({
-                    EDITset: true,
-                    currentSet: j + 1,
-                    currentExercise: i,
-                    NEWintraReps: repss,
-                    total: weightt
-                  })
-
-                }}>
-
-                  <i className="fas fa-square set fa-stack-2x"></i>
-                  <i className="fas fa-stack-1x fa-inverse">{j + 1}</i>
+                <div className="fa-stack fa-2x numBadge mx-auto my-3 ">
+                  <i className="fas fa-square fa-stack-2x"></i>
+                  <i className="fas fa-stack-1x fa-inverse">{i + 1}</i>
                 </div>
-              ))
+
+                <div className="exerciseDiv d-flex justify-content-center align-items-center">
+                  <h4>{this.state.exercises[i].exercise.toUpperCase()}</h4>
+                </div>
+                <h3 className="h4-reduced">SETS:</h3>
+
+                {/* <h3 className="h4-reduced">SET</h3> */}
 
 
-            }
-            return sets;
-          }
+                <div className="setDiv mb-2">{setSets()}</div>
+
+                <div className="results mb-2">{setResults()}</div>
 
 
-          return (
-            <div className="col col-md-6 col-sm-12 mb-3 p-0 text-center" key={i}>
-
-
-              <div className="fa-stack fa-2x numBadge mx-auto my-3 ">
-                <i className="fas fa-square fa-stack-2x"></i>
-                <i className="fas fa-stack-1x fa-inverse">{i + 1}</i>
               </div>
-
-              <div className="exerciseDiv d-flex justify-content-center align-items-center">
-                <h4>{this.state.exercises[i].exercise.toUpperCase()}</h4>
-              </div>
-
-              {/* <h3 className="h4-reduced">SET</h3> */}
-
-
-              <div className="setDiv mb-2">{setSets()}</div>
-
-              <div className="results mb-2">{setResults()}</div>
+            )
 
 
 
-
-
-
-
-
-
-
-
-            </div>
-          )
-
-        })}
+          })}
+        </div>
+        <div>
+          <Button
+            type="save"
+            buttonName="SAVE WORKOUT"
+            onClick={() => {
+              this.setState({
+                EDITset: false,
+                workoutMode: false
+              })
+            }}
+          />
+        </div>
       </div>
+
     )
   }
 
@@ -541,23 +582,10 @@ class Fitness extends Component {
     });
   }
 
-  renderTimer = () => {
 
-    const {
-      time,
-      duration,
-    } = this.state;
-
-    return (this.state.EDITset) ? (this.renderWeights()) :
-      (<div>
-        <Timer active duration={1 * 60 * 1000} onTimeUpdate={this.onTimerUpdate} />
-        <Timecode time={duration - time} />
-      </div>)
-
-  }
 
   renderWeights = () => {
-    return (this.state.EDITset) ?
+    return (this.state.workoutMode) ?
 
       (
         <div className="weightsDiv">
@@ -859,7 +887,7 @@ class Fitness extends Component {
 
   // WATER COMPONENT FUNCTIONS ----------------------------------------------------------
   renderWaterComponent = () => {
-    if (this.state.workoutMode) { return this.renderTimer() }
+    if (this.state.workoutMode) { return this.renderWeights() }
     else if (this.state.EDITwater) { return this.editWater() }
     else if (this.state.waterTarget) { return this.displayWater() }
     else {

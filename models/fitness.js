@@ -13,7 +13,12 @@ const fitnessSchema = new Schema({
         reps: Number,
         completed: [{
           repsDone: Number,
-          weightUsed: Number
+          weightUsed: Number,
+          plate1Class: String,
+          plate2Class: String,
+          plate3Class: String,
+          plate4Class: String,
+          plate5Class: String
         }],
       }],
       note: String,

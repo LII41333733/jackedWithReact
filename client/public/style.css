@@ -74,11 +74,26 @@ body {
  font-size: 1.6rem;
 }
 
-.brand {
+/* .brand {
  font-family: 'Orbitron', sans-serif;
  letter-spacing: 15px;
  font-size: 1.8rem;
  font-weight: 900;
+ position: absolute;
+ left: 50%;
+ right: 50%;
+ color: white;
+} */
+.brand {
+  font-family: 'Orbitron', sans-serif;
+  letter-spacing: 15px;
+  font-size: 1.8rem;
+  font-weight: 900;
+  position: absolute;
+  left: 566px;
+  /* right: 50%; */
+  top: 200px;
+  color: white;
 }
 
 a {
@@ -618,4 +633,13 @@ font-family: 'Gruppo', cursive;
     color: white;
     /* margin: 20px; */
     font-size: 1rem;
+}
+
+.blue-box {
+  box-shadow: 5px 5px #e2cb00
+}
+
+.banner {
+  height: 300px;
+  width: auto;
 }
