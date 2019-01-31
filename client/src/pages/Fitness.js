@@ -76,6 +76,8 @@ class Fitness extends Component {
     API.getData("LII41333733")
       .then(res => {
 
+        if (res.data) {
+
         let data = res.data[0].fitnessData;
 
         if (data === undefined) {
@@ -117,6 +119,19 @@ class Fitness extends Component {
             workoutName: found.workoutName,
             note: found.note,
           }))
+        } else {
+          this.setState({
+            fitnessData: data,
+            calorieTarget: "",
+            exercises: [],
+            items: [],
+            waterConsumed: "",
+            waterTarget: "",
+            workoutName: "",
+            note: "",
+          })
+        }
+
       });
   }
 
