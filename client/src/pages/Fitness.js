@@ -121,7 +121,6 @@ class Fitness extends Component {
           }))
         } else {
           this.setState({
-            fitnessData: data,
             calorieTarget: "",
             exercises: [],
             items: [],
