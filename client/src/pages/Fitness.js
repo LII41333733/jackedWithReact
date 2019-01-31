@@ -73,11 +73,10 @@ class Fitness extends Component {
     API.getData("LII41333733")
       .then(res => {
 
-        console.log(res.data)
-
- 
-
-        if (res.data.length > 0) {
+        if (res.data.length === 0) {
+          API.saveData({"username": "LII41333733"})
+          .then(res => {console.log(res.data)})
+        } else {
 
           let data = res.data[0].fitnessData;
 
@@ -93,7 +92,6 @@ class Fitness extends Component {
               note: "",
             })
           }
-
 
           let found = data.find((day) => {
             return moment(day.date).format("dddd, MMMM Do YYYY") === moment(this.state.renderDate).format("dddd, MMMM Do YYYY")
@@ -120,17 +118,7 @@ class Fitness extends Component {
               workoutName: found.workoutName,
               note: found.note,
             }))
-        } else {
-          this.setState({
-            calorieTarget: "",
-            exercises: [],
-            items: [],
-            waterConsumed: "",
-            waterTarget: "",
-            workoutName: "",
-            note: "",
-          }, () => {this.updateData()})
-        }
+        } 
 
       });
   }
