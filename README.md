@@ -1,11 +1,11 @@
-# Rate My Plate - *An App for Your Appetite*
+# FEEL THE MERN - *Get Jacked with React!*
 
 [Link to the App](https://lii41333733.github.io/rate-my-plate/)
 
 
 ## Introduction
 
-Summer is around the corner and the time to buckle down on fitness goals is now! Achieve the body you've always dreamed of with the help of *Jacked with React!* Focused on your workout, nutrition and hydration goals, *Jacked with React* provides you an easy and user-friendly way to log your data so you can consistently hit the benchmarks that you set for yourself, day in and day out. In the *Workout Mode*, you can quickly total the weight you have on the bar simply by clicking on the designated plates so you're in, out and back to your workout just in time for your next set!
+Summer is around the corner and the time to buckle down on fitness goals is now! Achieve the body you've always dreamed of with the help of *Feel the MERN - Get Jacked with React!* Focused on your workout, nutrition and hydration goals, *Feel the MERN* provides you an easy and user-friendly way to log your data so you can consistently hit the benchmarks that you set for yourself, day in and day out. In the *Workout Mode*, you can quickly total the weight you have on the bar simply by clicking on the designated plates so you're in, out and back to your workout just in time for your next set!
 
 Each day contains a set of workout, nutrition and hydration goals you set:
 * For workouts, you set the name of the workout and include all workouts to be done on that day. When you are done setting your lineup, the *Workout Mode* will bring you to where you can record the amount of reps completed for each set. Additionally you can leave notes for the workout to review later. 
