@@ -5,47 +5,26 @@
 
 ## Introduction
 
-Have you ever had a taste for a particular entree or drink and wanted to search near you to see which restaurants had the item you wanted along with ratings from others who have had it before? 
+Summer is around the corner and the time to buckle down on fitness goals is now! Achieve the body you've always dreamed of with the help of *Jacked with React!* Focused on your workout, nutrition and hydration goals, *Jacked with React* provides you an easy and user-friendly way to log your data so you can consistently hit the benchmarks that you set for yourself, day in and day out. In the *Workout Mode*, you can quickly total the weight you have on the bar simply by clicking on the designated plates so you're in, out and back to your workout just in time for your next set!
 
-*Search no more!* 
-
-*Rate My Plate* is a review app that tailors critique to not be of the restaurant as a whole, but of their food and beverage items specifically. Sure, Yelp and Google Reviews are the go-to spot for restaurant reviews, but they tend to be too objective and less focused on the actual items themselves. Patrons may give their opinion on a dish, but unless you go digging through a bunch of reviews and comments to find the particular opinion you are looking for (*if it even exists*), how would you ever know that there is a restaurant nearby that has an awesome Shrimp Tempura Roll or a delectable Cosmo that is to absolutely die for?
-
-To find reviews on an item using *Rate My Plate*, first search for the entree or drink you would like to find reviews on as well as the distance you are willing to travel for the item. The app will return reviews from restaurants in that area that users have left in *Rate My Plate* based on the keywords entered.
-
-To leave a review using *Rate My Plate*, search for the restaurant you visited and fill out the form accordingly:
-* Select the correct category: Food or Drink
-* Enter the item name (as it appears on the menu)
-* Give a detailed description - Describe the item as it is before taste. For example, explain how the item looks and smells or feel free to include any additional information on the item such as food history, inspiration, etc.
-* Share your overall experience - This section should include your opinion on the taste and experience you get from the item. How does it make you feel? What textures and flavors do you get? Here is your opportunity to put the reader of your review in your shoes and show them how you felt about the item as a whole.  
-* Upload a Photo
-* Leave a Rating (1 - Worst, 4 - Best)
-* Select up to 3 Mouthfeel options. *Mouthfeel* refers to the physical sensations in the mouth produced by a particular food.
+Each day contains a set of workout, nutrition and hydration goals you set:
+* For workouts, you set the name of the workout and include all workouts to be done on that day. When you are done setting your lineup, the *Workout Mode* will bring you to where you can record the amount of reps completed for each set. Additionally you can leave notes for the workout to review later. 
+* For your nutrition goals, you set the amount of calories you would like to maintain for the day. As you enter in items, the calculator will total the calories you set for each item and subtract from your overall goal. 
+* For hydration goals, each day you set how many glasses of water you would like to consume and with just a click, you can record each glass drank.
 
 
 ## Proof of Concept
 
-This was my first major project to showcase my skills thus far in basic front-end development. This was also my first app using AJAX to make API calls. Using user input I made API requests to the YELP API in order to search for restaurants based on keyword, location, distance and price range. I then used the Google Maps Navigation API to show a mini-map of the area where the restaurant is located based on the latitude and logitude given by the Yelp API.
-
-Another new technology for me was the use of Google's Firebase Cloud API for data persistence. Since I have not yet studied back-end, Firebase Database was a great tool to use for the means of storing review data to be called upon anywhere I need in the app. Firebase was useful not only for the specific review data, but for storing the photos from user reviews. Firebase Storage allowed me to upload the review photo for which I was returned a url to access the photo as a source.
-
-An additional tool I learned to use through building this app was the ability for elements to carry data throughout the app using *data-target* attributes which allowed for the descriptions and ratings to remain with the review throughout the app. A prospective improvement is to build a back-end to support Full Stack capabilities.
-
-Although a small component of the app but worth mentioning was the use of Bootstrap Modals. They are a great tool for setting HTML off the page in order to use for forms that you do not want embedded in the page, or a display option to show quick information.
+This was my first major project using React showcasing core React fundamentals, my introduction to JSX and using *State*. At first, mixing JavaScript with HTML was a tough nut to crack, but eventually it began to make sense. The most interesting thing about React to me were *Components* and how they are built to be re-usable so repeating code is obsolete. I look forward to taking on more React projects and learning more about of the new tools released for it like the newly released *Hooks*.
 
 
 ## Technologies Used
 
-* HTML
-* CSS
-* JavaScript
 * Bootstrap
-* AJAX
-* Yelp API
-* Google API
-* Firebase Cloud API - Database
-* Firebase Cloud API - Storage
-
+* Mongo.db
+* Express
+* React
+* Node.js / NPM
 
 ## Screenshots
 
