@@ -48,4 +48,4 @@ This was my first major project using React showcasing core React fundamentals, 
 
 ## NOTE
 
-About 75% through completion is when I realized that my browzer zoom was not set to 100% and thus all the CSS is skewed to that incorrect setting, so please adjust your browser zoom to around 80% which would be optimal for use on this app. Will optomize the settings in the near future.
+About 75% through completion is when I realized that my browser zoom was not set to 100% and thus all the CSS is skewed to that incorrect setting, so please adjust your browser zoom to around 80% which would be optimal for use on this app. Will optomize the settings in the near future.
