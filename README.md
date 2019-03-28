@@ -29,7 +29,7 @@ This was my first major project using React showcasing core React fundamentals, 
 
 ## Screenshots
 
-### Start of Each Day with No Data Entered
+### Day Start
 ![Day Start](images/intro.png)
 
 ### Full Dashboard
