@@ -44,3 +44,8 @@ This was my first major project using React showcasing core React fundamentals, 
 * Tracking Macros
 * Authentication and login
 * Fixing CSS without having to adjust browser zoom
+
+
+## NOTE
+
+About 75% through completion is when I realized that my browzer zoom was not set to 100% and thus all the CSS is skewed to that incorrect setting, so please adjust your browser to around 80% which would be optimal for use on this app. Will optomize the settings in the near future.
