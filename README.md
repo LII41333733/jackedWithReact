@@ -26,29 +26,21 @@ This was my first major project using React showcasing core React fundamentals, 
 * React
 * Node.js / NPM
 
+
 ## Screenshots
 
-### Main Banner
-![Main Banner](images/screenshot1.png)
+### Start of Each Day with No Data Entered
+![Day Start](images/intro.png)
 
-### For the Manager, Chef and Patron
-![For the Manager, Chef and Patron](images/screenshot2.png)
+### Full Dashboard
+![Dashboard](images/dashboard.png)
 
-### Restaurant Search
-![Restaurant Search](images/screenshot3.png)
-
-### Review Form (Bootstrap Modal)
-![Review Form](images/screenshot6.png)
-
-### Sample Review Collection
-![Sample Review](images/screenshot4.png)
-
-### Sample Review (Bootstrap Modal)
-![Sample Review](images/screenshot5.png)
+### Workout Mode
+![Workout Mode](images/workout.png)
 
 
 ## Prospective Improvememts
 
-* Using a back-end database such as mySQL or MongoDB to support review and restaurant data
-* Authentication and login, to associate reviews with their author user
-* Developing this to be a flagship app where partners are involved and it becomes a means for restaurant managers to better gauge customer feedback on their items and also patrons to better access the items they want on a more specific basis.
+* Tracking Macros
+* Authentication and login
+* Fixing CSS without having to adjust browser zoom
