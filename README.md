@@ -21,7 +21,7 @@ This was my first major project using React showcasing core React fundamentals, 
 ## Technologies Used
 
 * Bootstrap
-* Mongo.db
+* MongoDB
 * Express
 * React
 * Node.js / NPM
