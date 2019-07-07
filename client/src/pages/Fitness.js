@@ -61,13 +61,13 @@ class Fitness extends Component {
     plate4Class: "hide",
     plate5Class: "hide",
 
-  }
+  };
 
   componentDidMount() {
     this.setState({
       renderDate: moment().toISOString()
     }, () => { this.loadFitnessData() })
-  }
+  };
 
   loadFitnessData = () => {
     API.getData("LII41333733")
@@ -121,15 +121,11 @@ class Fitness extends Component {
         } 
 
       });
-  }
+  };
 
   updateData = () => {
-
-
     let dataCopy = this.state.fitnessData;
-    let data;
-
-    data = {
+    let data = {
       date: moment(this.state.renderDate).toISOString(),
       workoutName: this.state.workoutName,
       exercises: this.state.exercises,
@@ -148,30 +144,16 @@ class Fitness extends Component {
       return moment(day.date).format("dddd, MMMM Do YYYY") === moment(this.state.renderDate).format("dddd, MMMM Do YYYY")
     })
 
-    console.log(found)
-    console.log(foundIndex)
-
-
-    //  (found === undefined) ?
-    //   (dataCopy.push(data)) :
-    //   (dataCopy[i] = data)
-
     if (found === undefined) {
       dataCopy.push(data)
     } else {
       dataCopy[foundIndex] = data
     }
 
-
-    // let foundIndex = dataCopy.indexOf(data)
-
     API.updateData("LII41333733", { username: "LII41333733", fitnessData: dataCopy })
       .catch(err => console.log(err))
       .then(this.loadFitnessData());
-
-
-
-  }
+  };
 
   render() {
 
@@ -181,12 +163,11 @@ class Fitness extends Component {
 
       return (
         <div>
-          <Nav username={data.username}
+          <Nav 
+            //username={data.username}
             startDate={this.state.startDate}
             onChange={this.handleChange}
           />
-
-          <hr />
           <DateBar
             date={moment(data.renderDate).format("dddd, MMMM Do YYYY")}
             selected={this.state.startDate}
@@ -235,7 +216,6 @@ class Fitness extends Component {
               })
 
             }} href="/">Tomorrow<i className="fas fa-angle-right ml-2"></i></h4>}
-
           />
           <Container>
             <Row>
@@ -261,11 +241,9 @@ class Fitness extends Component {
         </div>
       )
     } else { return false }
-  }
+  };
 
-  // WORKOUT COMPONENT FUNCTIONS
-  //-------------------------------------------------------------
-
+  // --------------------------- WORKOUT COMPONENT FUNCTIONS ----------------------------
 
   renderWorkoutComponent = () => {
 
@@ -294,7 +272,7 @@ class Fitness extends Component {
         </div>
       )
     }
-  }
+  };
 
   editWorkout = () => {
     return (
@@ -374,7 +352,7 @@ class Fitness extends Component {
 
       </div>
     )
-  }
+  };
 
   displayPREworkout = () => {
     return (
@@ -415,7 +393,7 @@ class Fitness extends Component {
 
       </div>
     )
-  }
+  };
 
   displayINTRAworkout = () => {
 
@@ -571,7 +549,7 @@ class Fitness extends Component {
       </div>
 
     )
-  }
+  };
 
   renderNotes = () => {
     return (
@@ -589,16 +567,14 @@ class Fitness extends Component {
         />
       </div>
     )
-  }
+  };
 
   onTimerUpdate = ({ time, duration }) => {
     this.setState({
       time,
       duration,
     });
-  }
-
-
+  };
 
   renderWeights = () => {
     return (this.state.workoutMode) ?
@@ -683,7 +659,7 @@ class Fitness extends Component {
       ) :
       (<div>Hello Hyrule!</div>)
 
-  }
+  };
 
   saveSet = () => {
 
@@ -713,7 +689,7 @@ class Fitness extends Component {
       this.clearBar();
       this.updateData();
     })
-  }
+  };
 
   handleClickedPlate = (weight) => {
     if (this.state.plateQueue === 6) {
@@ -732,7 +708,7 @@ class Fitness extends Component {
         this.setState({ plate5: weight, plateQueue: this.state.plateQueue + 1 }, () => { this.renderPlates() })
       }
     }
-  }
+  };
 
   renderPlates = () => {
 
@@ -829,7 +805,7 @@ class Fitness extends Component {
       plate5Class: plate5,
       total: weightTotal
     }, () => { this.logData() })
-  }
+  };
 
   clearBar = () => {
     this.setState({
@@ -846,7 +822,7 @@ class Fitness extends Component {
       plate5Class: "hide",
       plateQueue: 1
     }, () => { this.logData() })
-  }
+  };
 
   addExercise = () => {
     return (
@@ -899,9 +875,10 @@ class Fitness extends Component {
 
       </div>
     )
-  }
+  };
 
-  // WATER COMPONENT FUNCTIONS ----------------------------------------------------------
+  // --------------------------- WATER COMPONENT FUNCTIONS ----------------------------
+
   renderWaterComponent = () => {
     if (this.state.workoutMode) { return this.renderWeights() }
     else if (this.state.EDITwater) { return this.editWater() }
@@ -929,7 +906,7 @@ class Fitness extends Component {
         </div>
       )
     }
-  }
+  };
 
   editWater = () => {
     return (
@@ -954,7 +931,7 @@ class Fitness extends Component {
         />
       </div>
     )
-  }
+  };
 
   displayWater = () => {
     const onStarClick = (nextValue, prevValue, name) => {
@@ -984,10 +961,9 @@ class Fitness extends Component {
         />
       </div>
     )
-  }
+  };
 
-  // NUTRITION COMPONENT FUNCTIONS
-  //--------------------------------------------------------
+  // ------------------------- NUTRITION COMPONENT FUNCTIONS --------------------------
 
   renderNutritionComponent = () => {
     if (this.state.workoutMode) { return this.renderNotes() }
@@ -1016,7 +992,7 @@ class Fitness extends Component {
         </div>
       )
     }
-  }
+  };
 
   editNutrition = () => {
     return (
@@ -1083,7 +1059,7 @@ class Fitness extends Component {
         />
       </div>
     )
-  }
+  };
 
   displayNutrition = () => {
 
@@ -1129,7 +1105,7 @@ class Fitness extends Component {
         />
       </div>
     )
-  }
+  };
 
   addItem = () => {
     return (
@@ -1171,14 +1147,9 @@ class Fitness extends Component {
 
       </div>
     )
-  }
+  };
 
-
-
-
-
-
-  //DATA HANDLING FUNCTIONS ---------------------------------------------------------------
+  // --------------------------- DATA HANDLING FUNCTIONS -------------------------------
 
   deleteItem = (ext, i) => {
     if (ext === 1) {
@@ -1191,7 +1162,7 @@ class Fitness extends Component {
       this.setState({ items: data }, () => { this.updateData() });
     }
 
-  }
+  };
 
   handleNumberInputChange = (event) => {
     const value = event.target.value.replace(/\D/, '')
@@ -1213,7 +1184,7 @@ class Fitness extends Component {
     let dataArray = this.state.exercises;
     dataArray[i][name] = value;
     this.setState({ exercises: dataArray });
-  }
+  };
 
   handleItemArrayInputChange = (event) => {
     const { name, value, dataset } = event.target;
@@ -1221,7 +1192,7 @@ class Fitness extends Component {
     let dataArray = this.state.items;
     dataArray[i][name] = value;
     this.setState({ items: dataArray });
-  }
+  };
 
   logData = () => {
     console.log(`Plate 1: ${this.state.plate1}`)
@@ -1230,10 +1201,7 @@ class Fitness extends Component {
     console.log(`Plate 4: ${this.state.plate4}`)
     console.log(`Plate 5: ${this.state.plate5}`)
     console.log(`Total: ${this.state.total}`)
-  }
-
-  // ---------------------------------------------------------------
-
+  };
 
   handleChange = (date) => {
     this.setState({
@@ -1241,45 +1209,6 @@ class Fitness extends Component {
       renderDate: moment(date).toISOString(),
     }, () => this.loadFitnessData());
   }
-  // Mon Jan 21 2019 01:45:57 GMT-0500 (Eastern Standard Time)
-
 }
 
 export default Fitness;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// // handleFormSubmit = event => {
-// //   event.preventDefault();
-// // }

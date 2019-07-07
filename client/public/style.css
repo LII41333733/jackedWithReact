@@ -1,4 +1,6 @@
-/* Coda, Gruppo */
+body {
+  zoom: 0.7;
+}
 
 html, body, #app, #app>div {
   height: 100%;
@@ -11,12 +13,8 @@ html, body, #app, #app>div {
 
 .section {
  height: auto;
- /* min-height: 300px; */
- /* border: 1px solid red; */
  background: #FFFFFF;
-  /* background: #89D3DE; */
-  border: 2px solid #000000;
- /* margin-top: 2%; */
+ border: 2px solid #000000;
  border-radius: 4px;
  box-shadow: 5px 5px #c30000;
  padding: 30px 0;
@@ -24,10 +22,7 @@ html, body, #app, #app>div {
 
 .div1 {
  width: 97%;
- /* padding-left: 40px; */
 }
-
-
 
 .water-data-div {
   padding: 20px;
@@ -39,18 +34,11 @@ html, body, #app, #app>div {
 }
 
 body {
- /* background: #89D3DE; */
  background: #383838;
  font-family: 'Monda', sans-serif;
- /* background: #000000; */
- /* background: #010914; */
- /* padding: 0 2%; */
 }
 
-
-
 .navbar {
-  /* background: #386A98; */
   background: #000000;
   padding: 0;
 }
@@ -74,16 +62,11 @@ body {
  font-size: 1.6rem;
 }
 
-/* .brand {
- font-family: 'Orbitron', sans-serif;
- letter-spacing: 15px;
- font-size: 1.8rem;
- font-weight: 900;
- position: absolute;
- left: 50%;
- right: 50%;
- color: white;
-} */
+.navbar-brand {
+  min-width: 500px;
+  text-align: center;
+}
+
 .brand {
   font-family: 'Orbitron', sans-serif;
   letter-spacing: 15px;
@@ -91,7 +74,6 @@ body {
   font-weight: 900;
   position: absolute;
   left: 566px;
-  /* right: 50%; */
   top: 200px;
   color: white;
 }
@@ -101,9 +83,7 @@ a {
 }
 
 .date-bar {
-  /* background: #010914 */
   background: #ff0505;
-  line-height: 3rem;
   font-family: 'Monda', sans-serif;
   font-size: 1.5rem;
   letter-spacing: 4px;
@@ -181,7 +161,6 @@ font-size: 1.8rem;
   height: 2em;
   line-height: 2em;
   position: relative;
-  /* vertical-align: middle; */
   width: 2.5em;
 }
 
@@ -229,7 +208,6 @@ th {
 
 }
 
-
 .monda {
   font-family: 'Monda', sans-serif;
 }
@@ -248,7 +226,6 @@ th {
 
 .edit-delete {
   margin-top: 45px !important;
-  /* margin-left:  0px !important; */
 }
 
 .edit-sets, .edit-reps {
@@ -263,7 +240,6 @@ th {
 
 .clear {
   color: white;
-  /* background-color: #0366d6; */
   background-color: #ff0505;
   z-index: 10;
   border-color: rgb(0, 0, 0);
@@ -328,19 +304,9 @@ label {
   margin: 0 auto;
 }
 
-
 hr {
   height: 10px;
 }
-
-
-
-
-/* ------------------------------------------- */
-
-
-
-
 
 .weightsDiv {
   height: 370px;
@@ -348,25 +314,12 @@ hr {
    margin: 0 auto;
   background-color: white;
   position: relative;
-  /* margin-left: 80px; */
-  /* border: 1px solid blue; */
 }
-
-
-
-/* .weightOne {
-    height: 200px;
-   width: 200px;
-  background-color: red;
-  position: absolute;
-  top: 10px;
-} */
 
 .weight {
   position: absolute;
   top: 180px;
 }
-
 
 .fa-35x {
   font-size: 3.5em;
@@ -380,9 +333,10 @@ hr {
   font-size: 1.5em;
 }
 
-
-
-.weight-text { color: white; top: 0px; font-size: 35px }
+.weight-text { 
+  color: white;
+  top: 0px; font-size: 35px 
+}
 
 .barbell {
   position: absolute;
@@ -434,7 +388,6 @@ hr {
   top: 25px;
   height: 130px;
   background: #cc0000;
-  /* background: blue;; */
 }
 .plate-35 {
   top: 25px;
@@ -547,7 +500,6 @@ hr {
 }
 
 .weight-total {
-
   position: relative;
   top: 25px;
 }
@@ -558,8 +510,6 @@ hr {
   position: relative;
   top: 20px;
   z-index: 5
-
-  
 }
 
 .total-form > input {
@@ -578,29 +528,22 @@ hr {
 .result {
   height: 35px;
   width: 142px;
-  /* background: rgb(49, 124, 49); */
   background: #ff0000;
   border-radius: 5px;
   font-size: 1.2rem;
   color: white;
   font-family: 'Gruppo', cursive;
   font-weight: 900;
-
 }
 
 .setDiv {
   width: 90%;
   margin: 0 auto;
-
 }
 
 .setNumber {
   position: relative;
   top: 8%;
-}
-
-.setBadge {
-
 }
 
 .gymNotes {
@@ -620,19 +563,18 @@ hr {
 
 .react-datepicker-wrapper {
   right: 100px;
-    position: absolute;
-    bottom: 40px;
+  position: absolute;
+  bottom: 40px;
 }
 
 .changeDate {
   position: absolute;
-    right: 103px;
-bottom: 83px;    
-font-family: 'Gruppo', cursive;
-    letter-spacing: 5px;
-    color: white;
-    /* margin: 20px; */
-    font-size: 1rem;
+  right: 103px;
+  bottom: 83px;    
+  font-family: 'Gruppo', cursive;
+  letter-spacing: 5px;
+  color: white;
+  font-size: 1rem;
 }
 
 .blue-box {
